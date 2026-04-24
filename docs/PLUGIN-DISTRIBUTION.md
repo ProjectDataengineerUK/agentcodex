@@ -52,8 +52,14 @@ What is not yet explicit in the public docs we checked:
 
 - a step-by-step plugin publishing pipeline
 - a canonical packaging/upload command for third-party plugins
+- a public name-based install flow equivalent to `codex install agentcodex`
 
 Because of that, the packaging and release mechanics below are an implementation strategy for AgentCodex, not a verbatim OpenAI-published release procedure.
+
+Practical implication:
+
+- do not promise `codex install agentcodex` as a supported public install path unless OpenAI publishes that registry/install surface explicitly
+- treat plugin library or workspace-level plugin installation as the supported target distribution model
 
 ## Maintainer release preparation
 
@@ -98,10 +104,11 @@ That archive contains the plugin plus the bundled runtime payload.
    - `interface.defaultPrompt`
 5. Run `python3 scripts/build_plugin_runtime.py`.
 6. Run `python3 scripts/package_plugin.py`.
-7. Verify the archive contents.
-8. Validate the published plugin flow in Codex by asking:
+7. Run `python3 scripts/agentcodex.py validate-plugin`.
+8. Verify the archive contents.
+9. Validate the published plugin flow in Codex by asking:
    - `Install AgentCodex in this repository.`
-9. Publish the plugin through the Codex plugin surface your team uses.
+10. Publish the plugin through the Codex plugin surface your team uses.
 
 ## Manifest fields to finalize
 

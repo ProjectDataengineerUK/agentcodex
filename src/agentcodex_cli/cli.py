@@ -73,6 +73,7 @@ Usage:
   agentcodex workflow-close <workflow-run-id> [--note <text>] [--json]
   agentcodex workflow-archive <workflow-run-id> [--note <text>] [--json]
   agentcodex validate
+  agentcodex validate-plugin
   agentcodex generate-roles
   agentcodex generate-routing
   agentcodex import-upstreams [all|agentspec|ecc]
@@ -116,6 +117,7 @@ Commands:
   workflow-close   Close a fully completed workflow run
   workflow-archive Archive a closed workflow run under .agentcodex/archive
   validate         Validate routing, KB, and roles manifests
+  validate-plugin  Validate plugin manifest publication readiness
   generate-roles   Regenerate .agentcodex/roles/roles.yaml from docs/roles
   generate-routing Regenerate .agentcodex/routing/routing.json
   import-upstreams Import as much as possible from AgentSpec and ECC into .agentcodex/imports
@@ -176,6 +178,9 @@ def main() -> int:
 
     if command == "validate":
         return run("validate_agentcodex.py", [])
+
+    if command == "validate-plugin":
+        return run("validate_plugin_manifest.py", [])
 
     if command == "new-context":
         if not rest:

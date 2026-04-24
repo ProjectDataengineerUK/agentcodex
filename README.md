@@ -35,6 +35,9 @@ python3 scripts/install_codex_plugin.py
 
 That installs a local `AgentCodex` plugin entry for Codex and prepares the runtime bundle.
 
+Current public docs confirm Codex plugin/library support, but do not document a third-party registry flow equivalent to `codex install agentcodex` by package name.
+Treat the supported distribution target as a Codex plugin installed from a plugin surface/library, not a guaranteed name-based CLI registry install.
+
 To remove the local plugin entry:
 
 ```bash
@@ -79,6 +82,12 @@ AgentCodex is intended to be distributed as a Codex plugin.
 For plugin packaging, publication, and legal page setup, see:
 
 - `docs/PLUGIN-DISTRIBUTION.md`
+
+Before publishing, validate plugin metadata readiness with:
+
+```bash
+python3 scripts/agentcodex.py validate-plugin
+```
 
 ## Credits
 

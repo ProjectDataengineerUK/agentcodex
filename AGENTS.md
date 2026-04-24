@@ -91,6 +91,14 @@ Reference docs:
 - `docs/COMMANDS.md`
 - `docs/CONTEXT-HISTORY.md`
 
+Project-local command procedures live under:
+
+- `.agentcodex/commands/`
+
+Documentation and explanatory references also exist under:
+
+- `docs/commands/`
+
 ## Role Usage
 
 - `explorer`: collect evidence, execution paths, file references, and dependency impact
@@ -133,6 +141,7 @@ AgentCodex expects workflow artifacts to converge toward these project-local loc
 - `.agentcodex/archive/`
 - `.agentcodex/history/`
 - `.agentcodex/templates/`
+- `.agentcodex/commands/`
 - `.agentcodex/kb/`
 - `.agentcodex/routing/`
 
