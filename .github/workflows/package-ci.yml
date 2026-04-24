@@ -43,7 +43,7 @@ jobs:
         run: python -m build
 
       - name: Check package metadata
-        run: python -m twine check dist/*
+        run: python -m twine check dist/*.whl dist/*.tar.gz
 
       - name: Create clean virtualenv
         run: python -m venv --system-site-packages /tmp/agentcodex-ci
