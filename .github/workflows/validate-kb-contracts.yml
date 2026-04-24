@@ -1,0 +1,37 @@
+name: Validate KB Contracts
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".agentcodex/registry/**"
+      - ".agentcodex/cache/manifests/**"
+      - ".agentcodex/cache/summaries/**"
+      - ".agentcodex/scripts/**"
+      - ".github/workflows/validate-kb-contracts.yml"
+  pull_request:
+    paths:
+      - ".agentcodex/registry/**"
+      - ".agentcodex/cache/manifests/**"
+      - ".agentcodex/cache/summaries/**"
+      - ".agentcodex/scripts/**"
+      - ".github/workflows/validate-kb-contracts.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-kb-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Validate KB contracts
+        run: python3 .agentcodex/scripts/validate_kb_contracts.py
+

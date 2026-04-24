@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentcodex.local/schemas/episodic-memory.schema.json",
+  "title": "Episodic Memory",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "memory_id",
+    "memory_type",
+    "scope",
+    "event_title",
+    "event_summary",
+    "actors",
+    "timestamp",
+    "outcome",
+    "references",
+    "importance",
+    "tags",
+    "sensitivity",
+    "retention_policy",
+    "owner"
+  ],
+  "properties": {
+    "memory_id": { "type": "string", "minLength": 1 },
+    "memory_type": { "type": "string", "const": "episodic" },
+    "scope": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["user", "agent", "session", "project", "team", "org"]
+        },
+        "value": { "type": "string", "minLength": 1 }
+      }
+    },
+    "event_title": { "type": "string", "minLength": 1 },
+    "event_summary": { "type": "string", "minLength": 1 },
+    "actors": { "type": "array", "items": { "type": "string" } },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "outcome": { "type": "string", "minLength": 1 },
+    "references": { "type": "array", "items": { "type": "string" } },
+    "importance": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "sensitivity": {
+      "type": "string",
+      "enum": ["public", "internal", "confidential", "restricted"]
+    },
+    "retention_policy": { "type": "string", "minLength": 1 },
+    "owner": { "type": "string", "minLength": 1 }
+  }
+}

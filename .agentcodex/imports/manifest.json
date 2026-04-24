@@ -1,0 +1,221 @@
+{
+  "version": "0.1.0",
+  "imports": [
+    {
+      "source": "agentspec",
+      "root": "/home/user/Projetos/agentspec",
+      "target_root": ".agentcodex/imports/agentspec",
+      "total_files": 927,
+      "imports": [
+        {
+          "name": "agents",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/agentspec/plugin/agents",
+          "destination": ".agentcodex/imports/agentspec/agents",
+          "files": 60
+        },
+        {
+          "name": "commands",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/agentspec/plugin/commands",
+          "destination": ".agentcodex/imports/agentspec/commands",
+          "files": 33
+        },
+        {
+          "name": "skills",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/agentspec/plugin/skills",
+          "destination": ".agentcodex/imports/agentspec/skills",
+          "files": 22
+        },
+        {
+          "name": "kb",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/agentspec/plugin/kb",
+          "destination": ".agentcodex/imports/agentspec/kb",
+          "files": 333
+        },
+        {
+          "name": "sdd",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/agentspec/plugin/sdd",
+          "destination": ".agentcodex/imports/agentspec/sdd",
+          "files": 9
+        },
+        {
+          "name": "claude",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/agentspec/.claude",
+          "destination": ".agentcodex/imports/agentspec/claude",
+          "files": 460
+        },
+        {
+          "name": "plugin_extras_skills",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/agentspec/plugin-extras/skills",
+          "destination": ".agentcodex/imports/agentspec/plugin_extras_skills",
+          "files": 2
+        },
+        {
+          "name": "plugin_hooks",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/agentspec/plugin/hooks",
+          "destination": ".agentcodex/imports/agentspec/plugin_hooks",
+          "files": 1
+        },
+        {
+          "name": "docs",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/agentspec/docs",
+          "destination": ".agentcodex/imports/agentspec/docs",
+          "files": 5
+        },
+        {
+          "name": "readme",
+          "status": "copied",
+          "type": "file",
+          "source": "/home/user/Projetos/agentspec/README.md",
+          "destination": ".agentcodex/imports/agentspec/readme",
+          "files": 1
+        },
+        {
+          "name": "claude_md",
+          "status": "copied",
+          "type": "file",
+          "source": "/home/user/Projetos/agentspec/CLAUDE.md",
+          "destination": ".agentcodex/imports/agentspec/claude_md",
+          "files": 1
+        }
+      ]
+    },
+    {
+      "source": "ecc",
+      "root": "/home/user/Projetos/everything-claude-code",
+      "target_root": ".agentcodex/imports/ecc",
+      "total_files": 1340,
+      "imports": [
+        {
+          "name": "agents_md",
+          "status": "copied",
+          "type": "file",
+          "source": "/home/user/Projetos/everything-claude-code/AGENTS.md",
+          "destination": ".agentcodex/imports/ecc/agents_md",
+          "files": 1
+        },
+        {
+          "name": "agents",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/everything-claude-code/agents",
+          "destination": ".agentcodex/imports/ecc/agents",
+          "files": 48
+        },
+        {
+          "name": "commands",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/everything-claude-code/commands",
+          "destination": ".agentcodex/imports/ecc/commands",
+          "files": 79
+        },
+        {
+          "name": "skills",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/everything-claude-code/skills",
+          "destination": ".agentcodex/imports/ecc/skills",
+          "files": 288
+        },
+        {
+          "name": "rules",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/everything-claude-code/rules",
+          "destination": ".agentcodex/imports/ecc/rules",
+          "files": 89
+        },
+        {
+          "name": "contexts",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/everything-claude-code/contexts",
+          "destination": ".agentcodex/imports/ecc/contexts",
+          "files": 3
+        },
+        {
+          "name": "codex",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/everything-claude-code/.codex",
+          "destination": ".agentcodex/imports/ecc/codex",
+          "files": 5
+        },
+        {
+          "name": "docs",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/everything-claude-code/docs",
+          "destination": ".agentcodex/imports/ecc/docs",
+          "files": 755
+        },
+        {
+          "name": "docs_pt_br",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/everything-claude-code/docs/pt-BR",
+          "destination": ".agentcodex/imports/ecc/docs_pt_br",
+          "files": 47
+        },
+        {
+          "name": "scripts_ci",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/everything-claude-code/scripts/ci",
+          "destination": ".agentcodex/imports/ecc/scripts_ci",
+          "files": 10
+        },
+        {
+          "name": "schemas",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/everything-claude-code/schemas",
+          "destination": ".agentcodex/imports/ecc/schemas",
+          "files": 10
+        },
+        {
+          "name": "manifests",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/everything-claude-code/manifests",
+          "destination": ".agentcodex/imports/ecc/manifests",
+          "files": 3
+        },
+        {
+          "name": "readme",
+          "status": "copied",
+          "type": "file",
+          "source": "/home/user/Projetos/everything-claude-code/README.md",
+          "destination": ".agentcodex/imports/ecc/readme",
+          "files": 1
+        },
+        {
+          "name": "commands_quick_ref",
+          "status": "copied",
+          "type": "file",
+          "source": "/home/user/Projetos/everything-claude-code/COMMANDS-QUICK-REF.md",
+          "destination": ".agentcodex/imports/ecc/commands_quick_ref",
+          "files": 1
+        }
+      ]
+    }
+  ]
+}

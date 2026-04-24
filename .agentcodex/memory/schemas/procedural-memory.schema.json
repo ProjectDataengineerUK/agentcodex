@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentcodex.local/schemas/procedural-memory.schema.json",
+  "title": "Procedural Memory",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "memory_id",
+    "memory_type",
+    "scope",
+    "procedure_title",
+    "trigger",
+    "steps",
+    "constraints",
+    "success_signals",
+    "failure_signals",
+    "source",
+    "approval_state",
+    "updated_at",
+    "tags",
+    "owner"
+  ],
+  "properties": {
+    "memory_id": { "type": "string", "minLength": 1 },
+    "memory_type": { "type": "string", "const": "procedural" },
+    "scope": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["user", "agent", "session", "project", "team", "org"]
+        },
+        "value": { "type": "string", "minLength": 1 }
+      }
+    },
+    "procedure_title": { "type": "string", "minLength": 1 },
+    "trigger": { "type": "string", "minLength": 1 },
+    "steps": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "constraints": { "type": "array", "items": { "type": "string" } },
+    "success_signals": { "type": "array", "items": { "type": "string" } },
+    "failure_signals": { "type": "array", "items": { "type": "string" } },
+    "source": { "type": "string", "minLength": 1 },
+    "approval_state": { "type": "string", "enum": ["draft", "approved", "deprecated"] },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "owner": { "type": "string", "minLength": 1 }
+  }
+}

@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Local virtual environments
+.venv/
+.venv-packaging/
+
+# AgentCodex runtime state
+.agentcodex/workflows/*
+!.agentcodex/workflows/.gitkeep
+.agentcodex/archive/workflows/*
+!.agentcodex/archive/workflows/.gitkeep
+.agentcodex/reports/workflows/*
+!.agentcodex/reports/workflows/.gitkeep
+
+# Generated cache and memory snapshots
+.agentcodex/cache/manifests/*
+!.agentcodex/cache/manifests/.gitkeep
+.agentcodex/cache/repo-metadata/*
+!.agentcodex/cache/repo-metadata/.gitkeep
+.agentcodex/cache/summaries/*
+!.agentcodex/cache/summaries/.gitkeep
+.agentcodex/cache/memory/indexes/*
+!.agentcodex/cache/memory/indexes/.gitkeep
+.agentcodex/cache/memory/snapshots/*
+!.agentcodex/cache/memory/snapshots/.gitkeep
+.agentcodex/cache/memory/summaries/*
+!.agentcodex/cache/memory/summaries/.gitkeep
+
+# Generated observability output
+.agentcodex/observability/logs/*.jsonl
+.agentcodex/observability/runs/*.json
+.agentcodex/observability/failures/*.json
+.agentcodex/observability/metrics/*.json
+
+# Generated memory review artifacts
+.agentcodex/memory/candidates/*.json
+.agentcodex/memory/reviews/*.json

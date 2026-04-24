@@ -1,0 +1,2 @@
+[console_scripts]
+agentcodex = agentcodex_cli.cli:main

@@ -1,0 +1,33 @@
+{
+  "name": "agentcodex",
+  "version": "0.1.0",
+  "description": "Installs and maintains the AgentCodex project scaffold inside a repository.",
+  "author": {
+    "name": "AgentCodex",
+    "email": "[TODO: maintainer-email]",
+    "url": "https://github.com/ProjectDataengineerUK"
+  },
+  "homepage": "https://github.com/ProjectDataengineerUK/agentcodex",
+  "repository": "https://github.com/ProjectDataengineerUK/agentcodex",
+  "license": "MIT",
+  "keywords": ["codex", "agents", "workflow", "bootstrap", "data-engineering"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "AgentCodex",
+    "shortDescription": "Install AgentCodex into the current project.",
+    "longDescription": "Adds AGENTS.md, .codex/, and .agentcodex/ to a repository using the AgentCodex runtime bundle.",
+    "developerName": "AgentCodex",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Write"],
+    "websiteURL": "https://github.com/ProjectDataengineerUK/agentcodex",
+    "privacyPolicyURL": "https://github.com/ProjectDataengineerUK/agentcodex/blob/main/docs/PRIVACY-SHORT.md",
+    "termsOfServiceURL": "https://github.com/ProjectDataengineerUK/agentcodex/blob/main/docs/TERMS-SHORT.md",
+    "defaultPrompt": [
+      "Install AgentCodex in this repository.",
+      "Install AgentCodex in this project.",
+      "Sync this project to the latest AgentCodex scaffold.",
+      "Validate this repository against AgentCodex."
+    ],
+    "brandColor": "#0F766E"
+  }
+}

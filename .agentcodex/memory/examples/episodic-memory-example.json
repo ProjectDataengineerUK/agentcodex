@@ -1,0 +1,19 @@
+{
+  "memory_id": "epi-readiness-001",
+  "memory_type": "episodic",
+  "scope": {
+    "type": "project",
+    "value": "agentcodex"
+  },
+  "event_title": "Readiness report introduced",
+  "event_summary": "A repo-local readiness-report command was added to evaluate project-standard completeness and write a report file.",
+  "actors": ["agentcodex", "codex"],
+  "timestamp": "2026-04-23T00:00:00Z",
+  "outcome": "Readiness is now measurable through a generated report and used by the ship gate.",
+  "references": ["scripts/project_readiness_report.py", ".agentcodex/project-standard.json"],
+  "importance": 0.83,
+  "tags": ["memory", "readiness", "project-standard"],
+  "sensitivity": "internal",
+  "retention_policy": "episodic-default",
+  "owner": "agentcodex"
+}

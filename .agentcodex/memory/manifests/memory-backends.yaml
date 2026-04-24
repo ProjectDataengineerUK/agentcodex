@@ -1,0 +1,41 @@
+version: 0.1.0
+default_backend: local-mock
+adapter_boundary:
+  status: active
+  module: scripts/memory_backend.py
+  interface:
+    - snapshot_paths
+    - summary_path
+    - load
+    - upsert
+    - compact
+    - health
+backends:
+  - id: local-mock
+    kind: file-based
+    status: active
+    purpose: local snapshot and retrieval backend used during phase-8 retrieval work
+    adapter_status: implemented
+  - id: mem0
+    kind: adapter
+    status: implemented-not-default
+    purpose: preferred long-term memory backend adapter
+    adapter_status: implemented
+    config:
+      url_env: AGENTCODEX_MEMORY_MEM0_URL
+      api_key_env: AGENTCODEX_MEMORY_MEM0_API_KEY
+      project_env: AGENTCODEX_MEMORY_MEM0_PROJECT
+  - id: qdrant
+    kind: vector-store
+    status: implemented-not-default
+    purpose: preferred vector storage backend for retrieval augmentation
+    adapter_status: implemented
+    config:
+      url_env: AGENTCODEX_MEMORY_QDRANT_URL
+      api_key_env: AGENTCODEX_MEMORY_QDRANT_API_KEY
+      collection_prefix_env: AGENTCODEX_MEMORY_QDRANT_COLLECTION_PREFIX
+  - id: langmem
+    kind: adapter
+    status: prepared
+    purpose: optional alternative or complementary long-term memory backend
+    adapter_status: pending

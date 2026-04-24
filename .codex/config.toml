@@ -1,0 +1,36 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+web_search = "live"
+
+persistent_instructions = "Follow AGENTS.md. Prefer local evidence first. Use multi-agent roles when exploration, review, or domain validation can be isolated."
+
+[features]
+multi_agent = true
+
+[profiles.strict]
+approval_policy = "on-request"
+sandbox_mode = "read-only"
+web_search = "cached"
+
+[profiles.yolo]
+approval_policy = "never"
+sandbox_mode = "workspace-write"
+web_search = "live"
+
+[agents]
+max_threads = 6
+max_depth = 1
+
+[agents.explorer]
+description = "Read-only explorer for codebase discovery, evidence gathering, and dependency tracing."
+config_file = "agents/explorer.toml"
+
+[agents.reviewer]
+description = "Reviewer focused on bugs, regressions, missing tests, and migration risks."
+config_file = "agents/reviewer.toml"
+
+[agents.domain_researcher]
+description = "Data-engineering and workflow researcher that validates choices against the local AgentSpec-derived model."
+config_file = "agents/domain-researcher.toml"

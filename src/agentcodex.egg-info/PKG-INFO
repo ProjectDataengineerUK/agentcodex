@@ -1,0 +1,597 @@
+Metadata-Version: 2.4
+Name: agentcodex
+Version: 0.1.0
+Summary: Codex-first workflow and project bootstrap toolkit inspired by AgentSpec and ECC
+Author: AgentCodex
+License-Expression: MIT
+Keywords: codex,agents,workflow,sdd,bootstrap,data-engineering
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: NOTICE
+Dynamic: license-file
+
+# AgentCodex
+
+AgentCodex is a Codex-first project that integrates:
+
+- `everything-claude-code` (ECC) as the operational baseline for Codex
+- `agentspec` as the domain and workflow layer for spec-driven data engineering
+
+The goal is to produce a Codex-native framework that preserves the best parts of AgentSpec:
+
+- 5-phase SDD workflow
+- domain-specific agents for data engineering
+- KB-first execution
+- explicit routing and escalation
+
+while replacing Claude-only assumptions with Codex-native surfaces:
+
+- `AGENTS.md` instead of `CLAUDE.md`
+- `.codex/config.toml` and role configs instead of Claude plugin manifests
+- Codex multi-agent roles instead of Claude slash-command/plugin wiring
+- instruction-based governance instead of Claude hooks
+
+As of April 22, 2026, AgentCodex also contains a raw upstream import layer under `.agentcodex/imports/` with material copied from both source frameworks for direct reuse and gradual normalization.
+
+Architectural decisions are recorded repo-locally under [docs/adr](/home/user/Projetos/agentcodex/docs/adr:1).
+
+## Project Structure
+
+```text
+agentcodex/
+├── AGENTS.md
+├── README.md
+├── .agentcodex/
+│   ├── features/
+│   ├── reports/
+│   ├── archive/
+│   ├── templates/
+│   ├── kb/
+│   └── routing/
+├── .codex/
+│   ├── config.toml
+│   └── agents/
+│       ├── explorer.toml
+│       ├── reviewer.toml
+│       └── domain-researcher.toml
+└── docs/
+    ├── DECISIONS.md
+    ├── INTEGRATION-PLAN.md
+    ├── MAPPING-AGENTSPEC-TO-CODEX.md
+    └── PORTING-ROADMAP.md
+    ├── ROUTING-GUIDE.md
+    ├── workflow/
+    │   ├── brainstorm.md
+    │   ├── define.md
+    │   ├── design.md
+    │   ├── build.md
+    │   ├── ship.md
+    │   └── iterate.md
+    └── roles/
+        ├── workflow-brainstormer.md
+        ├── workflow-definer.md
+        ├── workflow-designer.md
+        ├── workflow-builder.md
+        ├── pipeline-architect.md
+        ├── schema-designer.md
+        ├── dbt-specialist.md
+        ├── spark-engineer.md
+        └── data-quality-analyst.md
+```
+
+## Design
+
+- ECC provides the runtime contract for Codex.
+- AgentSpec provides the workflow, routing, and domain model.
+- AgentCodex is the compatibility layer that turns AgentSpec concepts into Codex-native instructions and roles.
+
+## Initial Scope
+
+Phase 1 of AgentCodex does not try to port all of AgentSpec at once.
+
+It starts with:
+
+- a Codex-native operating baseline
+- a porting roadmap
+- a mapping of AgentSpec components into Codex equivalents
+- governance and role definitions for multi-agent work
+- workflow procedures for the SDD lifecycle
+- the first specialist role ports for data engineering
+- local templates for workflow artifacts
+- a Codex-native routing guide
+- an initial local KB layer
+
+## Immediate Next Steps
+
+1. Add starter examples under `.agentcodex/features/`.
+2. Expand the KB from quick references into concept and pattern docs.
+3. Port more imported command and KB material into Codex-native surfaces.
+4. Keep tightening project bootstrap, sync, and verification loops.
+
+## Install via Codex
+
+The intended distribution model is now a Codex plugin plus a local scaffold runtime.
+
+How it works:
+
+1. Install the `AgentCodex` plugin in Codex.
+2. Ask Codex to install AgentCodex in the target repository.
+3. The plugin applies the local scaffold:
+   - `AGENTS.md`
+   - `.codex/`
+   - `.agentcodex/`
+
+This is designed so end users do not need to clone the AgentCodex source repository just to install it.
+
+Current repo-local plugin assets live at:
+
+- `plugins/agentcodex/`
+- `.agents/plugins/marketplace.json`
+- `docs/PLUGIN-DISTRIBUTION.md`
+
+Build the plugin runtime bundle:
+
+```bash
+python3 scripts/build_plugin_runtime.py
+```
+
+For local plugin development and testing, the plugin installer command is:
+
+```bash
+python3 plugins/agentcodex/scripts/install_runtime.py /path/to/your-project
+```
+
+This plugin path:
+
+- creates the local `.agentcodex/` scaffold
+- writes `AGENTS.md` if the target does not already have one
+- installs the local `.codex/` base by default
+- can run from a built runtime bundle instead of the source repo
+
+For now, the packaged CLI remains available as a compatibility path:
+
+```bash
+agentcodex install /path/to/your-project
+```
+
+You can also install with a maturity profile overlay:
+
+```bash
+agentcodex install /path/to/your-project --profile agentic-llm
+```
+
+Validate the bootstrapped project:
+
+```bash
+agentcodex check-project /path/to/your-project
+```
+
+## CLI
+
+Show help:
+
+```bash
+python3 scripts/agentcodex.py help
+```
+
+Package installation is still available as a secondary path for distribution and release workflows.
+
+Install the CLI in editable mode if you want the packaged command available in your environment:
+
+```bash
+pip install -e .
+agentcodex help
+```
+
+Install the CLI as a standalone package from source:
+
+```bash
+pip install .
+agentcodex help
+```
+
+Build distributable artifacts:
+
+```bash
+python -m pip install build
+python -m build
+```
+
+This generates:
+
+- `dist/*.whl`
+- `dist/*.tar.gz`
+
+Other users do not need to clone the repository if you distribute one of those artifacts. They can install with:
+
+```bash
+pip install agentcodex-0.1.0-py3-none-any.whl
+```
+
+For offline or sandboxed environments, prefer:
+
+```bash
+pip install --no-build-isolation .
+```
+
+## Distribution
+
+Recommended release flow:
+
+1. Bump `version` in `pyproject.toml`.
+2. Build the package with `python -m build`.
+3. Validate artifacts with `python -m twine check dist/*`.
+4. Publish to TestPyPI first.
+5. Publish to PyPI.
+
+Example commands:
+
+```bash
+python -m pip install build twine
+python -m build
+python -m twine check dist/*
+python -m twine upload --repository testpypi dist/*
+python -m twine upload dist/*
+```
+
+After public release, other users can install with:
+
+```bash
+pip install agentcodex
+```
+
+GitHub Actions publication is available in `.github/workflows/publish-package.yml`.
+Required repository secret:
+
+- `PYPI_API_TOKEN`
+- `TEST_PYPI_API_TOKEN`
+
+## Release Checklist
+
+1. Update `version` in `pyproject.toml`.
+2. Run `python -m build`.
+3. Run `python -m twine check dist/*`.
+4. Test local install from the built wheel.
+5. Run the GitHub Actions workflow manually to publish to TestPyPI.
+6. Validate install from TestPyPI.
+7. Create and push a tag `vX.Y.Z`.
+8. Let the tag workflow publish to PyPI.
+
+Example TestPyPI install:
+
+```bash
+pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple agentcodex
+```
+
+Validate the local AgentCodex scaffold:
+
+```bash
+agentcodex validate
+```
+
+Regenerate the role manifest:
+
+```bash
+agentcodex generate-roles
+```
+
+Regenerate the routing manifest:
+
+```bash
+agentcodex generate-routing
+```
+
+Regenerate the upstream import catalog:
+
+```bash
+agentcodex generate-import-catalog
+```
+
+Import as much as possible from AgentSpec and ECC:
+
+```bash
+agentcodex import-upstreams all
+```
+
+Imported upstream content is cataloged in:
+
+- `docs/UPSTREAM-IMPORTS.md`
+- `docs/UPSTREAM-CATALOG.md`
+- `.agentcodex/imports/manifest.json`
+
+AgentSpec command ports are available as Codex-native procedures in:
+
+- `docs/COMMANDS.md`
+- `docs/commands/pipeline.md`
+- `docs/commands/schema.md`
+- `docs/commands/data-contract.md`
+- `docs/commands/data-quality.md`
+- `docs/commands/ai-pipeline.md`
+- `docs/commands/review.md`
+- `docs/commands/meeting.md`
+- `docs/commands/sync-context.md`
+- `docs/commands/create-kb.md`
+
+## Credits
+
+AgentCodex builds on two primary upstream sources:
+
+- AgentSpec for workflow, domain structure, and KB-first guidance
+- everything-claude-code (ECC) for Codex operating patterns and runtime conventions
+
+Public upstream repositories:
+
+- AgentSpec: `https://github.com/luanmorenommaciel/agentspec`
+- everything-claude-code (ECC): `https://github.com/affaan-m/everything-claude-code`
+
+Both upstream repositories were verified locally as MIT-licensed:
+
+- `/home/user/Projetos/agentspec/LICENSE`
+- `/home/user/Projetos/everything-claude-code/LICENSE`
+
+For attribution details, see:
+
+- `docs/CREDITS.md`
+- `NOTICE`
+
+Bootstrap a real project with the preferred Codex-first flow:
+
+```bash
+agentcodex install /path/to/your-project
+```
+
+Bootstrap a project with a maturity profile overlay:
+
+```bash
+agentcodex install /path/to/your-project --profile agentic-llm
+```
+
+Use `init` only when you explicitly want the scaffold without a local `.codex/` base:
+
+```bash
+agentcodex init /path/to/your-project
+```
+
+Check a bootstrapped project:
+
+```bash
+agentcodex check-project /path/to/your-project
+```
+
+Generate a project-standard readiness report:
+
+```bash
+agentcodex readiness-report /path/to/your-project
+```
+
+Enforce the project-standard ship gate:
+
+```bash
+agentcodex ship-gate /path/to/your-project
+```
+
+Evaluate the executable Maturity 5 DataOps + LLMOps baseline:
+
+```bash
+agentcodex maturity5-check /path/to/your-project --profile data-platform
+```
+
+Refresh all generated AgentCodex artifacts after changes:
+
+```bash
+agentcodex refresh-all
+```
+
+This now also:
+
+- regenerates `docs/STATUS.md`
+- synchronizes feature context histories in `.agentcodex/history/` when workflow artifacts exist
+
+Refresh everything and also synchronize/check a target project:
+
+```bash
+agentcodex refresh-all --target-project /path/to/your-project --with-codex
+```
+
+Synchronize a project and refresh its active maturity profile overlay:
+
+```bash
+agentcodex sync-project /path/to/your-project --profile regulated-enterprise
+```
+
+Refresh trusted public source metadata for the KB control plane:
+
+```bash
+agentcodex sync-sources --apply
+```
+
+When sandbox network limits block upstream access, run the command outside sandbox limits so the registry lock, summaries, and retrieval index reflect real upstream state.
+
+Install repo-local automation hooks for this repository:
+
+```bash
+agentcodex install-local-automation
+```
+
+Prepared hooks:
+
+- `.githooks/pre-commit` -> `agentcodex refresh-all --skip-import-catalog`
+- `.githooks/post-commit` -> `agentcodex refresh-all`
+
+Retrieve compact long-term memory context from the local memory slice:
+
+```bash
+agentcodex memory-retrieve "project-standard ship gate" --task-type review --scope project --scope-value agentcodex
+```
+
+Write a new local memory payload:
+
+```bash
+agentcodex memory-ingest semantic /path/to/memory.json
+```
+
+Compact local memory snapshots:
+
+```bash
+agentcodex memory-compact
+```
+
+Validate memory schemas and checked payloads:
+
+```bash
+agentcodex memory-validate
+```
+
+Access-aware retrieval example:
+
+```bash
+agentcodex memory-retrieve "project-standard ship gate" --scope project --scope-value agentcodex --requester-role reviewer --json
+```
+
+Retrieval packets now include:
+
+- `access_denials`
+- `retention_filtered`
+
+Check backend health explicitly:
+
+```bash
+agentcodex memory-health mem0 --json
+agentcodex memory-health qdrant --json
+```
+
+Memory operations now also emit local observability artifacts under:
+
+- `.agentcodex/observability/logs/`
+- `.agentcodex/observability/runs/`
+- `.agentcodex/observability/metrics/memory-health.json`
+- `.agentcodex/observability/failures/memory-failures.json`
+
+Memory-specific roles now also exist:
+
+- `memory-architect`
+- `memory-governance-engineer`
+- `memory-observability-engineer`
+
+Memory routing is now also explicit:
+
+- memory design and semantic/episodic/procedural architecture -> `memory-architect`
+- memory retention, ownership, sensitivity, and access policy -> `memory-governance-engineer`
+- memory metrics, tracing, hit rate, failures, and access denials -> `memory-observability-engineer`
+
+Memory-oriented file hints now include:
+
+- `.agentcodex/memory/**/*`
+- `.agentcodex/cache/memory/**/*`
+- `.agentcodex/reports/memory/**/*`
+
+Memory tests now exist under:
+
+- `.agentcodex/tests/memory/`
+
+Run them with:
+
+```bash
+python3 -m unittest discover -s .agentcodex/tests/memory -p 'test_*.py'
+```
+
+Memory final reports now also exist under:
+
+- `.agentcodex/reports/memory/implementation-report.md`
+- `.agentcodex/reports/memory/risk-report.md`
+- `.agentcodex/reports/memory/test-report.md`
+
+`check-project` now validates:
+
+- required managed directories and files
+- command procedure bundle presence and minimum section structure
+- template bundle presence and minimum content markers
+- routing manifest shape
+- expected KB index domains
+- extra local commands, templates, and KB domains as non-blocking notes
+
+Refresh AgentCodex-managed files in an existing project:
+
+```bash
+agentcodex sync-project /path/to/your-project
+```
+
+Refresh managed files and `.codex/` together:
+
+```bash
+agentcodex sync-project /path/to/your-project --with-codex
+```
+
+`sync-project` now reports managed drift before overwriting files:
+
+- `missing` for managed files or domains not present in the target
+- `outdated` for managed content that differs from the AgentCodex source
+- `extra` for local project additions that are not part of the managed bundle
+
+Extras are reported but not deleted automatically.
+
+The bootstrap now creates:
+
+- `AGENTS.md`
+- `.agentcodex/PROJECT_AGENTSCODEX.md`
+- `.agentcodex/features/DEFINE_EXAMPLE_PROJECT_FEATURE.md`
+- `.agentcodex/commands/*`
+- `.agentcodex/templates/*`
+- `.agentcodex/routing/routing.json`
+- `.agentcodex/kb/*`
+- `.agentcodex/features/example-project-standard/*`
+
+The example feature scaffold under `.agentcodex/features/example-project-standard/` is the current reference implementation of the AgentCodex Project Standard.
+Its authoritative manifest lives at [project-standard.json](/home/user/Projetos/agentcodex/.agentcodex/project-standard.json:1).
+
+For projects that should be born at a stronger operating bar, AgentCodex also exposes an executable baseline in [maturity5-baseline.json](/home/user/Projetos/agentcodex/.agentcodex/maturity/maturity5-baseline.json:1).
+This baseline builds on the Project Standard plus control-plane checks instead of replacing them.
+Current profiles:
+- `data-platform`
+- `agentic-llm`
+- `regulated-enterprise`
+
+When a profile is selected during `init` or `sync-project`, AgentCodex also applies a profile-specific overlay under `.agentcodex/ops/` and writes `.agentcodex/maturity/ACTIVE_PROFILE.md`.
+
+`check-project` now also understands this standard semantically:
+
+- the reference scaffold can remain placeholder-heavy and is reported through notes
+- any real feature folder that includes `CHECKLIST.md` is treated as a strict project-standard target
+- required artifacts must exist
+- key artifacts must satisfy required markers declared in `.agentcodex/project-standard.json`
+- blocks marked not applicable must be justified explicitly in the corresponding artifact
+
+## Manifest Generation
+
+Use the CLI commands above to regenerate role and routing manifests.
+
+## Verification
+
+The local validator currently checks:
+
+- routing manifest structure and referenced roles
+- KB index and required KB files
+- roles manifest integrity
+- command procedure structure and references
+- workflow docs, templates, and command index consistency
+- import manifest integrity
+- text hygiene on the distributed AgentCodex surface
+- project-standard scaffold presence and semantic readiness rules for real feature folders
+
+## Local KB Status
+
+The local KB is no longer only quick-reference material.
+
+Expanded domains now include local `concepts/` and `patterns/` content:
+
+- `dbt`
+- `data-quality`
+- `orchestration`
+- `spark`
+- `airflow`
+- `sql-patterns`
+- `lakehouse`
+- `streaming`
+- `terraform`
+- `ai-data-engineering`

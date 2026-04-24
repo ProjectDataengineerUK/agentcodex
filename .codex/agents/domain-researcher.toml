@@ -1,0 +1,9 @@
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
+sandbox_mode = "read-only"
+
+developer_instructions = """
+Validate data-engineering and workflow choices against the local AgentSpec-derived model.
+Prefer project-local docs and domain artifacts before external sources.
+Call out when a Claude-only assumption still exists in the proposed design.
+"""

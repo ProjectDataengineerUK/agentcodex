@@ -1,0 +1,101 @@
+{
+  "version": "0.1.0",
+  "domains": [
+    {
+      "local_domain": "ai-data-engineering",
+      "source": "agentspec",
+      "upstream_path": "kb/ai-data-engineering",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "airflow",
+      "source": "agentspec",
+      "upstream_path": "kb/airflow",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "aws",
+      "source": "agentspec",
+      "upstream_path": "kb/aws",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "data-modeling",
+      "source": "agentspec",
+      "upstream_path": "kb/data-modeling",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "data-quality",
+      "source": "agentspec",
+      "upstream_path": "kb/data-quality",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "dbt",
+      "source": "agentspec",
+      "upstream_path": "kb/dbt",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "gcp",
+      "source": "agentspec",
+      "upstream_path": "kb/gcp",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "genai",
+      "source": "agentspec",
+      "upstream_path": "kb/genai",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "lakeflow",
+      "source": "agentspec",
+      "upstream_path": "kb/lakeflow",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "lakehouse",
+      "source": "agentspec",
+      "upstream_path": "kb/lakehouse",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "medallion",
+      "source": "agentspec",
+      "upstream_path": "kb/medallion",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "microsoft-fabric",
+      "source": "agentspec",
+      "upstream_path": "kb/microsoft-fabric",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "spark",
+      "source": "agentspec",
+      "upstream_path": "kb/spark",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "sql-patterns",
+      "source": "agentspec",
+      "upstream_path": "kb/sql-patterns",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "streaming",
+      "source": "agentspec",
+      "upstream_path": "kb/streaming",
+      "strategy": "merge"
+    },
+    {
+      "local_domain": "terraform",
+      "source": "agentspec",
+      "upstream_path": "kb/terraform",
+      "strategy": "merge"
+    }
+  ]
+}

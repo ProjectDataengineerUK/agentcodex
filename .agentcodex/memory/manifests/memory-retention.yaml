@@ -1,0 +1,17 @@
+version: 0.1.0
+policies:
+  - id: semantic-default
+    memory_type: semantic
+    scope: project
+    retention: retained-until-replaced
+    archival_allowed: true
+  - id: episodic-default
+    memory_type: episodic
+    scope: session
+    retention: retained-with-compaction
+    archival_allowed: true
+  - id: procedural-default
+    memory_type: procedural
+    scope: agent
+    retention: retained-until-superseded
+    archival_allowed: true

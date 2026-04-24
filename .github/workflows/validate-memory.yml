@@ -1,0 +1,42 @@
+name: Validate Memory
+
+on:
+  push:
+    paths:
+      - "scripts/memory_*.py"
+      - "scripts/agentcodex.py"
+      - ".agentcodex/memory/**"
+      - ".agentcodex/tests/memory/**"
+      - ".github/workflows/validate-memory.yml"
+  pull_request:
+    paths:
+      - "scripts/memory_*.py"
+      - "scripts/agentcodex.py"
+      - ".agentcodex/memory/**"
+      - ".agentcodex/tests/memory/**"
+      - ".github/workflows/validate-memory.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-memory:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run memory tests
+        run: python3 -m unittest discover -s .agentcodex/tests/memory -p 'test_*.py'
+
+      - name: Validate memory contracts
+        run: python3 scripts/agentcodex.py memory-validate
+
+      - name: Run memory lint
+        run: python3 scripts/agentcodex.py memory-lint
+
+      - name: Check backend health surface
+        run: python3 scripts/agentcodex.py memory-health

@@ -1,0 +1,83 @@
+version: 0.1.0
+domains:
+  - id: governance
+    status: active
+    purpose: policy, stewardship, lifecycle control, and decision accountability across data systems
+  - id: lineage
+    status: active
+    purpose: asset flow, dependency tracking, data movement visibility, and change impact analysis
+  - id: observability
+    status: active
+    purpose: monitoring, tracing, runtime diagnostics, and evidence of health for pipelines and AI systems
+  - id: access-control
+    status: active
+    purpose: identity, authorization, role boundaries, and policy enforcement for data and platform access
+  - id: data-contracts
+    status: active
+    purpose: schema guarantees, SLA policy, producer-consumer expectations, and controlled change management
+  - id: azure
+    status: active
+    purpose: Azure-native data, identity, AI, and analytics platform guidance
+  - id: databricks
+    status: active
+    purpose: Databricks platform design including Lakeflow, Unity Catalog, DABs, and lakehouse operations
+  - id: snowflake
+    status: active
+    purpose: Snowflake warehouse architecture, governance, and workload design
+  - id: mcp
+    status: active
+    purpose: Model Context Protocol usage, server selection, tool boundaries, and external capability surfaces
+  - id: rag
+    status: active
+    purpose: retrieval-augmented generation architecture, retrieval quality, chunking, grounding, and answer synthesis
+  - id: dbt
+    status: initial
+    purpose: dbt model design, testing, and incremental strategy
+  - id: spark
+    status: initial
+    purpose: distributed processing, partitioning, and Spark job design
+  - id: data-quality
+    status: initial
+    purpose: expectations, validation, and trust checks
+  - id: data-modeling
+    status: initial
+    purpose: star schema, grain, dimensions, and schema evolution
+  - id: orchestration
+    status: initial
+    purpose: DAGs, dependencies, retries, and operational flow
+  - id: aws
+    status: initial
+    purpose: AWS data platforms, serverless pipelines, and managed analytics services
+  - id: ai-data-engineering
+    status: initial
+    purpose: RAG, embeddings, vector stores, feature stores, and AI data workflows
+  - id: gcp
+    status: initial
+    purpose: GCP data platforms, BigQuery-centered architecture, and managed pipelines
+  - id: airflow
+    status: initial
+    purpose: DAG authoring, scheduling, retries, and orchestration boundaries
+  - id: microsoft-fabric
+    status: initial
+    purpose: Microsoft Fabric workload selection, OneLake architecture, and governance
+  - id: lakehouse
+    status: initial
+    purpose: lakehouse storage boundaries, promotion paths, and platform layout
+  - id: lakeflow
+    status: initial
+    purpose: Lakeflow pipeline architecture, expectations, and medallion progression
+  - id: medallion
+    status: initial
+    purpose: bronze, silver, gold layering and promotion rules
+  - id: sql-patterns
+    status: initial
+    purpose: analytical SQL clarity, grain, joins, and deduplication patterns
+  - id: streaming
+    status: initial
+    purpose: event pipelines, replay, lateness, and streaming contracts
+  - id: terraform
+    status: initial
+    purpose: infrastructure as code, module boundaries, and environment-safe rollout
+  - id: genai
+    status: initial
+    purpose: agentic workflow, RAG, and local AI architecture guidance

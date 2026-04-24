@@ -1,0 +1,28 @@
+version: 0.1.0
+sensitivities:
+  - public
+  - internal
+  - confidential
+  - restricted
+default_rules:
+  deny_cross_scope_without_owner_match: true
+  require_owner: true
+  require_sensitivity: true
+access_templates:
+  - template_id: project-default
+    permitted_roles:
+      - explorer
+      - reviewer
+      - domain-researcher
+      - planner
+      - genai-architect
+    allowed_scopes:
+      - project
+      - session
+  - template_id: restricted-memory
+    permitted_roles:
+      - reviewer
+      - security-reviewer
+      - data-governance-architect
+    allowed_scopes:
+      - project

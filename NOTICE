@@ -1,0 +1,24 @@
+AgentCodex includes original work plus adaptations and reference imports derived from:
+
+1. AgentSpec
+   Source: /home/user/Projetos/agentspec
+   License: MIT
+
+2. everything-claude-code (ECC)
+   Source: /home/user/Projetos/everything-claude-code
+   License: MIT
+
+Raw upstream reference material is preserved under:
+
+- .agentcodex/imports/agentspec/
+- .agentcodex/imports/ecc/
+
+AgentCodex-native ports, rewrites, and packaging work are maintained in this repository.
+
+The upstream license files verified locally are:
+
+- /home/user/Projetos/agentspec/LICENSE
+- /home/user/Projetos/everything-claude-code/LICENSE
+
+Users redistributing substantial upstream-derived portions should preserve the relevant MIT copyright
+notice and permission notice as required by the upstream license terms.

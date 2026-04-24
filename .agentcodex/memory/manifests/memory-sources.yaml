@@ -1,0 +1,22 @@
+version: 0.1.0
+sources:
+  - source_id: local-semantic-snapshots
+    memory_type: semantic
+    backend: local-mock
+    path: .agentcodex/cache/memory/snapshots/semantic-memories.json
+    status: active
+  - source_id: local-episodic-snapshots
+    memory_type: episodic
+    backend: local-mock
+    path: .agentcodex/cache/memory/snapshots/episodic-memories.json
+    status: active
+  - source_id: local-procedural-snapshots
+    memory_type: procedural
+    backend: local-mock
+    path: .agentcodex/cache/memory/snapshots/procedural-memories.json
+    status: active
+  - source_id: local-memory-summaries
+    memory_type: summary
+    backend: local-mock
+    path: .agentcodex/cache/memory/summaries/local-memory-summary.md
+    status: active

@@ -1,0 +1,33 @@
+{
+  "memory_id": "proc-refresh-001",
+  "memory_type": "procedural",
+  "scope": {
+    "type": "project",
+    "value": "agentcodex"
+  },
+  "procedure_title": "Refresh generated artifacts after repo changes",
+  "trigger": "Use after meaningful repository changes that affect roles, routing, docs, or generated indexes.",
+  "steps": [
+    "Run agentcodex refresh-all.",
+    "Review generated docs and context histories.",
+    "Run validate again if the refresh introduced additional changes."
+  ],
+  "constraints": [
+    "Do not assume git hooks are installed.",
+    "Do not overwrite curated docs blindly."
+  ],
+  "success_signals": [
+    "Generated manifests updated",
+    "Validation passes",
+    "Status and histories are synchronized"
+  ],
+  "failure_signals": [
+    "Validation fails after refresh",
+    "Generated outputs drift unexpectedly"
+  ],
+  "source": "repo-automation",
+  "approval_state": "approved",
+  "updated_at": "2026-04-23T00:00:00Z",
+  "tags": ["memory", "procedure", "automation"],
+  "owner": "agentcodex"
+}

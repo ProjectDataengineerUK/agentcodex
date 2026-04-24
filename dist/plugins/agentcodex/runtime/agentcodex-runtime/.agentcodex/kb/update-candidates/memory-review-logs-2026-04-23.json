@@ -1,0 +1,971 @@
+{
+  "generated_from": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+  "items": [
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:1",
+      "title": "KB update from log-knowledge-extract-2026-04-23:1",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "checking source update",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/check-updates.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "check-updates",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:2",
+      "title": "KB update from log-knowledge-extract-2026-04-23:2",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "source update check failed",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/check-updates.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "check-updates",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:3",
+      "title": "KB update from log-knowledge-extract-2026-04-23:3",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "memory compaction started",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/memory-compact.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "memory-compact",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:4",
+      "title": "KB update from log-knowledge-extract-2026-04-23:4",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "memory compaction completed",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/memory-compact.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "memory-compact",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:5",
+      "title": "KB update from log-knowledge-extract-2026-04-23:5",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "memory retrieval started",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/memory-retrieve.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "memory-retrieve",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:6",
+      "title": "KB update from log-knowledge-extract-2026-04-23:6",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "memory retrieval completed",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/memory-retrieve.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "memory-retrieve",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:7",
+      "title": "KB update from log-knowledge-extract-2026-04-23:7",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:8",
+      "title": "KB update from log-knowledge-extract-2026-04-23:8",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:9",
+      "title": "KB update from log-knowledge-extract-2026-04-23:9",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:10",
+      "title": "KB update from log-knowledge-extract-2026-04-23:10",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:11",
+      "title": "KB update from log-knowledge-extract-2026-04-23:11",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:12",
+      "title": "KB update from log-knowledge-extract-2026-04-23:12",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:13",
+      "title": "KB update from log-knowledge-extract-2026-04-23:13",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:14",
+      "title": "KB update from log-knowledge-extract-2026-04-23:14",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:15",
+      "title": "KB update from log-knowledge-extract-2026-04-23:15",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:16",
+      "title": "KB update from log-knowledge-extract-2026-04-23:16",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:17",
+      "title": "KB update from log-knowledge-extract-2026-04-23:17",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:18",
+      "title": "KB update from log-knowledge-extract-2026-04-23:18",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:19",
+      "title": "KB update from log-knowledge-extract-2026-04-23:19",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:20",
+      "title": "KB update from log-knowledge-extract-2026-04-23:20",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:21",
+      "title": "KB update from log-knowledge-extract-2026-04-23:21",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:22",
+      "title": "KB update from log-knowledge-extract-2026-04-23:22",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:23",
+      "title": "KB update from log-knowledge-extract-2026-04-23:23",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:24",
+      "title": "KB update from log-knowledge-extract-2026-04-23:24",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:25",
+      "title": "KB update from log-knowledge-extract-2026-04-23:25",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:26",
+      "title": "KB update from log-knowledge-extract-2026-04-23:26",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "refreshing summaries for source",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/refresh-summaries.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "refresh-summaries",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:27",
+      "title": "KB update from log-knowledge-extract-2026-04-23:27",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "syncing source metadata",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:28",
+      "title": "KB update from log-knowledge-extract-2026-04-23:28",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "source sync failed",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:29",
+      "title": "KB update from log-knowledge-extract-2026-04-23:29",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "syncing source metadata",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:30",
+      "title": "KB update from log-knowledge-extract-2026-04-23:30",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "source sync failed",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:31",
+      "title": "KB update from log-knowledge-extract-2026-04-23:31",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "syncing source metadata",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:32",
+      "title": "KB update from log-knowledge-extract-2026-04-23:32",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "source sync failed",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:33",
+      "title": "KB update from log-knowledge-extract-2026-04-23:33",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "syncing source metadata",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:34",
+      "title": "KB update from log-knowledge-extract-2026-04-23:34",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "source sync failed",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:35",
+      "title": "KB update from log-knowledge-extract-2026-04-23:35",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "syncing source metadata",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:36",
+      "title": "KB update from log-knowledge-extract-2026-04-23:36",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "source sync failed",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:37",
+      "title": "KB update from log-knowledge-extract-2026-04-23:37",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "syncing source metadata",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:38",
+      "title": "KB update from log-knowledge-extract-2026-04-23:38",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "source sync failed",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:39",
+      "title": "KB update from log-knowledge-extract-2026-04-23:39",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "syncing source metadata",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:40",
+      "title": "KB update from log-knowledge-extract-2026-04-23:40",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "source sync failed",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:41",
+      "title": "KB update from log-knowledge-extract-2026-04-23:41",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "syncing source metadata",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:42",
+      "title": "KB update from log-knowledge-extract-2026-04-23:42",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "source sync failed",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:43",
+      "title": "KB update from log-knowledge-extract-2026-04-23:43",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "syncing source metadata",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:44",
+      "title": "KB update from log-knowledge-extract-2026-04-23:44",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "source sync failed",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:45",
+      "title": "KB update from log-knowledge-extract-2026-04-23:45",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "syncing source metadata",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    },
+    {
+      "candidate_id": "log-knowledge-extract-2026-04-23:46",
+      "title": "KB update from log-knowledge-extract-2026-04-23:46",
+      "purpose": "Capture stable operational knowledge derived from reviewed Sentinel or observability logs.",
+      "suggested_domain": "observability",
+      "suggested_path": ".agentcodex/kb/operations/observability/",
+      "summary": "source sync failed",
+      "source_review": ".agentcodex/memory/reviews/memory-review-logs-2026-04-23.json",
+      "references": [
+        ".agentcodex/observability/logs/sync-sources.jsonl"
+      ],
+      "tags": [
+        "logs",
+        "sentinel",
+        "sync-sources",
+        "unknown",
+        "runtime"
+      ],
+      "status": "proposed",
+      "review_required": true
+    }
+  ]
+}
