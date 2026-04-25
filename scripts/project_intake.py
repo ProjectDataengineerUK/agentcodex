@@ -69,6 +69,16 @@ def prompt_nonempty(label: str) -> str:
         print("This field is required.")
 
 
+def prompt_block(title: str, questions: list[tuple[str, str]]) -> dict[str, str]:
+    print(title)
+    print()
+    answers: dict[str, str] = {}
+    for key, label in questions:
+        answers[key] = prompt_nonempty(f"{label}: ")
+    print()
+    return answers
+
+
 def prompt_yes_no(label: str) -> bool:
     while True:
         value = input(label).strip().lower()
@@ -127,7 +137,7 @@ def write_text(path: Path, content: str) -> None:
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
 
 
-def brainstorm_content(feature: str, owner: str, idea: str, scan: dict) -> str:
+def brainstorm_content(feature: str, owner: str, intake: dict[str, str], scan: dict) -> str:
     repo_state = "The repository looks mostly empty or scaffold-only." if scan["is_mostly_empty"] else "The repository already contains code or supporting assets that may shape the first increment."
     top_level = ", ".join(scan["top_level_entries"]) if scan["top_level_entries"] else "No relevant top-level entries detected."
     return f"""# BRAINSTORM_{feature}
@@ -142,11 +152,11 @@ def brainstorm_content(feature: str, owner: str, idea: str, scan: dict) -> str:
 
 ## Problem
 
-{idea}
+{intake['idea']}
 
 ## Users or Stakeholders
 
-- primary: project sponsor or product owner still defining the first deliverable
+- primary: {intake['users']}
 - secondary: implementation team that needs enough clarity to move safely into define
 
 ## Candidate Approaches
@@ -173,9 +183,11 @@ def brainstorm_content(feature: str, owner: str, idea: str, scan: dict) -> str:
 
 ## Questions
 
-- What is the first concrete outcome the project must deliver?
+- What is the first concrete outcome the project must deliver? Current expectation: {intake['first_outcome']}
 - Who will approve the recommended direction and success criteria?
-- What constraints already exist for platform, compliance, budget, or timeline?
+- What constraints already exist for platform, compliance, budget, or timeline? Current context: {intake['constraints']}
+- Which local context should be considered? Current answer: {intake['local_context']}
+- Which open questions already exist? Current answer: {intake['open_questions']}
 
 ## YAGNI Filter
 
@@ -190,12 +202,22 @@ def brainstorm_content(feature: str, owner: str, idea: str, scan: dict) -> str:
 - implementation details at file level
 - full rollout planning
 - optimization work before the first value path is clear
+- items explicitly out of scope for now: {intake['out_of_scope']}
 
 ## Recommendation
 
 Recommended direction: start with Approach A unless there is already a hard governance or platform constraint that requires a foundation-first sequence.
 
 Rationale: the current context is still early-stage, so reducing ambiguity before investing in broad architecture is the safest path. {repo_state} Top-level context observed: {top_level}
+
+Initial intake summary:
+
+- project idea: {intake['idea']}
+- first expected outcome: {intake['first_outcome']}
+- known constraints: {intake['constraints']}
+- out of scope for now: {intake['out_of_scope']}
+- local context to consider: {intake['local_context']}
+- open questions already known: {intake['open_questions']}
 
 ## Exit Check
 
@@ -206,7 +228,7 @@ Rationale: the current context is still early-stage, so reducing ambiguity befor
 """
 
 
-def refactor_report_content(owner: str, goal: str, scan: dict) -> str:
+def refactor_report_content(owner: str, intake: dict[str, str], scan: dict) -> str:
     languages = ", ".join(f"{name} ({count})" for name, count in scan["languages"]) or "No code files detected in the scan."
     key_files = ", ".join(scan["key_files"]) or "No common entrypoint/build files detected."
     top_level = ", ".join(scan["top_level_entries"]) or "No relevant top-level entries detected."
@@ -220,7 +242,16 @@ def refactor_report_content(owner: str, goal: str, scan: dict) -> str:
 
 ## Refactor Goal
 
-{goal}
+{intake['refactor_goal']}
+
+## Intake Summary
+
+- current system description: {intake['system_context']}
+- visible problems: {intake['current_problems']}
+- areas or files most affected: {intake['affected_areas']}
+- behavior to preserve: {intake['preserve']}
+- known constraints or risks: {intake['constraints']}
+- desired output: {intake['desired_output']}
 
 ## Directory Context
 
@@ -249,7 +280,7 @@ def refactor_report_content(owner: str, goal: str, scan: dict) -> str:
 """
 
 
-def define_content(feature: str, owner: str, goal: str, scan: dict) -> str:
+def define_content(feature: str, owner: str, intake: dict[str, str], scan: dict) -> str:
     languages = ", ".join(name for name, _ in scan["languages"]) or "unknown"
     return f"""# DEFINE_{feature}
 
@@ -263,7 +294,7 @@ def define_content(feature: str, owner: str, goal: str, scan: dict) -> str:
 
 ## Problem Statement
 
-The current codebase needs a refactoring-oriented definition before implementation work starts. Refactor goal: {goal}
+The current codebase needs a refactoring-oriented definition before implementation work starts. Refactor goal: {intake['refactor_goal']}
 
 ## Users
 
@@ -309,7 +340,7 @@ The current codebase needs a refactoring-oriented definition before implementati
 
 ## Open Questions
 
-- Which module or file group should be the first refactor target?
+- Which module or file group should be the first refactor target? Current candidate: {intake['affected_areas']}
 
 ## Exit Check
 
@@ -404,29 +435,52 @@ def main() -> int:
     choice = prompt_choice()
 
     if choice == "1":
-        idea = prompt_nonempty("What is the idea context for this new project? ")
-        feature_label = prompt_nonempty("Choose a short feature name for the brainstorm artifact: ")
-        feature = slugify(feature_label)
+        intake = prompt_block(
+            "Brainstorm intake\nPlease answer briefly:",
+            [
+                ("feature_name", "1. Short feature name"),
+                ("idea", "2. What is the project idea"),
+                ("problem", "3. What problem does it solve"),
+                ("users", "4. Who are the users or stakeholders"),
+                ("first_outcome", "5. What is the first expected outcome"),
+                ("constraints", "6. What constraints already exist"),
+                ("out_of_scope", "7. What is out of scope for now"),
+                ("open_questions", "8. What open questions already exist"),
+                ("local_context", "9. Which local files or documents should be considered as context"),
+            ],
+        )
+        feature = slugify(intake["feature_name"])
         target = FEATURES_ROOT / f"BRAINSTORM_{feature}.md"
-        write_text(target, brainstorm_content(feature, owner, idea, scan))
+        write_text(target, brainstorm_content(feature, owner, intake, scan))
         print(f"Created brainstorm artifact: {target.relative_to(ROOT)}")
         print("Next phase gate: review the recommendation and only then move to define.")
         return 0
 
-    goal = prompt_nonempty("What refactoring or investigation goal do you want to assess? ")
+    intake = prompt_block(
+        "Refactoring intake\nPlease answer briefly:",
+        [
+            ("feature_name", "1. Short feature name"),
+            ("system_context", "2. What is the current system or codebase about"),
+            ("refactor_goal", "3. What refactoring or investigation goal do you want to assess"),
+            ("current_problems", "4. What problems are visible today"),
+            ("affected_areas", "5. Which areas or files seem most affected"),
+            ("preserve", "6. What behavior must be preserved"),
+            ("constraints", "7. What constraints or risks already exist"),
+            ("desired_output", "8. Do you want only analysis or also a proposed refactoring approach"),
+        ],
+    )
     report_path = REPORTS_ROOT / "refactor-intake-report.md"
-    write_text(report_path, refactor_report_content(owner, goal, scan))
+    write_text(report_path, refactor_report_content(owner, intake, scan))
     print(f"Created refactor analysis report: {report_path.relative_to(ROOT)}")
 
     if not prompt_yes_no("Do you want a refactoring approach proposal now? [yes/no] "):
         print("Stopped after directory analysis. No define/design artifacts were created.")
         return 0
 
-    feature_label = prompt_nonempty("Choose a short feature name for the refactor artifacts: ")
-    feature = slugify(feature_label)
+    feature = slugify(intake["feature_name"])
     define_path = FEATURES_ROOT / f"DEFINE_{feature}.md"
     design_path = FEATURES_ROOT / f"DESIGN_{feature}.md"
-    write_text(define_path, define_content(feature, owner, goal, scan))
+    write_text(define_path, define_content(feature, owner, intake, scan))
     write_text(design_path, design_content(feature, owner, scan))
     print(f"Created define artifact: {define_path.relative_to(ROOT)}")
     print(f"Created design artifact: {design_path.relative_to(ROOT)}")

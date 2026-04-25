@@ -33,10 +33,10 @@ Start a project from zero-state intake when AgentCodex is already installed in t
 3. Ask in English:
    - `1. New project from scratch`
    - `2. Information gathering for refactoring`
-4. If the operator chooses `1`, ask for the idea context and a short feature name.
+4. If the operator chooses `1`, present a single structured brainstorm intake block and collect all answers before writing anything.
 5. Scan the current directory for lightweight context before writing the artifact.
-6. Create `.agentcodex/features/BRAINSTORM_{FEATURE}.md` and follow the repo-defined brainstorm steps.
-7. If the operator chooses `2`, scan the current directory and write a refactor intake report under `.agentcodex/reports/`.
+6. Create `.agentcodex/features/BRAINSTORM_{FEATURE}.md` and follow the repo-defined brainstorm steps using both intake answers and directory evidence.
+7. If the operator chooses `2`, present a single structured refactoring intake block, then scan the current directory and write a refactor intake report under `.agentcodex/reports/`.
 8. Ask whether a refactoring approach is desired.
 9. If approved, create `DEFINE` and `DESIGN` artifacts for the refactor path.
 10. Stop before `build`; require explicit approval before any build-phase work starts.
