@@ -12,6 +12,7 @@ This command maps to the bootstrap flow with local `.codex/` support enabled by 
 
 Current procedures:
 
+- `docs/commands/project-intake.md`
 - `docs/commands/pipeline.md`
 - `docs/commands/schema.md`
 - `docs/commands/data-contract.md`
@@ -32,6 +33,7 @@ These procedures are ports of high-value AgentSpec command flows into Codex-nati
 Related governance:
 
 - `docs/CONTEXT-HISTORY.md`
+- `agentcodex project-intake`
 - `agentcodex new-context <feature-or-topic>`
 - `agentcodex install <target-project-dir> [--profile <profile-id>]`
 

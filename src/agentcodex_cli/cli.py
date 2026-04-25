@@ -55,6 +55,7 @@ Usage:
   agentcodex sync-kb-upstreams [--refresh-imports] [--apply] [--domain <domain>]
   agentcodex sync-sources [--source <source-id>] [--apply] [--use-git] [--limit <n>]
   agentcodex sync-context <feature> [--owner <owner>]
+  agentcodex project-intake
   agentcodex new-context <feature-or-topic> [--kind feature|session] [--owner <owner>]
   agentcodex resume-context <feature-or-topic> [--kind feature|session]
   agentcodex status [section]
@@ -99,6 +100,7 @@ Commands:
   sync-kb-upstreams Refresh imported KB sources and sync mapped KB domains into .agentcodex/kb
   sync-sources     Collect lightweight metadata from trusted upstream source repositories
   sync-context     Create or refresh a feature context history entry from workflow artifacts
+  project-intake   Run the interactive zero-state project intake flow
   new-context      Create a standardized context history entry in .agentcodex/history
   resume-context   Show the latest context history entry summary for a scope
   status           Show the current repo status snapshot or a specific section
@@ -200,6 +202,9 @@ def main() -> int:
             )
             return 1
         return run("sync_context_history.py", rest)
+
+    if command == "project-intake":
+        return run("project_intake.py", rest)
 
     if command == "resume-context":
         if not rest:
