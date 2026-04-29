@@ -1,0 +1,207 @@
+# Detailed Project Report
+
+- generated_at: `2026-04-29T18:30:39.622856+00:00`
+- root: `/home/user/Projetos/agentcodex`
+
+## Inventory
+
+- total files detected: 333
+- top-level entries detected: 15
+- base files detected: 5
+- markdown files detected: 249
+- pdf files detected: 0
+- video files detected: 0
+
+## Top-Level Entries
+
+- `.agents/`
+- `.githooks/`
+- `.github/`
+- `.gitignore`
+- `AGENTS.md`
+- `LICENSE`
+- `NOTICE`
+- `README.md`
+- `docs/`
+- `marketplace.json`
+- `plugins/`
+- `pyproject.toml`
+- `scripts/`
+- `setup.py`
+- `src/`
+
+## Base Files
+
+- `AGENTS.md`
+- `README.md`
+- `docs/adr/README.md`
+- `plugins/agentcodex/runtime/README.md`
+- `pyproject.toml`
+
+## Markdown Evidence
+
+- `AGENTS.md`
+  - excerpt: AgentCodex is a Codex-native adaptation of AgentSpec built on ECC patterns.
+- `README.md`
+  - excerpt: AgentCodex is a Codex-first adaptation of AgentSpec built on ECC patterns.
+- `docs/AGENT-ROUTER.md`
+  - excerpt: AgentCodex does not load AgentSpec's `agent-router` skill as Claude runtime state.
+- `docs/COMMANDS.md`
+  - excerpt: AgentCodex does not assume Claude-style slash commands.
+- `docs/CONTEXT-HISTORY.md`
+  - excerpt: Define a Codex-native, file-based rule for preserving resumable project context without relying on hidden session memory.
+- `docs/CREDITS.md`
+  - excerpt: AgentCodex is a Codex-native adaptation built from two primary upstream influences:
+- `docs/DATA-AGENTS-EXTENSION.md`
+  - excerpt: This document exposes the imported Data Agents surface as a native AgentCodex extension layer without duplicating active AgentCodex roles, commands, or KB pages.
+- `docs/DATA-AGENTS-PORT-INVENTORY.md`
+  - excerpt: Short triage of what from `/home/user/Projetos/data-agents` is worth porting into AgentCodex.
+- `docs/DECISIONS.md`
+  - excerpt: AgentCodex uses ECC patterns for:
+- `docs/ECC-EXTENSION.md`
+  - excerpt: This document exposes the complete imported Everything-Claude-Code surface as an AgentCodex extension layer.
+- `docs/IMPORTED-AGENT-INVENTORY.md`
+  - excerpt: Track imported AgentSpec and ECC agents as an auditable backlog with explicit triage:
+- `docs/INDEX-STRATEGY.md`
+  - excerpt: Document how AgentCodex builds a simple, auditable retrieval index over local knowledge and imported reference material.
+- `docs/INTEGRATION-PLAN.md`
+  - excerpt: Build a Codex-native framework that preserves the useful parts of AgentSpec while using ECC as the operational base layer.
+- `docs/JUDGE.md`
+  - excerpt: AgentCodex includes an opt-in Judge Layer adapted from AgentSpec v3.2.
+- `docs/KB-CONTRACTS.md`
+  - excerpt: Define the contracts for the AgentCodex KB control layer and how they are validated in CI.
+- `docs/LOCAL-OBSERVABILITY.md`
+  - excerpt: Document the file-based observability layer for AgentCodex scripts.
+- `docs/MAPPING-AGENTSPEC-TO-CODEX.md`
+  - excerpt: | AgentSpec | Codex / AgentCodex Equivalent |
+- `docs/PLUGIN-DISTRIBUTION.md`
+  - excerpt: This document describes the current AgentCodex plugin distribution workflow for Codex and the intended end-user experience after publication.
+- `docs/POLICIES.md`
+  - excerpt: AgentCodex uses repo-local policy documents instead of hidden runtime hooks.
+- `docs/PORTING-ROADMAP.md`
+  - excerpt: Status: done in scaffold
+- `docs/PRIVACY-SHORT.md`
+  - excerpt: AgentCodex is designed to install and maintain a project-local scaffold inside a repository.
+- `docs/PRIVACY.md`
+  - excerpt: This Privacy Policy describes how AgentCodex is intended to handle data when distributed as a Codex plugin or packaged runtime.
+- `docs/ROLE-COVERAGE.md`
+  - excerpt: Status date: 2026-04-29
+- `docs/ROUTING-GUIDE.md`
+  - excerpt: This document is the Codex-native replacement for AgentSpec's Claude-oriented `agent-router`.
+- `docs/SESSION-HANDOFF.md`
+  - excerpt: This file preserves the working context for resuming AgentCodex after a Codex account switch or session reset.
+- `docs/SOURCE-SYNC.md`
+  - excerpt: Document how AgentCodex captures lightweight metadata from trusted upstream repositories without cloning full repositories by default.
+- `docs/STATUS.md`
+  - excerpt: Generated status snapshot for AgentCodex.
+- `docs/SUMMARIES.md`
+  - excerpt: Document how AgentCodex converts cached repository metadata into short, local summaries optimized for low-context Codex use.
+- `docs/TERMS-SHORT.md`
+  - excerpt: AgentCodex installs and maintains a repository-local scaffold for Codex-first workflows.
+- `docs/TERMS.md`
+  - excerpt: These Terms of Service govern use of AgentCodex as a Codex plugin, packaged CLI, or bundled runtime.
+- `docs/UPDATE-AUTOMATION.md`
+  - excerpt: Document the non-destructive automation flow for checking upstream source changes and refreshing the local KB control layer.
+- `docs/UPSTREAM-CATALOG.md`
+  - excerpt: This file is generated from `.agentcodex/imports/manifest.json` and the imported source trees.
+- `docs/UPSTREAM-IMPORTS.md`
+  - excerpt: This document tracks the raw import layer copied into AgentCodex from upstream frameworks and project sources.
+- `docs/adr/0001-authoritative-agents-surface.md`
+  - excerpt: **Status**: accepted
+- `docs/adr/0002-local-kb-control-plane.md`
+  - excerpt: **Status**: accepted
+- `docs/adr/0003-deterministic-routing-by-files-and-manifests.md`
+  - excerpt: **Status**: accepted
+- `docs/adr/README.md`
+  - excerpt: AgentCodex records long-lived platform decisions in repo-local ADRs.
+- `docs/commands/ai-pipeline.md`
+  - excerpt: Codex-native replacement for AgentSpec's `/ai-pipeline` command.
+- `docs/commands/audit-summary.md`
+  - excerpt: Codex-native procedure for summarizing repo-local run and failure audit signals.
+- `docs/commands/brainstorm.md`
+  - excerpt: Explore an idea through collaborative dialogue before formal requirements capture. This is Phase 0 of the AgentCodex workflow and is the Codex-native port of AgentSpec's `brainstorm` procedure.
+- `docs/commands/build.md`
+  - excerpt: Execute implementation from a validated design with incremental verification. This is Phase 3 of the AgentCodex workflow and is the Codex-native port of AgentSpec's `build` procedure.
+- `docs/commands/create-kb.md`
+  - excerpt: Codex-native replacement for AgentSpec's `/create-kb` command.
+- `docs/commands/create-pr.md`
+  - excerpt: Prepare a pull request with conventional commit naming, structured description, and explicit test evidence. This is the Codex-native port of AgentSpec's `create-pr` command.
+- `docs/commands/daily-tasks.md`
+  - excerpt: Record a daily operational snapshot of work completed, work in progress, and backlog items.
+- `docs/commands/data-contract.md`
+  - excerpt: Codex-native replacement for AgentSpec's `/data-contract` command.
+- `docs/commands/data-quality.md`
+  - excerpt: Codex-native replacement for AgentSpec's `/data-quality` command.
+- `docs/commands/define.md`
+  - excerpt: Capture and validate requirements in one pass. This is Phase 1 of the AgentCodex workflow and is the Codex-native port of AgentSpec's `define` procedure.
+- `docs/commands/design.md`
+  - excerpt: Create architecture and technical specification from validated requirements. This is Phase 2 of the AgentCodex workflow and is the Codex-native port of AgentSpec's `design` procedure.
+- `docs/commands/diff-review.md`
+  - excerpt: Generate a visual review of a git diff, including scope, architecture impact, tests, documentation impact, risks, and decision rationale.
+- `docs/commands/fact-check.md`
+  - excerpt: Verify factual claims in a document against the current codebase, command output, or git history, and correct inaccuracies when editing is requested.
+- `docs/commands/generate-slides.md`
+  - excerpt: Generate a self-contained HTML slide deck from verified content. This is the Codex-native port of AgentSpec's `generate-slides` visual explainer flow.
+- `docs/commands/generate-visual-plan.md`
+  - excerpt: Create a visual implementation plan as a self-contained HTML artifact. This ports AgentSpec's `generate-visual-plan` flow into a Codex-native, evidence-first procedure.
+- `docs/commands/generate-web-diagram.md`
+  - excerpt: Generate a self-contained HTML diagram or visual explanation from verified project evidence. This is the Codex-native port of AgentSpec's visual explainer `generate-web-diagram` flow.
+- `docs/commands/iterate.md`
+  - excerpt: Update an existing AgentCodex workflow artifact when requirements, constraints, design assumptions, or implementation findings change mid-stream. This is the Codex-native port of AgentSpec's `iterate` procedure.
+- `docs/commands/judge.md`
+  - excerpt: Run an opt-in cross-model second opinion on a file or stdin content. This is the Codex-native port of AgentSpec's Judge Layer V0.
+- `docs/commands/lakehouse.md`
+  - excerpt: Design or review lakehouse table format, catalog, governance, and operations decisions. This is the Codex-native port of AgentSpec's `lakehouse` command.
+- `docs/commands/meeting.md`
+  - excerpt: Codex-native replacement for AgentSpec's `/meeting` command.
+- `docs/commands/memory-candidates.md`
+  - excerpt: Codex-native review and approval flow for repo-local memory candidates before ingesting them into active memory snapshots.
+- `docs/commands/memory.md`
+  - excerpt: Capture high-signal session insights into AgentCodex's repo-local memory lifecycle. This is the Codex-native port of AgentSpec's `/memory` command.
+- `docs/commands/migrate.md`
+  - excerpt: Plan and execute migration from legacy ETL to a modern data stack. This is the Codex-native port of AgentSpec's `migrate` command.
+- `docs/commands/model-route.md`
+  - excerpt: Select the Codex model tier for an AgentCodex activity and record the automatic decision in repo-local files.
+- `docs/commands/orchestrate-workflow.md`
+  - excerpt: Codex-native procedure for selecting a workflow, copying the matching spec template, and creating explicit stage/handoff state in repo-local files.
+- `docs/commands/pipeline.md`
+  - excerpt: Codex-native replacement for AgentSpec's `/pipeline` command.
+- `docs/commands/plan-review.md`
+  - excerpt: Generate a visual review of an implementation plan against the current codebase.
+- `docs/commands/platform-health.md`
+  - excerpt: Codex-native procedure for validating Databricks or Microsoft Fabric platform connectivity through repo-local checks and reports.
+- `docs/commands/project-intake.md`
+  - excerpt: Start a project from zero-state intake when AgentCodex is already installed in the current directory.
+- `docs/commands/project-recap.md`
+  - excerpt: Generate a visual project recap that rebuilds the current mental model of a repo, including architecture, recent activity, decisions, status, and next steps.
+- `docs/commands/readme-maker.md`
+  - excerpt: Generate or refresh a project `README.md` from current repo evidence. This is the Codex-native port of AgentSpec's `/readme-maker` procedure.
+- `docs/commands/review.md`
+  - excerpt: Codex-native replacement for AgentSpec's `/review` command.
+- `docs/commands/schema.md`
+  - excerpt: Codex-native replacement for AgentSpec's `/schema` command.
+- `docs/commands/session-controls.md`
+  - excerpt: Codex-native procedure for surfacing repo-local context-budget and cost-summary signals without hidden runtime hooks.
+- `docs/commands/share.md`
+  - excerpt: Share or publish a generated visual artifact only after explicit approval. This is the Codex-native, safety-constrained port of AgentSpec's visual explainer `share` command.
+- `docs/commands/ship.md`
+  - excerpt: Archive a completed feature with verification evidence and lessons learned. This is Phase 4 of the AgentCodex workflow and is the Codex-native port of AgentSpec's `ship` procedure.
+- `docs/commands/sql-review.md`
+  - excerpt: Review SQL code for semantic correctness, performance risks, data-quality gaps, and cross-dialect issues. This is the Codex-native port of AgentSpec's `sql-review` command.
+- `docs/commands/start.md`
+  - excerpt: Start a project by scanning the current directory and choosing the correct onboarding path.
+- `docs/commands/status.md`
+  - excerpt: Generate a project status report from AgentCodex workflow artifacts, git state, command surfaces, and project health indicators. This is the Codex-native port of AgentSpec's `/status` command.
+- `docs/commands/sync-context.md`
+  - excerpt: Codex-native replacement for AgentSpec's `/sync-context` command.
+- `docs/policies/CONSTITUTION.md`
+  - excerpt: Repo-local source of truth for non-negotiable operating rules across planning, delegation, security, data quality, and platform execution.
+- `docs/policies/WORKFLOW-ORCHESTRATION.md`
+  - excerpt: Define when AgentCodex should use a simple delegation versus a multi-step workflow with explicit handoff points.
+- `docs/roles/a11y-architect.md`
+  - excerpt: Codex-native port of ECC's `a11y-architect`.
+- ... 169 more
+
+## Recommended Next Step
+
+- Use `agentcodex project-intake` for a new/refactor definition, or run `/ship` only after real build evidence exists.
