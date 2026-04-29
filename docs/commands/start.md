@@ -32,7 +32,8 @@ Use this as the first command after installation when the operator wants AgentCo
 ## Procedure
 
 1. Run `agentcodex start` from the target project directory.
-2. Scan the project for base files such as `README.md`, `AGENTS.md`, `pyproject.toml`, `package.json`, `go.mod`, `Cargo.toml`, `pom.xml`, or `Makefile`.
+2. Scan the project for base files such as `README.md`, `pyproject.toml`, `package.json`, `go.mod`, `Cargo.toml`, `pom.xml`, or `Makefile`.
+   - Do not treat an `AGENTS.md` created by lightweight AgentCodex install as project-owned evidence by itself.
 3. If base files are present, show a numbered delivery menu:
    - `1. Detailed project report`
    - `2. DataOps / MLOps / LLMOps maturity`
@@ -40,7 +41,7 @@ Use this as the first command after installation when the operator wants AgentCo
    - `4. Project improvement report`
    - `5. All reports`
 4. Let the operator select an option by number, then write the selected report before writing the scan summary to `.agentcodex/reports/start-report.md`.
-5. If base files are not present, read all markdown files in the repository, collect any sidecar text for PDFs and videos when available, and create `context.md` at the project root.
+5. If project-owned base files are not present, read all markdown files in the repository, collect any sidecar text for PDFs and videos when available, and create `context.md` at the project root.
 6. Write an English brainstorm prompt based on `context.md` to `.agentcodex/reports/start-brainstorm-prompt.md`.
 7. Create a draft brainstorm artifact under `.agentcodex/features/BRAINSTORM_{PROJECT}.md`.
 8. Hand the project to `workflow-brainstormer` so the next step can continue from the generated context.

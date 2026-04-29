@@ -38,6 +38,18 @@ class StartFlowTests(unittest.TestCase):
             self.assertIn("docs/notes.md", evidence.markdown_files)
             self.assertIn("README.md", evidence.all_files)
 
+    def test_light_install_agents_file_alone_is_not_existing_project(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / ".agentcodex").mkdir()
+            (root / "AGENTS.md").write_text("# Project AGENTS\n", encoding="utf-8")
+            (root / "Requisitos.pdf").write_text("pdf placeholder\n", encoding="utf-8")
+
+            evidence = start.collect_project_evidence(root)
+
+            self.assertIn("AGENTS.md", evidence.base_files)
+            self.assertFalse(start.has_base_project(evidence))
+
     def test_context_includes_markdown_pdf_and_video_inventory(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

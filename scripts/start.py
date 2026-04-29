@@ -37,6 +37,7 @@ BASE_MARKERS = {
     "requirements.txt",
     "docker-compose.yml",
 }
+AGENTCODEX_LIGHT_INSTALL_BASE_FILES = {"AGENTS.md"}
 MARKDOWN_SUFFIX = ".md"
 PDF_SUFFIX = ".pdf"
 VIDEO_SUFFIXES = {".mp4", ".mov", ".mkv", ".avi", ".webm", ".m4v"}
@@ -179,7 +180,10 @@ def collect_project_evidence(root: Path) -> ProjectEvidence:
 
 
 def has_base_project(evidence: ProjectEvidence) -> bool:
-    return bool(evidence.base_files)
+    project_owned_base_files = [
+        path for path in evidence.base_files if path not in AGENTCODEX_LIGHT_INSTALL_BASE_FILES
+    ]
+    return bool(project_owned_base_files)
 
 
 def build_base_project_report(evidence: ProjectEvidence, answers: dict[str, str]) -> str:
