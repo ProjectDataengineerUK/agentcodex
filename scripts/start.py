@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Iterable
+import subprocess
 import sys
 
 
@@ -114,6 +115,8 @@ def collect_top_level_entries(root: Path) -> list[str]:
     for entry in sorted(root.iterdir()):
         if entry.name in IGNORED_DIRS:
             continue
+        if entry.is_file() and is_generated_start_context(entry):
+            continue
         if entry.is_dir():
             items.append(f"{entry.name}/")
         else:
@@ -146,6 +149,42 @@ def sidecar_text(path: Path) -> str | None:
     return None
 
 
+def is_generated_start_context(path: Path) -> bool:
+    if path.name != "context.md" or not path.is_file():
+        return False
+    try:
+        text = path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return False
+    return text.startswith("# Context\n") and "- generated_at:" in text and "## Directory Scan" in text
+
+
+def pdf_text(path: Path, limit: int = 1600) -> str | None:
+    try:
+        result = subprocess.run(
+            ["pdftotext", "-layout", str(path), "-"],
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    if result.returncode != 0:
+        return None
+    text = "\n".join(line.strip() for line in result.stdout.splitlines() if line.strip())
+    return text[:limit] if text else None
+
+
+def document_text(path: Path, limit: int = 1600) -> str | None:
+    transcript = sidecar_text(path)
+    if transcript:
+        return transcript[:limit]
+    if path.suffix.lower() == PDF_SUFFIX:
+        return pdf_text(path, limit=limit)
+    return None
+
+
 def collect_project_evidence(root: Path) -> ProjectEvidence:
     all_files: list[str] = []
     base_files: list[str] = []
@@ -157,6 +196,8 @@ def collect_project_evidence(root: Path) -> ProjectEvidence:
         if not path.is_file():
             continue
         if any(part in IGNORED_DIRS for part in path.parts):
+            continue
+        if is_generated_start_context(path):
             continue
         rel = str(path.relative_to(root))
         all_files.append(rel)
@@ -664,7 +705,7 @@ def build_context_markdown(evidence: ProjectEvidence) -> str:
     if evidence.pdf_files:
         for rel_path in evidence.pdf_files:
             path = ROOT / rel_path
-            transcript = sidecar_text(path)
+            transcript = document_text(path)
             lines.append(f"- `{rel_path}`")
             if transcript:
                 lines.append(f"  - extracted text: {transcript}")
@@ -699,22 +740,87 @@ def build_context_markdown(evidence: ProjectEvidence) -> str:
     return "\n".join(lines) + "\n"
 
 
+def build_evidence_brief(evidence: ProjectEvidence, limit: int = 4) -> list[str]:
+    lines: list[str] = []
+    if evidence.markdown_files:
+        lines.append("Markdown evidence:")
+        for rel_path in evidence.markdown_files[:limit]:
+            excerpt = first_non_empty_line(ROOT / rel_path) or "[empty or unreadable]"
+            lines.append(f"- `{rel_path}`: {excerpt}")
+    if evidence.pdf_files:
+        lines.append("PDF evidence:")
+        for rel_path in evidence.pdf_files[:limit]:
+            transcript = document_text(ROOT / rel_path, limit=900)
+            if transcript:
+                lines.append(f"- `{rel_path}`: {transcript}")
+            else:
+                lines.append(f"- `{rel_path}`: detected, but text extraction was unavailable")
+    if evidence.video_files:
+        lines.append("Video evidence:")
+        for rel_path in evidence.video_files[:limit]:
+            transcript = sidecar_text(ROOT / rel_path)
+            if transcript:
+                lines.append(f"- `{rel_path}`: {transcript}")
+            else:
+                lines.append(f"- `{rel_path}`: detected, but transcript was unavailable")
+    if not lines:
+        lines.append("- No project evidence found beyond the AgentCodex bootstrap files.")
+    return lines
+
+
 def build_brainstorm_prompt(evidence: ProjectEvidence) -> str:
-    return "\n".join(
+    lines = [
+        "# Start Brainstorm Prompt",
+        "",
+        "You are the AgentCodex workflow-brainstormer.",
+        "",
+        "## Current Context",
+        "",
+        f"- repository_root: `{ROOT}`",
+        f"- detected_base_files: {len(evidence.base_files)}",
+        f"- detected_markdown_files: {len(evidence.markdown_files)}",
+        f"- detected_pdf_files: {len(evidence.pdf_files)}",
+        f"- detected_video_files: {len(evidence.video_files)}",
+        "- source_of_truth: `context.md`",
+        "",
+        "## Evidence Brief",
+        "",
+    ]
+    lines.extend(build_evidence_brief(evidence))
+    lines.extend(
         [
-            "You are a specialist prompt engineer and AgentCodex workflow-brainstormer.",
+            "",
+            "## Sequential Brainstorm Flow",
+            "",
+            "Follow this sequence. Ask one question at a time and wait for the operator answer before moving to the next question.",
+            "",
+            "1. Grounding: confirm the project objective from the detected files, especially PDFs or requirement notes.",
+            "2. Outcome: ask what final deliverable the project must produce.",
+            "3. Users: ask who will use or approve the result.",
+            "4. Data and platforms: ask which sources, targets, Databricks workspaces, cloud accounts, and tools are in scope.",
+            "5. Constraints: ask about security, compliance, deadlines, budget, access, and operational restrictions.",
+            "6. Candidate approaches: propose 2 or 3 possible solution paths and ask the operator to choose one.",
+            "7. YAGNI: identify what should stay out of scope for the first version.",
+            "8. Validation: ask how success will be tested, monitored, and accepted.",
+            "9. Define handoff: summarize answers into suggested requirements for the `define` phase.",
+            "",
+            "## First Message To Operator",
+            "",
+            "Start now with only Question 1. Use the available evidence to avoid a blank generic question.",
+            "If PDF text was extracted, summarize it briefly before asking Question 1.",
+            "If PDF text was not extracted, say which file was detected and ask the operator to provide or confirm its main objective.",
+            "Prefer A/B/C options when there are clear alternatives.",
+            "",
+            "## Artifact Update",
+            "",
+            "Update `.agentcodex/features/BRAINSTORM_{PROJECT}.md` after the operator answers enough discovery questions.",
+            "Do not proceed to `define` until the brainstorm has a selected approach, YAGNI cuts, and validation checkpoints.",
+            "",
             "Read context.md before asking anything else.",
-            "Start with one question at a time and prefer multiple-choice prompts when the options are clear.",
-            "If the repository already has base project files, ask the operator whether they want: a detailed project report, a maturity report, a vulnerability report, and an improvement report.",
-            "If the repository does not yet have base project files, extract the raw context from markdown files and any available sidecar text for PDFs or videos, then begin the brainstorm flow.",
-            "Create a BRAINSTORM artifact in English with the project context, candidate approaches, YAGNI cuts, and a clear next step into define.",
-            f"Repository root: {ROOT}",
-            f"Detected base files: {len(evidence.base_files)}",
-            f"Detected markdown files: {len(evidence.markdown_files)}",
-            f"Detected pdf files: {len(evidence.pdf_files)}",
-            f"Detected video files: {len(evidence.video_files)}",
+            "Continue the brainstorm flow sequentially.",
         ]
-    ) + "\n"
+    )
+    return "\n".join(lines) + "\n"
 
 
 def write_text(path: Path, content: str) -> None:

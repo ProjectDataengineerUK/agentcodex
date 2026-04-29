@@ -50,6 +50,22 @@ class StartFlowTests(unittest.TestCase):
             self.assertIn("AGENTS.md", evidence.base_files)
             self.assertFalse(start.has_base_project(evidence))
 
+    def test_collect_project_evidence_ignores_generated_context(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / ".agentcodex").mkdir()
+            (root / "context.md").write_text(
+                "# Context\n\n- generated_at: `2026-04-29T00:00:00+00:00`\n\n## Directory Scan\n",
+                encoding="utf-8",
+            )
+            (root / "notes.md").write_text("# Notes\nOperator input\n", encoding="utf-8")
+
+            evidence = start.collect_project_evidence(root)
+
+            self.assertNotIn("context.md", evidence.markdown_files)
+            self.assertNotIn("context.md", evidence.all_files)
+            self.assertIn("notes.md", evidence.markdown_files)
+
     def test_context_includes_markdown_pdf_and_video_inventory(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -75,6 +91,9 @@ class StartFlowTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             (root / ".agentcodex").mkdir()
+            (root / "notes.md").write_text("# Notes\nCustomer churn model\n", encoding="utf-8")
+            (root / "requirements.pdf").write_text("pdf placeholder", encoding="utf-8")
+            (root / "requirements.txt").write_text("Build a governed Databricks pipeline\n", encoding="utf-8")
 
             start.ROOT = root
             evidence = start.collect_project_evidence(root)
@@ -83,6 +102,10 @@ class StartFlowTests(unittest.TestCase):
             self.assertIn("Read context.md", prompt)
             self.assertIn("brainstorm flow", prompt)
             self.assertIn(str(root), prompt)
+            self.assertIn("## Evidence Brief", prompt)
+            self.assertIn("## Sequential Brainstorm Flow", prompt)
+            self.assertIn("Build a governed Databricks pipeline", prompt)
+            self.assertIn("Start now with only Question 1", prompt)
 
     def test_deliver_selected_reports_writes_detailed_report_for_option_one(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
