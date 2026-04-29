@@ -21,6 +21,7 @@
 | [patterns/gap-and-island.md](patterns/gap-and-island.md) | Date gaps, session detection |
 | [patterns/pivot-unpivot.md](patterns/pivot-unpivot.md) | Cross-dialect PIVOT/UNPIVOT |
 | [patterns/cross-dialect.md](patterns/cross-dialect.md) | DuckDB specifics, dialect translation |
+| [patterns/data-agents-sql-generation.md](patterns/data-agents-sql-generation.md) | Data Agents SQL generation guardrails |
 
 ---
 

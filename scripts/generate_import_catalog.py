@@ -13,14 +13,22 @@ DOC_PATH = ROOT / "docs" / "UPSTREAM-CATALOG.md"
 
 
 def relpath_list(base: Path, pattern: str) -> list[str]:
+    if not base.exists():
+        return []
     return sorted(str(path.relative_to(base)) for path in base.glob(pattern))
+
+
+def child_dirs(base: Path) -> list[str]:
+    if not base.exists():
+        return []
+    return sorted(path.name for path in base.iterdir() if path.is_dir())
 
 
 def collect_source_catalog(source_root: Path, source_name: str) -> dict:
     if source_name == "agentspec":
         agents = relpath_list(source_root / "agents", "*/*.md")
         skills = relpath_list(source_root / "skills", "*/SKILL.md")
-        kb_domains = sorted(path.name for path in (source_root / "kb").iterdir() if path.is_dir())
+        kb_domains = child_dirs(source_root / "kb")
         commands = sorted(
             str(path.relative_to(source_root / "commands"))
             for path in (source_root / "commands").rglob("*.md")
@@ -43,19 +51,49 @@ def collect_source_catalog(source_root: Path, source_name: str) -> dict:
             "extra_skills": extra_skills,
         }
 
+    if source_name == "data-agents":
+        agents = relpath_list(source_root / "agents" / "registry", "*.md")
+        commands = relpath_list(source_root / "commands", "*.py")
+        skills = relpath_list(source_root / "skills", "**/SKILL.md")
+        kb_domains = child_dirs(source_root / "kb")
+        mcp_servers = child_dirs(source_root / "mcp_servers")
+        hooks = relpath_list(source_root / "hooks", "*.py")
+        tests = relpath_list(source_root / "tests", "test_*.py")
+        scripts = relpath_list(source_root / "scripts", "*.py")
+        templates = relpath_list(source_root / "templates", "*.md")
+        return {
+            "agents": agents,
+            "commands": commands,
+            "skills": skills,
+            "kb_domains": kb_domains,
+            "mcp_servers": mcp_servers,
+            "hooks": hooks,
+            "tests": tests,
+            "scripts": scripts,
+            "templates": templates,
+        }
+
     agents = relpath_list(source_root / "agents", "*.md")
     skills = relpath_list(source_root / "skills", "*/SKILL.md")
-    rulesets = sorted(path.name for path in (source_root / "rules").iterdir() if path.is_dir())
+    rulesets = child_dirs(source_root / "rules")
     commands = relpath_list(source_root / "commands", "*.md")
     codex_agents = relpath_list(source_root / "codex" / "agents", "*.toml")
     docs = relpath_list(source_root / "docs", "**/*.md")
     schemas = relpath_list(source_root / "schemas", "*.json")
     scripts_ci = relpath_list(source_root / "scripts_ci", "*.js")
+    kb_domains = child_dirs(source_root / "kb")
+    mcp_servers = child_dirs(source_root / "mcp_servers")
+    hooks = relpath_list(source_root / "hooks", "*.py")
+    tests = relpath_list(source_root / "tests", "test_*.py")
     return {
         "agents": agents,
         "commands": commands,
         "skills": skills,
         "rulesets": rulesets,
+        "kb_domains": kb_domains,
+        "mcp_servers": mcp_servers,
+        "hooks": hooks,
+        "tests": tests,
         "codex_agents": codex_agents,
         "docs": docs,
         "schemas": schemas,
@@ -83,6 +121,7 @@ def main() -> int:
 
     agentspec = catalog["sources"].get("agentspec", {})
     ecc = catalog["sources"].get("ecc", {})
+    data_agents = catalog["sources"].get("data-agents", {})
 
     lines = [
         "# Upstream Catalog",
@@ -157,6 +196,37 @@ def main() -> int:
         "Top mirrored ECC docs:",
     ])
     lines.extend(f"- `{item}`" for item in top(ecc.get("docs", [])))
+    if data_agents:
+        lines.extend([
+            "",
+            "## Data Agents Snapshot",
+            "",
+            f"- agents: {len(data_agents.get('agents', []))}",
+            f"- commands: {len(data_agents.get('commands', []))}",
+            f"- skills: {len(data_agents.get('skills', []))}",
+            f"- kb domains: {len(data_agents.get('kb_domains', []))}",
+            f"- MCP servers: {len(data_agents.get('mcp_servers', []))}",
+            f"- hooks: {len(data_agents.get('hooks', []))}",
+            f"- tests mirrored: {len(data_agents.get('tests', []))}",
+            "",
+            "Data Agents KB domains:",
+        ])
+        lines.extend(f"- `{item}`" for item in top(data_agents.get("kb_domains", []), limit=25))
+        lines.extend([
+            "",
+            "Data Agents MCP servers:",
+        ])
+        lines.extend(f"- `{item}`" for item in data_agents.get("mcp_servers", []))
+        lines.extend([
+            "",
+            "Top Data Agents skills:",
+        ])
+        lines.extend(f"- `{item}`" for item in top(data_agents.get("skills", [])))
+        lines.extend([
+            "",
+            "Top Data Agents hooks:",
+        ])
+        lines.extend(f"- `{item}`" for item in top(data_agents.get("hooks", [])))
 
     DOC_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"Wrote import catalog: {CATALOG_PATH}")

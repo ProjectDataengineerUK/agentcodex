@@ -15,3 +15,7 @@ Local reference for workflow orchestration and DAG design in AgentCodex.
 
 - `pipeline-architect`
 - `workflow-designer`
+
+## Pages
+
+- [Data Agents KB-First Routing](patterns/data-agents-kb-first-routing.md)

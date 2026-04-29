@@ -22,6 +22,7 @@
 | [patterns/delta-operations.md](patterns/delta-operations.md) | MERGE, OPTIMIZE, vacuum, change data feed |
 | [patterns/catalog-setup.md](patterns/catalog-setup.md) | Gravitino, Unity, Nessie configuration |
 | [patterns/migration-to-open-formats.md](patterns/migration-to-open-formats.md) | Hive→Iceberg, Parquet→Delta migration |
+| [patterns/relational-migration.md](patterns/relational-migration.md) | SQL Server/PostgreSQL migration to Databricks/Fabric |
 
 ---
 

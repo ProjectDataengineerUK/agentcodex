@@ -126,9 +126,16 @@ def run_token(feature_root: Path) -> dict:
         else:
             issues.append(f"missing: {path}")
     text_checks = [
-        (feature_root / "operations/cost/optimization.md", ["alert thresholds", "tradeoffs"]),
+        (
+            feature_root / "operations/cost/optimization.md",
+            ["alert thresholds", "tradeoffs", "model routing policy", "automatic selection evidence"],
+        ),
         (feature_root / "operations/observability/logs.md", ["knowledge extraction path", "memory candidate flow"]),
     ]
+    model_policy = feature_root / "operations/agentic-llm/model-policy.md"
+    if model_policy.exists():
+        evidences.append(f"present: {model_policy}")
+        text_checks.append((model_policy, ["Allowed Models", "Activity Routing", "Token Budget", "Governance"]))
     for path, markers in text_checks:
         if not path.exists():
             continue

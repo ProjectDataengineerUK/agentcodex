@@ -26,3 +26,9 @@ Codex-native role for designing Databricks platform architectures across lakehou
 4. Distinguish platform architecture from pipeline-level implementation details.
 5. Escalate DLT/Lakeflow specifics to `lakeflow-architect` and Spark implementation to `spark-engineer`.
 
+## Required Databricks KB
+
+- `.agentcodex/kb/platforms/databricks/quick-reference.md`
+- `.agentcodex/kb/platforms/databricks/concepts/unity-catalog-operations.md`
+- `.agentcodex/kb/platforms/databricks/concepts/compute-and-jobs.md`
+- `.agentcodex/kb/platforms/databricks/patterns/databricks-asset-bundles.md`

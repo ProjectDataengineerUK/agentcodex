@@ -34,11 +34,13 @@ Codex-native procedure for surfacing repo-local context-budget and cost-summary 
 2. Run `python3 scripts/agentcodex.py session-controls [--json]`.
 3. Read local observability metrics and infer a repo-local context budget heuristic.
 4. Summarize recent script activity through fixed cost tiers.
-5. Write the result to `.agentcodex/reports/session-controls/session-controls.md`.
-6. Escalate metric semantics to `data-observability-engineer` when the heuristic needs refinement.
+5. Summarize the active model-routing policy and latest automatic selection.
+6. Write the result to `.agentcodex/reports/session-controls/session-controls.md`.
+7. Escalate metric semantics to `data-observability-engineer` when the heuristic needs refinement.
 
 ## Outputs
 
 - local context-budget snapshot
 - local cost-summary snapshot
+- active model-routing snapshot
 - repo-local report path for audit and resume use

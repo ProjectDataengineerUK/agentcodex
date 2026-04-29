@@ -1,0 +1,74 @@
+from __future__ import annotations
+
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[2]
+SCRIPTS_DIR = ROOT / "scripts"
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
+
+import start  # noqa: E402
+
+
+class StartFlowTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.original_root = start.ROOT
+
+    def tearDown(self) -> None:
+        start.ROOT = self.original_root
+
+    def test_detects_base_project_files(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / ".agentcodex").mkdir()
+            (root / "README.md").write_text("hello\n", encoding="utf-8")
+            (root / "docs").mkdir()
+            (root / "docs" / "notes.md").write_text("# Notes\ncontent\n", encoding="utf-8")
+
+            evidence = start.collect_project_evidence(root)
+
+            self.assertTrue(start.has_base_project(evidence))
+            self.assertIn("README.md", evidence.base_files)
+            self.assertIn("docs/notes.md", evidence.markdown_files)
+
+    def test_context_includes_markdown_pdf_and_video_inventory(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / ".agentcodex").mkdir()
+            (root / "notes.md").write_text("# Title\nFirst line\n", encoding="utf-8")
+            (root / "report.pdf").write_text("binary placeholder", encoding="utf-8")
+            (root / "report.txt").write_text("pdf transcript sidecar\n", encoding="utf-8")
+            (root / "clip.mp4").write_text("video placeholder", encoding="utf-8")
+            (root / "clip.srt").write_text("video transcript sidecar\n", encoding="utf-8")
+
+            start.ROOT = root
+            evidence = start.collect_project_evidence(root)
+            context = start.build_context_markdown(evidence)
+
+            self.assertIn("notes.md", context)
+            self.assertIn("First line", context)
+            self.assertIn("report.pdf", context)
+            self.assertIn("pdf transcript sidecar", context)
+            self.assertIn("clip.mp4", context)
+            self.assertIn("video transcript sidecar", context)
+
+    def test_brainstorm_prompt_mentions_context_and_brainstorm(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / ".agentcodex").mkdir()
+
+            start.ROOT = root
+            evidence = start.collect_project_evidence(root)
+            prompt = start.build_brainstorm_prompt(evidence)
+
+            self.assertIn("Read context.md", prompt)
+            self.assertIn("brainstorm flow", prompt)
+            self.assertIn(str(root), prompt)
+
+
+if __name__ == "__main__":
+    unittest.main()

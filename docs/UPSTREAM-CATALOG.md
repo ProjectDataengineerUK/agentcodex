@@ -13,7 +13,7 @@ Use it as a quick index into the raw upstream material copied into AgentCodex.
 - kb domains: 25
 - workflow docs: 8
 - Claude agents mirrored: 58
-- Claude commands mirrored: 32
+- Claude commands mirrored: 33
 - plugin-extras skills mirrored: 2
 
 Top AgentSpec agents:
@@ -152,3 +152,70 @@ Top mirrored ECC docs:
 - `PHASE1-ISSUE-BUNDLE-2026-03-12.md`
 - `PR-399-REVIEW-2026-03-12.md`
 - `PR-QUEUE-TRIAGE-2026-03-13.md`
+
+## Data Agents Snapshot
+
+- agents: 13
+- commands: 7
+- skills: 44
+- kb domains: 11
+- MCP servers: 14
+- hooks: 12
+- tests mirrored: 42
+
+Data Agents KB domains:
+- `data-quality`
+- `databricks`
+- `fabric`
+- `governance`
+- `migration`
+- `pipeline-design`
+- `python-patterns`
+- `semantic-modeling`
+- `shared`
+- `spark-patterns`
+- `sql-patterns`
+
+Data Agents MCP servers:
+- `_template`
+- `context7`
+- `databricks`
+- `databricks_genie`
+- `fabric`
+- `fabric_rti`
+- `fabric_semantic`
+- `fabric_sql`
+- `firecrawl`
+- `github`
+- `memory_mcp`
+- `migration_source`
+- `postgres`
+- `tavily`
+
+Top Data Agents skills:
+- `databricks/TEMPLATE/SKILL.md`
+- `databricks/databricks-agent-bricks/SKILL.md`
+- `databricks/databricks-ai-functions/SKILL.md`
+- `databricks/databricks-aibi-dashboards/SKILL.md`
+- `databricks/databricks-app-python/SKILL.md`
+- `databricks/databricks-bundles/SKILL.md`
+- `databricks/databricks-config/SKILL.md`
+- `databricks/databricks-dbsql/SKILL.md`
+- `databricks/databricks-docs/SKILL.md`
+- `databricks/databricks-execution-compute/SKILL.md`
+- `databricks/databricks-genie/SKILL.md`
+- `databricks/databricks-iceberg/SKILL.md`
+
+Top Data Agents hooks:
+- `__init__.py`
+- `audit_hook.py`
+- `checkpoint.py`
+- `context_budget_hook.py`
+- `cost_guard_hook.py`
+- `memory_hook.py`
+- `output_compressor_hook.py`
+- `security_hook.py`
+- `session_lifecycle.py`
+- `session_logger.py`
+- `transcript_hook.py`
+- `workflow_tracker.py`

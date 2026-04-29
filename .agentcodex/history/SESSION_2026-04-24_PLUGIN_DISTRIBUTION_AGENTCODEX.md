@@ -109,3 +109,42 @@ Record the repository-level attribution status for upstream bases and imported r
 ### Resume Prompt
 
 Continue from `.agentcodex/history/SESSION_2026-04-24_PLUGIN_DISTRIBUTION_AGENTCODEX.md` and reconcile it with the latest attribution artifacts in `docs/CREDITS.md`, `NOTICE`, and `README.md`.
+
+## Update 2026-04-24 Release And Security Pass
+
+### Scope
+
+Record the state of plugin-install documentation, local Codex install shortcuts, and the latest security review.
+
+### Current State
+
+- release note added at `.agentcodex/reports/release-2026-04-24-codex-plugin-install.md`
+- security report added at `.agentcodex/reports/security-plugin-distribution-scan-2026-04-24.md`
+- `README.md` now distinguishes:
+  - third-party install via `codex plugin marketplace add https://github.com/ProjectDataengineerUK/agentcodex.git`
+  - local-machine shortcut via `codex install agentcodex`
+
+### Validation Completed
+
+- `python3 scripts/agentcodex.py validate-plugin`
+- `python3 scripts/agentcodex.py validate`
+- `python3 -m py_compile scripts/install_codex_plugin.py`
+- `python3 -m py_compile scripts/install_codex_command_shim.py`
+- `codex install agentcodex`
+
+### Security Outcome
+
+- plugin manifest publication surface validated
+- main remaining medium-risk issue is destructive replacement in managed install/sync trees
+- local `codex` shim is acceptable only as a documented machine-local shortcut
+
+### Next Recommended Step
+
+- address destructive sync/install behavior in `plugins/agentcodex/scripts/install_runtime.py` and `scripts/sync_project.py`
+
+### Follow-up Completed
+
+- destructive sync/install behavior was mitigated by changing managed tree refresh to in-place file updates
+- added regression tests:
+  - `.agentcodex/tests/test_install_runtime_safety.py`
+  - `.agentcodex/tests/test_sync_project_safety.py`

@@ -18,9 +18,67 @@ Short triage of what from `/home/user/Projetos/data-agents` is worth porting int
   - value: operational platform validation for Databricks credentials and workspace reachability
   - native result: `agentcodex platform-health databricks`
 
+- `kb/databricks/`
+- `skills/databricks/databricks-spark-declarative-pipelines/`
+- `skills/databricks/databricks-jobs/`
+- `skills/databricks/databricks-bundles/`
+- `skills/databricks/databricks-unity-catalog/`
+- `skills/databricks/databricks-ai-functions/`
+- `skills/databricks/databricks-agent-bricks/`
+- `skills/databricks/databricks-vector-search/`
+- `skills/databricks/databricks-model-serving/`
+- `skills/databricks/databricks-mlflow-evaluation/`
+- `skills/databricks/databricks-app-python/`
+  - value: deeper Databricks operating knowledge for Unity Catalog, system tables, DABs, jobs, Lakeflow/SDP, AI Functions, Agent Bricks, Vector Search, Model Serving, MLflow Evaluation, and Databricks Apps
+  - native result: enriched Databricks KB under `.agentcodex/kb/platforms/databricks/`
+
 - `tools/fabric_health_check.py`
   - value: operational platform validation for Fabric auth and API reachability
   - native result: `agentcodex platform-health fabric`
+
+- `kb/fabric/`
+- `skills/fabric/`
+  - value: Fabric-specific lakehouse, Direct Lake, RTI, Data Factory, deployment pipeline, Git integration, and cross-platform guidance
+  - native result: `.agentcodex/kb/microsoft-fabric/fabric-data-agents-enrichment.md`
+
+- `kb/data-quality/`
+- `skills/patterns/data-quality/`
+  - value: operational quality dimensions, profiling minimums, expectation placement, and SLA contract fields
+  - native result: `.agentcodex/kb/data-quality/data-agents-quality-operations.md`
+
+- `kb/governance/`
+  - value: group-based access, PII classification, audit sources, compliance and lineage controls
+  - native result: `.agentcodex/kb/controls/governance/data-agents-governance-controls.md` and `.agentcodex/kb/metadata/lineage/data-agents-lineage-patterns.md`
+
+- `kb/semantic-modeling/`
+- `skills/databricks/databricks-metric-views/`
+  - value: semantic model rules, Direct Lake modeling concerns, DAX-style metric discipline, and Databricks Metric Views
+  - native result: `.agentcodex/kb/data-modeling/concepts/semantic-modeling.md`
+
+- `kb/migration/`
+- `skills/migration/SKILL.md`
+  - value: SQL Server/PostgreSQL migration phases, target selection, type-mapping concerns, and reconciliation checklist
+  - native result: `.agentcodex/kb/lakehouse/patterns/relational-migration.md`
+
+- `kb/spark-patterns/`
+- `skills/patterns/spark-patterns/`
+  - value: Spark operations, performance review, streaming review, and Delta review concerns
+  - native result: `.agentcodex/kb/spark/patterns/data-agents-spark-operations.md`
+
+- `kb/sql-patterns/`
+- `skills/patterns/sql-generation/`
+  - value: SQL generation guardrails, dialect checks, query grain, and production query discipline
+  - native result: `.agentcodex/kb/sql-patterns/patterns/data-agents-sql-generation.md`
+
+- `skills/databricks/databricks-vector-search/`
+- `skills/databricks/databricks-model-serving/`
+- `skills/databricks/databricks-mlflow-evaluation/`
+  - value: Databricks RAG and serving building blocks across Vector Search, Model Serving, and MLflow evaluation
+  - native result: `.agentcodex/kb/ai-data-engineering/patterns/databricks-rag-and-serving.md`
+
+- `kb/task_routing.md`
+  - value: KB-first task routing by task shape before specialist selection
+  - native result: `.agentcodex/kb/orchestration/patterns/data-agents-kb-first-routing.md`
 
 - `memory/decay.py`
 - `memory/lint.py`
@@ -57,6 +115,18 @@ Short triage of what from `/home/user/Projetos/data-agents` is worth porting int
 - richer platform/run audit classification
   - value: deeper platform-aware observability
   - native target: `audit-summary` and observability metrics
+
+- split Databricks AI pages into narrower KB pages
+  - value: richer implementation guidance for Vector Search, Model Serving, MLflow Evaluation, Agent Bricks, Lakebase, Zerobus, and Databricks Apps
+  - native target: `.agentcodex/kb/platforms/databricks/concepts/` and `.agentcodex/kb/platforms/databricks/patterns/`
+
+- split Fabric pages into narrower KB pages
+  - value: detailed Fabric RTI, Direct Lake, Data Factory, deployment pipelines, Git integration, and monitoring guidance
+  - native target: `.agentcodex/kb/microsoft-fabric/`
+
+- split semantic modeling into platform-specific pages
+  - value: separate Fabric/Power BI semantic model guidance from Databricks Metric Views and Genie/AI-BI surfaces
+  - native target: `.agentcodex/kb/data-modeling/` plus platform KBs
 
 ## Reference Only
 

@@ -1,5 +1,20 @@
 {
   "version": "0.1.0",
+  "model_policy": {
+    "manifest": ".agentcodex/model-routing.json",
+    "selection_command": "agentcodex model-route [task]",
+    "decision_order": [
+      "activity",
+      "specialist_role",
+      "budget",
+      "context_pressure",
+      "risk"
+    ],
+    "audit_outputs": [
+      ".agentcodex/reports/model-routing/latest-selection.json",
+      ".agentcodex/reports/model-routing/model-routing.md"
+    ]
+  },
   "workflow_phase_routing": [
     {
       "situation": "idea is vague, options need comparison",
@@ -594,6 +609,11 @@
   ],
   "escalations": [
     {
+      "from": "a11y-architect",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
       "from": "ai-data-engineer",
       "to": "streaming-engineer",
       "condition": "see role documentation"
@@ -606,6 +626,41 @@
     {
       "from": "ai-data-engineer",
       "to": "pipeline-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "ai-data-engineer-cloud",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "ai-data-engineer-gcp",
+      "to": "gcp-data-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "ai-data-engineer-gcp",
+      "to": "terraform-specialist",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "ai-prompt-specialist",
+      "to": "llm-specialist",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "ai-prompt-specialist",
+      "to": "prompt-crafter",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "ai-prompt-specialist-gcp",
+      "to": "gcp-data-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "ai-prompt-specialist-gcp",
+      "to": "terraform-specialist",
       "condition": "see role documentation"
     },
     {
@@ -634,6 +689,26 @@
       "condition": "see role documentation"
     },
     {
+      "from": "aws-deployer",
+      "to": "aws-data-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "aws-deployer",
+      "to": "terraform-specialist",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "aws-lambda-architect",
+      "to": "aws-data-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "aws-lambda-architect",
+      "to": "terraform-specialist",
+      "condition": "see role documentation"
+    },
+    {
       "from": "azure-ai-architect",
       "to": "genai-architect",
       "condition": "see role documentation"
@@ -659,6 +734,36 @@
       "condition": "see role documentation"
     },
     {
+      "from": "business-monitor",
+      "to": "data-observability-engineer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "business-monitor",
+      "to": "sentinel-runtime-watcher",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "business-monitor",
+      "to": "data-quality-analyst",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "chief-of-staff",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "ci-cd-specialist",
+      "to": "pipeline-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "ci-cd-specialist",
+      "to": "data-quality-analyst",
+      "condition": "see role documentation"
+    },
+    {
       "from": "code-architect",
       "to": "planner",
       "condition": "see role documentation"
@@ -679,6 +784,11 @@
       "condition": "see role documentation"
     },
     {
+      "from": "code-simplifier",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
       "from": "codebase-explorer",
       "to": "planner",
       "condition": "see role documentation"
@@ -686,6 +796,11 @@
     {
       "from": "codebase-explorer",
       "to": "pipeline-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "comment-analyzer",
+      "to": "planner",
       "condition": "see role documentation"
     },
     {
@@ -701,6 +816,51 @@
     {
       "from": "context-optimizer",
       "to": "kb-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "conversation-analyzer",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "cpp-build-resolver",
+      "to": "build-error-resolver",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "cpp-build-resolver",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "cpp-reviewer",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "cpp-reviewer",
+      "to": "security-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "csharp-reviewer",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "csharp-reviewer",
+      "to": "security-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "dart-build-resolver",
+      "to": "build-error-resolver",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "dart-build-resolver",
+      "to": "code-reviewer",
       "condition": "see role documentation"
     },
     {
@@ -779,6 +939,16 @@
       "condition": "see role documentation"
     },
     {
+      "from": "database-reviewer",
+      "to": "schema-designer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "database-reviewer",
+      "to": "data-contracts-engineer",
+      "condition": "see role documentation"
+    },
+    {
       "from": "databricks-architect",
       "to": "lakeflow-architect",
       "condition": "see role documentation"
@@ -809,6 +979,26 @@
       "condition": "see role documentation"
     },
     {
+      "from": "e2e-runner",
+      "to": "pipeline-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "e2e-runner",
+      "to": "data-quality-analyst",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "fabric-ai-specialist",
+      "to": "fabric-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "fabric-ai-specialist",
+      "to": "data-platform-engineer",
+      "condition": "see role documentation"
+    },
+    {
       "from": "fabric-architect",
       "to": "medallion-architect",
       "condition": "see role documentation"
@@ -816,6 +1006,71 @@
     {
       "from": "fabric-architect",
       "to": "pipeline-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "fabric-cicd-specialist",
+      "to": "fabric-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "fabric-cicd-specialist",
+      "to": "data-platform-engineer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "fabric-logging-specialist",
+      "to": "fabric-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "fabric-logging-specialist",
+      "to": "data-platform-engineer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "fabric-pipeline-developer",
+      "to": "fabric-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "fabric-pipeline-developer",
+      "to": "data-platform-engineer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "fabric-security-specialist",
+      "to": "security-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "fabric-security-specialist",
+      "to": "data-security-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "flutter-reviewer",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "flutter-reviewer",
+      "to": "security-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "gan-evaluator",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "gan-generator",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "gan-planner",
+      "to": "planner",
       "condition": "see role documentation"
     },
     {
@@ -829,8 +1084,88 @@
       "condition": "see role documentation"
     },
     {
+      "from": "genai-architect",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "go-build-resolver",
+      "to": "build-error-resolver",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "go-build-resolver",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "go-reviewer",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "go-reviewer",
+      "to": "security-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "harness-optimizer",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "healthcare-reviewer",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "healthcare-reviewer",
+      "to": "security-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "java-build-resolver",
+      "to": "build-error-resolver",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "java-build-resolver",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "java-reviewer",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "java-reviewer",
+      "to": "security-reviewer",
+      "condition": "see role documentation"
+    },
+    {
       "from": "kb-architect",
       "to": "domain-researcher",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "kotlin-build-resolver",
+      "to": "build-error-resolver",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "kotlin-build-resolver",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "kotlin-reviewer",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "kotlin-reviewer",
+      "to": "security-reviewer",
       "condition": "see role documentation"
     },
     {
@@ -844,6 +1179,36 @@
       "condition": "see role documentation"
     },
     {
+      "from": "lakeflow-expert",
+      "to": "lakeflow-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "lakeflow-expert",
+      "to": "spark-engineer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "lakeflow-pipeline-builder",
+      "to": "lakeflow-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "lakeflow-pipeline-builder",
+      "to": "spark-engineer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "lakeflow-specialist",
+      "to": "lakeflow-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "lakeflow-specialist",
+      "to": "spark-engineer",
+      "condition": "see role documentation"
+    },
+    {
       "from": "lakehouse-architect",
       "to": "schema-designer",
       "condition": "see role documentation"
@@ -851,6 +1216,16 @@
     {
       "from": "lakehouse-architect",
       "to": "pipeline-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "lambda-builder",
+      "to": "aws-data-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "lambda-builder",
+      "to": "terraform-specialist",
       "condition": "see role documentation"
     },
     {
@@ -871,6 +1246,11 @@
     {
       "from": "llm-specialist",
       "to": "prompt-crafter",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "loop-operator",
+      "to": "planner",
       "condition": "see role documentation"
     },
     {
@@ -959,6 +1339,21 @@
       "condition": "see role documentation"
     },
     {
+      "from": "opensource-forker",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "opensource-packager",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "opensource-sanitizer",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
       "from": "performance-optimizer",
       "to": "code-architect",
       "condition": "see role documentation"
@@ -1034,6 +1429,31 @@
       "condition": "see role documentation"
     },
     {
+      "from": "python-reviewer",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "python-reviewer",
+      "to": "security-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "pytorch-build-resolver",
+      "to": "build-error-resolver",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "pytorch-build-resolver",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "qdrant-specialist",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
       "from": "refactor-cleaner",
       "to": "planner",
       "condition": "see role documentation"
@@ -1041,6 +1461,26 @@
     {
       "from": "refactor-cleaner",
       "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "rust-build-resolver",
+      "to": "build-error-resolver",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "rust-build-resolver",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "rust-reviewer",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "rust-reviewer",
+      "to": "security-reviewer",
       "condition": "see role documentation"
     },
     {
@@ -1064,6 +1504,86 @@
       "condition": "see role documentation"
     },
     {
+      "from": "semantic-modeler",
+      "to": "schema-designer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "semantic-modeler",
+      "to": "fabric-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "semantic-modeler",
+      "to": "databricks-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "sentinel-analyzer",
+      "to": "sentinel-interpreter",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "sentinel-analyzer",
+      "to": "data-observability-engineer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "sentinel-interpreter",
+      "to": "sentinel-supervisor",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "sentinel-interpreter",
+      "to": "kb-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "sentinel-runtime-watcher",
+      "to": "data-observability-engineer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "sentinel-runtime-watcher",
+      "to": "sentinel-supervisor",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "sentinel-security-watcher",
+      "to": "data-security-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "sentinel-security-watcher",
+      "to": "sentinel-supervisor",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "sentinel-supervisor",
+      "to": "data-observability-engineer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "sentinel-supervisor",
+      "to": "data-security-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "sentinel-supervisor",
+      "to": "data-governance-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "seo-specialist",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "shell-script-specialist",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
       "from": "silent-failure-hunter",
       "to": "code-reviewer",
       "condition": "see role documentation"
@@ -1074,7 +1594,52 @@
       "condition": "see role documentation"
     },
     {
+      "from": "snowflake-architect",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
       "from": "spark-engineer",
+      "to": "pipeline-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "spark-performance-analyzer",
+      "to": "spark-engineer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "spark-performance-analyzer",
+      "to": "pipeline-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "spark-specialist",
+      "to": "spark-engineer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "spark-specialist",
+      "to": "pipeline-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "spark-streaming-architect",
+      "to": "spark-engineer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "spark-streaming-architect",
+      "to": "pipeline-architect",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "spark-troubleshooter",
+      "to": "spark-engineer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "spark-troubleshooter",
       "to": "pipeline-architect",
       "condition": "see role documentation"
     },
@@ -1096,6 +1661,11 @@
     {
       "from": "streaming-engineer",
       "to": "data-quality-analyst",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "supabase-specialist",
+      "to": "planner",
       "condition": "see role documentation"
     },
     {
@@ -1136,6 +1706,21 @@
     {
       "from": "test-generator",
       "to": "schema-designer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "type-design-analyzer",
+      "to": "planner",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "typescript-reviewer",
+      "to": "code-reviewer",
+      "condition": "see role documentation"
+    },
+    {
+      "from": "typescript-reviewer",
+      "to": "security-reviewer",
       "condition": "see role documentation"
     },
     {

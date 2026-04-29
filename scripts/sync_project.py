@@ -24,9 +24,10 @@ MATURITY_SOURCE = ROOT / ".agentcodex" / "maturity"
 MATURITY_PROFILE_OVERLAYS = ROOT / ".agentcodex" / "bootstrap" / "MATURITY_PROFILE_OVERLAYS"
 
 
-def resolve_profile(args: list[str]) -> tuple[Path, bool, str | None] | None:
+def resolve_profile(args: list[str]) -> tuple[Path, bool, str | None, str] | None:
     with_codex = False
     profile: str | None = None
+    sync_mode = "light"
     positional: list[str] = []
     i = 0
     while i < len(args):
@@ -35,17 +36,32 @@ def resolve_profile(args: list[str]) -> tuple[Path, bool, str | None] | None:
             with_codex = True
             i += 1
             continue
+        if arg == "--full":
+            sync_mode = "full"
+            i += 1
+            continue
+        if arg == "--light":
+            sync_mode = "light"
+            i += 1
+            continue
+        if arg == "--mode":
+            if i + 1 >= len(args):
+                return None
+            sync_mode = args[i + 1]
+            i += 2
+            continue
         if arg == "--profile":
             if i + 1 >= len(args):
                 return None
             profile = args[i + 1]
+            sync_mode = "full"
             i += 2
             continue
         positional.append(arg)
         i += 1
-    if len(positional) != 1:
+    if len(positional) != 1 or sync_mode not in {"light", "full"}:
         return None
-    return Path(positional[0]).resolve(), with_codex, profile
+    return Path(positional[0]).resolve(), with_codex, profile, sync_mode
 
 
 def active_profile(target: Path, override: str | None) -> str | None:
@@ -165,17 +181,33 @@ def sync_tree(source_dir: Path, target_dir: Path, subdirs: list[str], drift: dic
             }
             if src_files != dest_files:
                 record_drift(drift, category, dest, "outdated")
-            shutil.rmtree(dest)
-        shutil.copytree(src, dest)
+        dest.mkdir(parents=True, exist_ok=True)
+        for path in sorted(src.rglob("*")):
+            rel = path.relative_to(src)
+            target = dest / rel
+            if path.is_dir():
+                target.mkdir(parents=True, exist_ok=True)
+                continue
+            copy_file(path, target)
 
 
 def main() -> int:
+    if not sys.argv[1:] or sys.argv[1] in {"help", "--help", "-h"}:
+        print(
+            "Usage: python3 scripts/sync_project.py <target-project-dir> "
+            "[--mode light|full] [--full] [--with-codex] [--profile <profile-id>]"
+        )
+        return 0
+
     resolved = resolve_profile(sys.argv[1:])
     if resolved is None:
-        print("Usage: python3 scripts/sync_project.py <target-project-dir> [--with-codex] [--profile <profile-id>]")
+        print(
+            "Usage: python3 scripts/sync_project.py <target-project-dir> "
+            "[--mode light|full] [--full] [--with-codex] [--profile <profile-id>]"
+        )
         return 1
 
-    target, with_codex, profile_override = resolved
+    target, with_codex, profile_override, sync_mode = resolved
     self_target = target.resolve() == ROOT.resolve()
 
     if not target.exists():
@@ -191,6 +223,35 @@ def main() -> int:
         "reports",
         "archive",
         "history",
+    ]:
+        (managed_root / relative).mkdir(parents=True, exist_ok=True)
+
+    project_note = managed_root / "PROJECT_AGENTSCODEX.md"
+    record_drift(drift, "bootstrap", project_note, classify_file_state(PROJECT_TEMPLATE, project_note))
+    copy_file(PROJECT_TEMPLATE, project_note)
+
+    if sync_mode == "light":
+        print(f"Synchronized lightweight AgentCodex project state in {target}")
+        print(f"Updated: {managed_root / 'PROJECT_AGENTSCODEX.md'}")
+        print(f"Ensured: {managed_root / 'features'}")
+        print(f"Ensured: {managed_root / 'reports'}")
+        print(f"Ensured: {managed_root / 'archive'}")
+        print(f"Ensured: {managed_root / 'history'}")
+        print("Runtime assets remain in the AgentCodex plugin/package. Use --full to vendor them into the project.")
+        if drift:
+            print("Drift summary before sync:")
+            for category in sorted(drift):
+                missing = sum(1 for item in drift[category] if item.startswith("missing:"))
+                outdated = sum(1 for item in drift[category] if item.startswith("outdated:"))
+                extra = sum(1 for item in drift[category] if item.startswith("extra:"))
+                print(f"- {category}: {missing} missing, {outdated} outdated, {extra} extra")
+                for item in sorted(drift[category]):
+                    print(f"  {item}")
+        else:
+            print("No managed drift detected.")
+        return 0
+
+    for relative in [
         "templates",
         "commands",
         "kb",
@@ -199,10 +260,6 @@ def main() -> int:
         "ops",
     ]:
         (managed_root / relative).mkdir(parents=True, exist_ok=True)
-
-    project_note = managed_root / "PROJECT_AGENTSCODEX.md"
-    record_drift(drift, "bootstrap", project_note, classify_file_state(PROJECT_TEMPLATE, project_note))
-    copy_file(PROJECT_TEMPLATE, project_note)
 
     example_define_dest = managed_root / "features" / "DEFINE_EXAMPLE_PROJECT_FEATURE.md"
     if not example_define_dest.exists():
@@ -224,8 +281,14 @@ def main() -> int:
         }
         if src_files != dest_files:
             record_drift(drift, "bootstrap", project_standard_dest, "outdated")
-        shutil.rmtree(project_standard_dest)
-    shutil.copytree(PROJECT_STANDARD_SOURCE, project_standard_dest)
+    project_standard_dest.mkdir(parents=True, exist_ok=True)
+    for path in sorted(PROJECT_STANDARD_SOURCE.rglob("*")):
+        rel = path.relative_to(PROJECT_STANDARD_SOURCE)
+        target = project_standard_dest / rel
+        if path.is_dir():
+            target.mkdir(parents=True, exist_ok=True)
+            continue
+        copy_file(path, target)
     project_standard_manifest_dest = managed_root / "project-standard.json"
     record_drift(
         drift,

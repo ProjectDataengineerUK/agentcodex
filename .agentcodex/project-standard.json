@@ -293,7 +293,14 @@
         },
         {
           "path": "operations/cost/optimization.md",
-          "required_markers": ["optimization levers", "tradeoffs", "review cadence", "alert thresholds"]
+          "required_markers": [
+            "optimization levers",
+            "tradeoffs",
+            "review cadence",
+            "alert thresholds",
+            "model routing policy",
+            "automatic selection evidence"
+          ]
         }
       ]
     },

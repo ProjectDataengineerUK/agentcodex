@@ -22,8 +22,10 @@ Use this naming pattern:
 
 - `.agentcodex/history/CONTEXT_{FEATURE}_{YYYY-MM-DD}.md`
 - `.agentcodex/history/SESSION_{YYYY-MM-DD}_{TOPIC}.md`
+- `.agentcodex/history/DAILY_TASKS_{YYYY-MM-DD}.md`
 
 Prefer feature-scoped history when work is attached to a named feature. Use session-scoped history only for cross-cutting work.
+Use daily task history for DevOps-style snapshots of completed work, work in progress, and backlog items.
 
 ## Required Sections
 
@@ -54,3 +56,4 @@ Each history file should contain:
 - In bootstrapped projects, prefer `.agentcodex/history/` over ad hoc notes in personal directories.
 - Use `agentcodex new-context <feature-or-topic>` to create a standardized history entry from the template.
 - Use `agentcodex resume-context <feature-or-topic>` to retrieve the latest saved resume point for a scope.
+- Use `agentcodex daily-tasks` to record or update the current day task snapshot.

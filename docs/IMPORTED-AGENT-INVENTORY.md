@@ -9,6 +9,8 @@ Track imported AgentSpec and ECC agents as an auditable backlog with explicit tr
 - `defer`: potentially useful later, but not needed for the current runtime surface
 - `reference-only`: keep as upstream reference, do not port unless strategy changes
 
+For current numeric coverage, use `docs/ROLE-COVERAGE.md`.
+
 ## Triage Rule
 
 Port an imported agent only if it materially improves one of these:
@@ -79,7 +81,9 @@ Do not port imported agents one-to-one just because they exist upstream.
 
 These are the next imported agents that look strong enough to justify a native surface soon.
 
-No strong `port-now` candidates remain. Future ports should be justified case by case.
+All runnable imported AgentSpec and ECC agents now have active AgentCodex role
+coverage without duplicating normalized aliases. Use `docs/ROLE-COVERAGE.md`
+for the current exact and semantic coverage counts.
 
 ## Defer
 
@@ -87,49 +91,19 @@ These may be useful later, but the current AgentCodex runtime does not need a de
 
 ### AgentSpec
 
-- `ai-data-engineer-cloud`
-- `ai-data-engineer-gcp`
-- `ai-prompt-specialist-gcp`
-- `aws-deployer`
-- `aws-lambda-architect`
-- `ci-cd-specialist`
-- `lambda-builder`
-- `supabase-specialist`
-- `lakeflow-expert`
-- `lakeflow-pipeline-builder`
-- `lakeflow-specialist`
-- `qdrant-specialist`
-- `spark-performance-analyzer`
-- `spark-specialist`
-- `spark-streaming-architect`
-- `spark-troubleshooter`
-- `fabric-ai-specialist`
-- `fabric-cicd-specialist`
-- `fabric-logging-specialist`
-- `fabric-pipeline-developer`
-- `fabric-security-specialist`
-- `ai-prompt-specialist`
-- `code-cleaner`
-- `python-developer`
-- `shell-script-specialist`
+No remaining runnable AgentSpec agents are deferred from active role coverage.
 
 Reason:
-These are narrower implementation or platform-specific roles that can stay collapsed under broader native roles for now.
+The narrower implementation and platform-specific roles have been brought into
+`docs/roles/` as active Codex-native ports.
 
 ### ECC
 
-- `architect`
-- `code-simplifier`
-- `docs-lookup`
-- `e2e-runner`
-- `silent-failure-hunter`
-- `type-design-analyzer`
-- `comment-analyzer`
-- `conversation-analyzer`
-- `chief-of-staff`
+No remaining ECC agents are deferred from active role coverage.
 
 Reason:
-Potentially useful, but not yet clearly necessary for the current Codex-first workflow surface.
+The remaining ECC agents have been brought into `docs/roles/` as active
+Codex-native ports.
 
 ## Reference-Only
 
@@ -140,52 +114,13 @@ These imports should remain upstream reference material unless AgentCodex change
 - `_template`
 - `README`
 
-### Highly specific or scope-expanding AgentSpec roles
-
-- `supabase-specialist`
-- `aws-lambda-architect`
-- `lambda-builder`
-- `qdrant-specialist`
-- `fabric-ai-specialist`
-- `fabric-security-specialist`
-
-### ECC language- or ecosystem-specific reviewers/build resolvers
-
-- `cpp-build-resolver`
-- `cpp-reviewer`
-- `csharp-reviewer`
-- `dart-build-resolver`
-- `database-reviewer`
-- `flutter-reviewer`
-- `go-build-resolver`
-- `go-reviewer`
-- `java-build-resolver`
-- `java-reviewer`
-- `kotlin-build-resolver`
-- `kotlin-reviewer`
-- `python-reviewer`
-- `pytorch-build-resolver`
-- `rust-build-resolver`
-- `rust-reviewer`
-- `typescript-reviewer`
-- `healthcare-reviewer`
-- `seo-specialist`
-- `a11y-architect`
-- `gan-evaluator`
-- `gan-generator`
-- `gan-planner`
-- `harness-optimizer`
-- `loop-operator`
-- `opensource-forker`
-- `opensource-packager`
-- `opensource-sanitizer`
-
 Reason:
-These expand AgentCodex beyond its current Codex-first workflow and data-engineering focus, or they are too language-specific to justify a native role today.
+These are reference documents, not runnable role docs.
 
 ## Next Action
 
 If porting continues, the recommended order is:
 
-1. Re-evaluate only when a new runtime gap appears
-2. Prefer refining existing roles before adding more native surface
+1. Use `docs/ROLE-COVERAGE.md` as the current upstream coverage baseline
+2. Evaluate the strong role candidates listed there first
+3. Prefer refining existing roles before adding more native surface

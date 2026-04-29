@@ -23,9 +23,10 @@ MATURITY_SOURCE = ROOT / ".agentcodex" / "maturity"
 MATURITY_PROFILE_OVERLAYS = ROOT / ".agentcodex" / "bootstrap" / "MATURITY_PROFILE_OVERLAYS"
 
 
-def resolve_profile(args: list[str]) -> tuple[Path, bool, str | None] | None:
+def resolve_profile(args: list[str]) -> tuple[Path, bool, str | None, str] | None:
     with_codex = False
     profile: str | None = None
+    install_mode = "light"
     positional: list[str] = []
     i = 0
     while i < len(args):
@@ -33,6 +34,20 @@ def resolve_profile(args: list[str]) -> tuple[Path, bool, str | None] | None:
         if arg == "--with-codex":
             with_codex = True
             i += 1
+            continue
+        if arg == "--full":
+            install_mode = "full"
+            i += 1
+            continue
+        if arg == "--light":
+            install_mode = "light"
+            i += 1
+            continue
+        if arg == "--mode":
+            if i + 1 >= len(args):
+                return None
+            install_mode = args[i + 1]
+            i += 2
             continue
         if arg == "--profile":
             if i + 1 >= len(args):
@@ -42,9 +57,11 @@ def resolve_profile(args: list[str]) -> tuple[Path, bool, str | None] | None:
             continue
         positional.append(arg)
         i += 1
-    if len(positional) != 1:
+    if len(positional) != 1 or install_mode not in {"light", "full"}:
         return None
-    return Path(positional[0]).resolve(), with_codex, profile
+    if profile:
+        install_mode = "full"
+    return Path(positional[0]).resolve(), with_codex, profile, install_mode
 
 
 def copy_profile_overlay(target: Path, profile: str) -> None:
@@ -68,12 +85,22 @@ def copy_profile_overlay(target: Path, profile: str) -> None:
 
 
 def main() -> int:
+    if not sys.argv[1:] or sys.argv[1] in {"help", "--help", "-h"}:
+        print(
+            "Usage: python3 scripts/bootstrap_project.py <target-project-dir> "
+            "[--mode light|full] [--full] [--with-codex] [--profile <profile-id>]"
+        )
+        return 0
+
     resolved = resolve_profile(sys.argv[1:])
     if resolved is None:
-        print("Usage: python3 scripts/bootstrap_project.py <target-project-dir> [--with-codex] [--profile <profile-id>]")
+        print(
+            "Usage: python3 scripts/bootstrap_project.py <target-project-dir> "
+            "[--mode light|full] [--full] [--with-codex] [--profile <profile-id>]"
+        )
         return 1
 
-    target, with_codex, profile = resolved
+    target, with_codex, profile, install_mode = resolved
     target.mkdir(parents=True, exist_ok=True)
 
     for relative in [
@@ -81,12 +108,6 @@ def main() -> int:
         ".agentcodex/reports",
         ".agentcodex/archive",
         ".agentcodex/history",
-        ".agentcodex/templates",
-        ".agentcodex/commands",
-        ".agentcodex/kb",
-        ".agentcodex/routing",
-        ".agentcodex/maturity",
-        ".agentcodex/ops",
     ]:
         (target / relative).mkdir(parents=True, exist_ok=True)
 
@@ -95,6 +116,27 @@ def main() -> int:
     agents_dest = target / "AGENTS.md"
     if not agents_dest.exists():
         shutil.copyfile(PROJECT_AGENTS_TEMPLATE, agents_dest)
+
+    if install_mode == "light":
+        print(f"Bootstrapped lightweight AgentCodex project state at {target}")
+        print(f"Created: {dest}")
+        print(f"Created: {agents_dest}")
+        print(f"Created: {target / '.agentcodex' / 'features'}")
+        print(f"Created: {target / '.agentcodex' / 'reports'}")
+        print(f"Created: {target / '.agentcodex' / 'archive'}")
+        print(f"Created: {target / '.agentcodex' / 'history'}")
+        print("Runtime assets remain in the AgentCodex plugin/package. Use --mode full to vendor them into the project.")
+        return 0
+
+    for relative in [
+        ".agentcodex/templates",
+        ".agentcodex/commands",
+        ".agentcodex/kb",
+        ".agentcodex/routing",
+        ".agentcodex/maturity",
+        ".agentcodex/ops",
+    ]:
+        (target / relative).mkdir(parents=True, exist_ok=True)
 
     example_define_dest = target / ".agentcodex" / "features" / "DEFINE_EXAMPLE_PROJECT_FEATURE.md"
     shutil.copyfile(EXAMPLE_DEFINE_TEMPLATE, example_define_dest)

@@ -24,6 +24,7 @@
 | [patterns/feature-engineering.md](patterns/feature-engineering.md) | Feast definitions, materialization, feature services |
 | [patterns/text-to-sql.md](patterns/text-to-sql.md) | Schema-aware prompting, validation, guardrails |
 | [patterns/training-data-pipelines.md](patterns/training-data-pipelines.md) | DVC, labeling, bias detection, reproducibility |
+| [patterns/databricks-rag-and-serving.md](patterns/databricks-rag-and-serving.md) | Databricks RAG, Vector Search, Model Serving, and MLflow evaluation |
 
 ---
 

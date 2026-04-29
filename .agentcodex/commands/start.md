@@ -1,0 +1,54 @@
+# Start
+
+## Purpose
+
+Start a project by scanning the current directory and choosing the correct onboarding path.
+
+Use this as the first command after installation when the operator wants AgentCodex to inspect the repository, generate a context file if needed, and launch the brainstorm workflow.
+
+## Primary Role
+
+- planner
+
+## Escalation Roles
+
+- workflow-brainstormer
+- reviewer
+- domain-researcher
+
+## KB Domains
+
+- orchestration
+- ai-data-engineering
+- data-modeling
+- observability
+
+## Inputs
+
+- current project directory
+- repository files and folder layout
+- markdown notes, PDFs, and videos when the project has no clear base scaffold yet
+
+## Procedure
+
+1. Run `agentcodex start` from the target project directory.
+2. Scan the project for base files such as `README.md`, `AGENTS.md`, `pyproject.toml`, `package.json`, `go.mod`, `Cargo.toml`, `pom.xml`, or `Makefile`.
+3. If base files are present, ask the operator these questions one at a time:
+   - Do you want a detailed project report?
+   - Do you want the project maturity level?
+   - Do you want a vulnerability report?
+   - Do you want a project improvement report?
+4. Write the selected answers and the scan summary to `.agentcodex/reports/start-report.md`.
+5. If base files are not present, read all markdown files in the repository, collect any sidecar text for PDFs and videos when available, and create `context.md` at the project root.
+6. Write an English brainstorm prompt based on `context.md` to `.agentcodex/reports/start-brainstorm-prompt.md`.
+7. Create a draft brainstorm artifact under `.agentcodex/features/BRAINSTORM_{PROJECT}.md`.
+8. Hand the project to `workflow-brainstormer` so the next step can continue from the generated context.
+9. Prefer file-based context over chat-only summaries.
+
+## Outputs
+
+- `.agentcodex/reports/start-report.md` when base project files already exist
+- `context.md` when the project needs raw-context collection first
+- `.agentcodex/reports/start-brainstorm-prompt.md`
+- `.agentcodex/features/BRAINSTORM_{PROJECT}.md`
+

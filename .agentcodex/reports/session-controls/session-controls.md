@@ -1,6 +1,6 @@
 # Session Controls Report
 
-- generated_at: 2026-04-23T23:10:47.505523+00:00
+- generated_at: 2026-04-29T18:08:31.535665+00:00
 
 ## Context Budget
 
@@ -15,19 +15,32 @@
 
 ## Cost Summary
 
-- total_operations: 27
+- total_operations: 28
 - classification_mode: repo-local-script-tiering
 
 ### By Tier
 
-- LOW: 23
+- LOW: 24
 - MEDIUM: 4
 
 ### By Script
 
-- build-index: 7
+- build-index: 8
 - check-updates: 3
-- memory-compact: 3
+- memory-compact: 2
+- memory-ingest: 2
 - memory-retrieve: 8
-- refresh-summaries: 5
+- refresh-summaries: 4
 - sync-sources: 1
+
+## Model Routing
+
+- policy_present: True
+- policy_version: 0.1.0
+- record_every_automatic_selection: True
+- latest_model: gpt-5.3-codex
+- latest_activity: implementation
+- latest_tier: coding
+- latest_reasoning_effort: medium
+- latest_generated_at: 2026-04-29T18:08:28.258059+00:00
+- classification_mode: repo-local-model-routing-policy

@@ -24,3 +24,9 @@ Codex-native port of AgentSpec's `lakeflow-architect`.
 2. Treat expectations and quality gates as part of architecture.
 3. Separate platform pipeline design from low-level job optimization.
 4. Escalate Spark performance work rather than folding it into architecture.
+
+## Required Databricks KB
+
+- `.agentcodex/kb/platforms/databricks/patterns/spark-declarative-pipelines.md`
+- `.agentcodex/kb/platforms/databricks/concepts/compute-and-jobs.md`
+- `.agentcodex/kb/platforms/databricks/patterns/databricks-asset-bundles.md`

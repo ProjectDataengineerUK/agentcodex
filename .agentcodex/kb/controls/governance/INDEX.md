@@ -5,3 +5,4 @@ Initial governance guidance for file-based, auditable platform and data decision
 ## Pages
 
 - [Governance Baseline](governance-baseline.md)
+- [Data Agents Governance Controls](data-agents-governance-controls.md)

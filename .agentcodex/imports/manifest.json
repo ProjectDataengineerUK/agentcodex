@@ -5,7 +5,7 @@
       "source": "agentspec",
       "root": "/home/user/Projetos/agentspec",
       "target_root": ".agentcodex/imports/agentspec",
-      "total_files": 927,
+      "total_files": 933,
       "imports": [
         {
           "name": "agents",
@@ -53,7 +53,23 @@
           "type": "directory",
           "source": "/home/user/Projetos/agentspec/.claude",
           "destination": ".agentcodex/imports/agentspec/claude",
-          "files": 460
+          "files": 461
+        },
+        {
+          "name": "scripts",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/agentspec/scripts",
+          "destination": ".agentcodex/imports/agentspec/scripts",
+          "files": 2
+        },
+        {
+          "name": "plugin_metadata",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/agentspec/plugin/.claude-plugin",
+          "destination": ".agentcodex/imports/agentspec/plugin_metadata",
+          "files": 2
         },
         {
           "name": "plugin_extras_skills",
@@ -77,7 +93,7 @@
           "type": "directory",
           "source": "/home/user/Projetos/agentspec/docs",
           "destination": ".agentcodex/imports/agentspec/docs",
-          "files": 5
+          "files": 6
         },
         {
           "name": "readme",
@@ -213,6 +229,262 @@
           "type": "file",
           "source": "/home/user/Projetos/everything-claude-code/COMMANDS-QUICK-REF.md",
           "destination": ".agentcodex/imports/ecc/commands_quick_ref",
+          "files": 1
+        }
+      ]
+    },
+    {
+      "source": "data-agents",
+      "root": "/home/user/Projetos/data-agents",
+      "target_root": ".agentcodex/imports/data-agents",
+      "total_files": 502,
+      "imports": [
+        {
+          "name": "agents",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/agents",
+          "destination": ".agentcodex/imports/data-agents/agents",
+          "files": 24
+        },
+        {
+          "name": "commands",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/commands",
+          "destination": ".agentcodex/imports/data-agents/commands",
+          "files": 7
+        },
+        {
+          "name": "compression",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/compression",
+          "destination": ".agentcodex/imports/data-agents/compression",
+          "files": 5
+        },
+        {
+          "name": "config",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/config",
+          "destination": ".agentcodex/imports/data-agents/config",
+          "files": 8
+        },
+        {
+          "name": "evals",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/evals",
+          "destination": ".agentcodex/imports/data-agents/evals",
+          "files": 3
+        },
+        {
+          "name": "hooks",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/hooks",
+          "destination": ".agentcodex/imports/data-agents/hooks",
+          "files": 12
+        },
+        {
+          "name": "kb",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/kb",
+          "destination": ".agentcodex/imports/data-agents/kb",
+          "files": 92
+        },
+        {
+          "name": "mcp_servers",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/mcp_servers",
+          "destination": ".agentcodex/imports/data-agents/mcp_servers",
+          "files": 33
+        },
+        {
+          "name": "memory",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/memory",
+          "destination": ".agentcodex/imports/data-agents/memory",
+          "files": 10
+        },
+        {
+          "name": "monitoring",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/monitoring",
+          "destination": ".agentcodex/imports/data-agents/monitoring",
+          "files": 2
+        },
+        {
+          "name": "scripts",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/scripts",
+          "destination": ".agentcodex/imports/data-agents/scripts",
+          "files": 6
+        },
+        {
+          "name": "skills",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/skills",
+          "destination": ".agentcodex/imports/data-agents/skills",
+          "files": 196
+        },
+        {
+          "name": "templates",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/templates",
+          "destination": ".agentcodex/imports/data-agents/templates",
+          "files": 5
+        },
+        {
+          "name": "tests",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/tests",
+          "destination": ".agentcodex/imports/data-agents/tests",
+          "files": 43
+        },
+        {
+          "name": "tools",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/tools",
+          "destination": ".agentcodex/imports/data-agents/tools",
+          "files": 3
+        },
+        {
+          "name": "ui",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/ui",
+          "destination": ".agentcodex/imports/data-agents/ui",
+          "files": 4
+        },
+        {
+          "name": "utils",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/utils",
+          "destination": ".agentcodex/imports/data-agents/utils",
+          "files": 5
+        },
+        {
+          "name": "wiki",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/wiki",
+          "destination": ".agentcodex/imports/data-agents/wiki",
+          "files": 1
+        },
+        {
+          "name": "workflow",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/workflow",
+          "destination": ".agentcodex/imports/data-agents/workflow",
+          "files": 4
+        },
+        {
+          "name": "github_workflows",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/.github/workflows",
+          "destination": ".agentcodex/imports/data-agents/github_workflows",
+          "files": 2
+        },
+        {
+          "name": "claude_commands",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/.claude/commands",
+          "destination": ".agentcodex/imports/data-agents/claude_commands",
+          "files": 3
+        },
+        {
+          "name": "chainlit",
+          "status": "copied",
+          "type": "directory",
+          "source": "/home/user/Projetos/data-agents/.chainlit",
+          "destination": ".agentcodex/imports/data-agents/chainlit",
+          "files": 25
+        },
+        {
+          "name": "readme",
+          "status": "copied",
+          "type": "file",
+          "source": "/home/user/Projetos/data-agents/README.md",
+          "destination": ".agentcodex/imports/data-agents/readme",
+          "files": 1
+        },
+        {
+          "name": "product",
+          "status": "copied",
+          "type": "file",
+          "source": "/home/user/Projetos/data-agents/PRODUCT.md",
+          "destination": ".agentcodex/imports/data-agents/product",
+          "files": 1
+        },
+        {
+          "name": "changelog",
+          "status": "copied",
+          "type": "file",
+          "source": "/home/user/Projetos/data-agents/CHANGELOG.md",
+          "destination": ".agentcodex/imports/data-agents/changelog",
+          "files": 1
+        },
+        {
+          "name": "manual_report",
+          "status": "copied",
+          "type": "file",
+          "source": "/home/user/Projetos/data-agents/Manual_Relatorio_Tecnico_Projeto_Data_Agents.md",
+          "destination": ".agentcodex/imports/data-agents/manual_report",
+          "files": 1
+        },
+        {
+          "name": "license",
+          "status": "copied",
+          "type": "file",
+          "source": "/home/user/Projetos/data-agents/LICENSE",
+          "destination": ".agentcodex/imports/data-agents/license",
+          "files": 1
+        },
+        {
+          "name": "pyproject",
+          "status": "copied",
+          "type": "file",
+          "source": "/home/user/Projetos/data-agents/pyproject.toml",
+          "destination": ".agentcodex/imports/data-agents/pyproject",
+          "files": 1
+        },
+        {
+          "name": "makefile",
+          "status": "copied",
+          "type": "file",
+          "source": "/home/user/Projetos/data-agents/Makefile",
+          "destination": ".agentcodex/imports/data-agents/makefile",
+          "files": 1
+        },
+        {
+          "name": "mcp_config",
+          "status": "copied",
+          "type": "file",
+          "source": "/home/user/Projetos/data-agents/.mcp.json",
+          "destination": ".agentcodex/imports/data-agents/mcp_config",
+          "files": 1
+        },
+        {
+          "name": "env_example",
+          "status": "copied",
+          "type": "file",
+          "source": "/home/user/Projetos/data-agents/.env.example",
+          "destination": ".agentcodex/imports/data-agents/env_example",
           "files": 1
         }
       ]

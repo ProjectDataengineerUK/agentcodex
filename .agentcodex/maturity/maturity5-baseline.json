@@ -119,6 +119,7 @@
             "security"
           ],
           "required_feature_paths": [
+            "operations/agentic-llm/model-policy.md",
             "operations/sentinel/knowledge-feed.md",
             "operations/sentinel/supervision.md",
             "operations/sentinel/quarantine.md",

@@ -19,7 +19,8 @@ def reset_dir(path: Path) -> None:
 
 
 def copy_plugin_tree(src: Path, dest: Path) -> None:
-    shutil.copytree(src, dest, dirs_exist_ok=True)
+    ignore = shutil.ignore_patterns("__pycache__", "*.pyc", "*.pyo")
+    shutil.copytree(src, dest, dirs_exist_ok=True, ignore=ignore)
 
 
 def build_archive(source_dir: Path, archive_path: Path) -> None:

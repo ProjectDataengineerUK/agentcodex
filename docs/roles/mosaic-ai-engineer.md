@@ -26,3 +26,8 @@ Codex-native role for implementing and reviewing Mosaic AI-style workflows in Da
 4. Distinguish platform capability from actual production readiness and control coverage.
 5. Escalate platform-wide Databricks design to `databricks-architect` and generic GenAI system design to `genai-architect`.
 
+## Required Databricks KB
+
+- `.agentcodex/kb/platforms/databricks/concepts/databricks-ai-surface.md`
+- `.agentcodex/kb/platforms/databricks/concepts/unity-catalog-operations.md`
+- `.agentcodex/kb/patterns/rag/`

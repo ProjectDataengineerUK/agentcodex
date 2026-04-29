@@ -51,6 +51,7 @@ ROLE_KB_MAP = {
     "azure-ai-architect": ["azure", "rag", "mcp", "ai-data-engineering", "observability"],
     "data-governance-architect": ["governance", "access-control", "data-contracts", "lineage", "observability"],
     "data-observability-engineer": ["observability", "data-quality", "orchestration", "lineage", "ai-data-engineering"],
+    "business-monitor": ["observability", "data-quality", "orchestration"],
     "data-platform-engineer": ["aws", "gcp", "lakehouse", "medallion", "terraform", "microsoft-fabric"],
     "data-security-architect": ["access-control", "governance", "observability", "azure", "databricks", "snowflake"],
     "databricks-architect": ["databricks", "lakehouse", "medallion", "spark", "governance"],
@@ -62,6 +63,7 @@ ROLE_KB_MAP = {
     "lakeflow-architect": ["lakeflow", "lakehouse", "medallion", "spark"],
     "schema-governance-engineer": ["data-contracts", "data-quality", "lineage", "dbt"],
     "schema-designer": ["data-modeling", "sql-patterns"],
+    "semantic-modeler": ["data-modeling", "sql-patterns", "microsoft-fabric", "databricks"],
     "dbt-specialist": ["dbt", "data-modeling", "data-quality", "sql-patterns"],
     "sql-optimizer": ["sql-patterns", "data-modeling"],
     "lakehouse-architect": ["lakehouse", "medallion", "data-modeling"],
@@ -115,6 +117,7 @@ ROLE_OWNS_MAP = {
     "azure-ai-architect": ["azure-ai-architecture", "azure-retrieval-design"],
     "data-governance-architect": ["governance-architecture", "control-design"],
     "data-observability-engineer": ["data-observability", "signal-design"],
+    "business-monitor": ["business-monitoring", "alert-triage"],
     "data-platform-engineer": ["platform-selection", "cost-optimization"],
     "data-security-architect": ["data-security-architecture", "trust-boundaries"],
     "databricks-architect": ["databricks-architecture", "unity-catalog-boundaries"],
@@ -126,6 +129,7 @@ ROLE_OWNS_MAP = {
     "lakeflow-architect": ["lakeflow", "dlt-pipelines"],
     "schema-governance-engineer": ["schema-governance", "compatibility-policy"],
     "schema-designer": ["schema", "dimensional-modeling"],
+    "semantic-modeler": ["semantic-modeling", "metric-design", "business-metrics"],
     "dbt-specialist": ["dbt", "analytics-models"],
     "sql-optimizer": ["sql", "query-plans"],
     "lakehouse-architect": ["lakehouse", "storage-layout"],
@@ -179,6 +183,7 @@ ROLE_ESCALATIONS_MAP = {
     "azure-ai-architect": ["genai-architect", "data-security-architect", "platform-access-engineer"],
     "data-governance-architect": ["data-security-architect", "schema-governance-engineer", "metadata-platform-engineer"],
     "data-observability-engineer": ["silent-failure-hunter", "data-governance-architect"],
+    "business-monitor": ["data-observability-engineer", "sentinel-runtime-watcher", "data-quality-analyst"],
     "data-platform-engineer": [
         "lakehouse-architect",
         "schema-designer",
@@ -196,6 +201,7 @@ ROLE_ESCALATIONS_MAP = {
     "lakeflow-architect": ["spark-engineer", "medallion-architect"],
     "schema-governance-engineer": ["schema-designer", "data-governance-architect"],
     "schema-designer": [],
+    "semantic-modeler": ["schema-designer", "fabric-architect", "databricks-architect"],
     "dbt-specialist": ["schema-designer"],
     "silent-failure-hunter": ["code-reviewer", "security-reviewer"],
     "sql-optimizer": ["schema-designer", "dbt-specialist"],
@@ -218,6 +224,77 @@ def category_for_role(role_id: str) -> str:
     return "workflow" if role_id.startswith("workflow-") else "specialist"
 
 
+def infer_kb_domains(role_id: str) -> list[str]:
+    domains: list[str] = []
+    token_domains = [
+        ("fabric", "microsoft-fabric"),
+        ("spark", "spark"),
+        ("streaming", "streaming"),
+        ("lakeflow", "lakeflow"),
+        ("lakehouse", "lakehouse"),
+        ("aws", "aws"),
+        ("lambda", "aws"),
+        ("gcp", "gcp"),
+        ("terraform", "terraform"),
+        ("database", "data-modeling"),
+        ("sql", "sql-patterns"),
+        ("data", "ai-data-engineering"),
+        ("quality", "data-quality"),
+        ("contract", "data-contracts"),
+        ("security", "access-control"),
+        ("reviewer", "governance"),
+        ("performance", "observability"),
+        ("troubleshooter", "observability"),
+        ("logging", "observability"),
+        ("pipeline", "orchestration"),
+        ("ci-cd", "orchestration"),
+        ("e2e", "data-quality"),
+        ("python", "ai-data-engineering"),
+        ("typescript", "ai-data-engineering"),
+        ("genai", "genai"),
+        ("prompt", "genai"),
+        ("llm", "genai"),
+        ("qdrant", "rag"),
+        ("supabase", "data-modeling"),
+    ]
+    for token, domain in token_domains:
+        if token in role_id and domain not in domains:
+            domains.append(domain)
+    return domains
+
+
+def infer_owns(role_id: str) -> list[str]:
+    ownership = role_id.replace("-specialist", "").replace("-reviewer", "-review")
+    ownership = ownership.replace("-resolver", "-resolution")
+    return [ownership]
+
+
+def infer_escalations(role_id: str) -> list[str]:
+    if "security" in role_id:
+        return ["security-reviewer", "data-security-architect"]
+    if "fabric" in role_id:
+        return ["fabric-architect", "data-platform-engineer"]
+    if "spark" in role_id:
+        return ["spark-engineer", "pipeline-architect"]
+    if "lakeflow" in role_id:
+        return ["lakeflow-architect", "spark-engineer"]
+    if "aws" in role_id or "lambda" in role_id:
+        return ["aws-data-architect", "terraform-specialist"]
+    if "gcp" in role_id:
+        return ["gcp-data-architect", "terraform-specialist"]
+    if "database" in role_id:
+        return ["schema-designer", "data-contracts-engineer"]
+    if "reviewer" in role_id:
+        return ["code-reviewer", "security-reviewer"]
+    if "build" in role_id:
+        return ["build-error-resolver", "code-reviewer"]
+    if "pipeline" in role_id or "e2e" in role_id or "ci-cd" in role_id:
+        return ["pipeline-architect", "data-quality-analyst"]
+    if "prompt" in role_id or "llm" in role_id:
+        return ["llm-specialist", "prompt-crafter"]
+    return ["planner"]
+
+
 def emit_list(items: list[str], indent: int = 4) -> list[str]:
     if not items:
         return [" " * indent + "[]"]
@@ -234,11 +311,11 @@ def main() -> int:
         lines.append(f"    category: {category_for_role(role_id)}")
         lines.append(f"    doc: docs/roles/{role_file.name}")
         lines.append("    kb_domains:")
-        lines.extend(emit_list(ROLE_KB_MAP.get(role_id, []), indent=6))
+        lines.extend(emit_list(ROLE_KB_MAP.get(role_id, infer_kb_domains(role_id)), indent=6))
         lines.append("    owns:")
-        lines.extend(emit_list(ROLE_OWNS_MAP.get(role_id, []), indent=6))
+        lines.extend(emit_list(ROLE_OWNS_MAP.get(role_id, infer_owns(role_id)), indent=6))
         lines.append("    escalates_to:")
-        lines.extend(emit_list(ROLE_ESCALATIONS_MAP.get(role_id, []), indent=6))
+        lines.extend(emit_list(ROLE_ESCALATIONS_MAP.get(role_id, infer_escalations(role_id)), indent=6))
 
     ROLES_MANIFEST.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"Wrote roles manifest: {ROLES_MANIFEST}")

@@ -461,7 +461,17 @@ def load_backend_manifest() -> dict:
 
 def active_backend_id() -> str:
     manifest = load_backend_manifest()
-    return str(manifest.get("default_backend", "local-mock"))
+    return str(manifest.get("default_backend", "auto"))
+
+
+def qdrant_backend_is_configured() -> bool:
+    return bool(os.environ.get("AGENTCODEX_MEMORY_QDRANT_URL", "").strip())
+
+
+def resolve_auto_backend() -> MemoryBackend:
+    if qdrant_backend_is_configured():
+        return QdrantMemoryBackend()
+    return LocalMockMemoryBackend()
 
 
 def active_sources_for_backend(backend_id: str) -> dict[str, dict]:
@@ -482,6 +492,8 @@ def active_sources_for_backend(backend_id: str) -> dict[str, dict]:
 
 def get_backend(backend_id: str | None = None) -> MemoryBackend:
     resolved = backend_id or active_backend_id()
+    if resolved == "auto":
+        return resolve_auto_backend()
     if resolved == "local-mock":
         return LocalMockMemoryBackend()
     if resolved == "mem0":

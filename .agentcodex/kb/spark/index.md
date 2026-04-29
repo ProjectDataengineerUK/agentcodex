@@ -24,6 +24,7 @@
 | [patterns/window-functions.md](patterns/window-functions.md) | ROW_NUMBER, RANK, LAG/LEAD, sessionization |
 | [patterns/performance-tuning.md](patterns/performance-tuning.md) | Broadcast joins, skew handling, caching |
 | [patterns/delta-integration.md](patterns/delta-integration.md) | Delta Lake 4.1, UniForm, MERGE, OPTIMIZE |
+| [patterns/data-agents-spark-operations.md](patterns/data-agents-spark-operations.md) | operational Spark performance, streaming, and Delta review points |
 
 ---
 

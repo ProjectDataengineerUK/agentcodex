@@ -87,6 +87,7 @@ Use short-term context for:
 
 Currently active:
 
+- automatic backend selection that prefers Qdrant when configured and falls back to local file snapshots
 - local mock backend using file snapshots behind a formal adapter boundary
 - local observability for retrieval, ingest, and compaction operations
 - deterministic routing through memory-specific roles
@@ -120,7 +121,8 @@ This keeps retrieval, ingest, and compaction backend-aware without forcing backe
 
 Current backend notes:
 
-- `local-mock` remains the default active backend
+- `auto` resolves to `qdrant` when `AGENTCODEX_MEMORY_QDRANT_URL` is set, otherwise `local-mock`
+- `local-mock` remains the fallback active backend
 - `mem0` is implemented as an optional REST adapter driven by environment variables
 - `qdrant` is implemented as an optional REST adapter driven by environment variables
 - `langmem` remains prepared as an explicit stub behind the same boundary

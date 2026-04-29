@@ -69,14 +69,20 @@ def prompt_nonempty(label: str) -> str:
         print("This field is required.")
 
 
-def prompt_block(title: str, questions: list[tuple[str, str]]) -> dict[str, str]:
-    print(title)
-    print()
-    answers: dict[str, str] = {}
-    for key, label in questions:
-        answers[key] = prompt_nonempty(f"{label}: ")
-    print()
-    return answers
+def prompt_options(question: str, options: list[tuple[str, str]], allow_other: bool = True) -> tuple[str, str]:
+    print(question)
+    for key, label in options:
+        print(f"({key}) {label}")
+    if allow_other:
+        print("(x) Something else")
+    while True:
+        answer = input("Choose one option: ").strip().lower()
+        for key, label in options:
+            if answer == key:
+                return key, label
+        if allow_other and answer == "x":
+            return "x", prompt_nonempty("Please describe")
+        print("Invalid choice.")
 
 
 def prompt_yes_no(label: str) -> bool:
@@ -87,6 +93,84 @@ def prompt_yes_no(label: str) -> bool:
         if value in {"n", "no"}:
             return False
         print("Enter yes or no.")
+
+
+def brainstorm_intake() -> dict[str, str]:
+    print("Brainstorm intake")
+    print("We will clarify the idea one question at a time.")
+    print()
+
+    feature_name = prompt_nonempty("Feature name")
+    idea = prompt_nonempty("What is the project idea")
+
+    problem_key, problem_value = prompt_options(
+        "What kind of problem does it solve?",
+        [
+            ("a", "A manual process that should be automated"),
+            ("b", "A new capability that does not exist today"),
+            ("c", "A fragmented process that needs standardization"),
+        ],
+    )
+
+    users_key, users_value = prompt_options(
+        "Who is most affected?",
+        [
+            ("a", "Internal team or operators"),
+            ("b", "External users or customers"),
+            ("c", "Both internal and external stakeholders"),
+        ],
+    )
+
+    outcome_key, outcome_value = prompt_options(
+        "What is the first expected outcome?",
+        [
+            ("a", "A working MVP or first usable flow"),
+            ("b", "A validated architecture and project structure"),
+            ("c", "A requirements baseline for the next phase"),
+        ],
+    )
+
+    constraints_key, constraints_value = prompt_options(
+        "What is the main current constraint?",
+        [
+            ("a", "Time or deadline pressure"),
+            ("b", "Technical or platform constraints"),
+            ("c", "Limited clarity; requirements are still fuzzy"),
+        ],
+    )
+
+    samples_key, samples_value = prompt_options(
+        "Do you have any context material that can ground the solution?",
+        [
+            ("a", "Sample input files or source data"),
+            ("b", "Expected output examples or target behavior"),
+            ("c", "Ground truth, verified data, or a requirements document"),
+            ("d", "None available yet"),
+        ],
+        allow_other=False,
+    )
+
+    out_of_scope = prompt_nonempty("What is out of scope for now")
+    open_questions = prompt_nonempty("What open questions already exist")
+    local_context = prompt_nonempty("Which local files or documents should be considered as context")
+
+    return {
+        "feature_name": feature_name,
+        "idea": idea,
+        "problem": problem_value,
+        "problem_choice": problem_key,
+        "users": users_value,
+        "users_choice": users_key,
+        "first_outcome": outcome_value,
+        "first_outcome_choice": outcome_key,
+        "constraints": constraints_value,
+        "constraints_choice": constraints_key,
+        "samples": samples_value,
+        "samples_choice": samples_key,
+        "out_of_scope": out_of_scope,
+        "open_questions": open_questions,
+        "local_context": local_context,
+    }
 
 
 def project_scan() -> dict:
@@ -154,6 +238,11 @@ def brainstorm_content(feature: str, owner: str, intake: dict[str, str], scan: d
 
 {intake['idea']}
 
+Problem framing:
+
+- problem type: {intake['problem']}
+- available grounding material: {intake['samples']}
+
 ## Users or Stakeholders
 
 - primary: {intake['users']}
@@ -213,8 +302,11 @@ Rationale: the current context is still early-stage, so reducing ambiguity befor
 Initial intake summary:
 
 - project idea: {intake['idea']}
+- problem type: {intake['problem']}
+- primary audience: {intake['users']}
 - first expected outcome: {intake['first_outcome']}
 - known constraints: {intake['constraints']}
+- available grounding material: {intake['samples']}
 - out of scope for now: {intake['out_of_scope']}
 - local context to consider: {intake['local_context']}
 - open questions already known: {intake['open_questions']}
@@ -435,20 +527,7 @@ def main() -> int:
     choice = prompt_choice()
 
     if choice == "1":
-        intake = prompt_block(
-            "Brainstorm intake\nPlease answer briefly:",
-            [
-                ("feature_name", "1. Short feature name"),
-                ("idea", "2. What is the project idea"),
-                ("problem", "3. What problem does it solve"),
-                ("users", "4. Who are the users or stakeholders"),
-                ("first_outcome", "5. What is the first expected outcome"),
-                ("constraints", "6. What constraints already exist"),
-                ("out_of_scope", "7. What is out of scope for now"),
-                ("open_questions", "8. What open questions already exist"),
-                ("local_context", "9. Which local files or documents should be considered as context"),
-            ],
-        )
+        intake = brainstorm_intake()
         feature = slugify(intake["feature_name"])
         target = FEATURES_ROOT / f"BRAINSTORM_{feature}.md"
         write_text(target, brainstorm_content(feature, owner, intake, scan))

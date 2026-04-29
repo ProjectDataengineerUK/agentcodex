@@ -13,6 +13,7 @@
 | [concepts/scd-types.md](concepts/scd-types.md) | SCD Types 1-6 with SQL patterns |
 | [concepts/normalization.md](concepts/normalization.md) | 1NF-BCNF, when to denormalize |
 | [concepts/schema-evolution.md](concepts/schema-evolution.md) | Iceberg/Avro evolution, compatibility |
+| [concepts/semantic-modeling.md](concepts/semantic-modeling.md) | semantic models, metrics, Direct Lake, Metric Views |
 
 ### Patterns (< 200 lines each)
 

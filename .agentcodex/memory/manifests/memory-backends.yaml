@@ -1,5 +1,5 @@
 version: 0.1.0
-default_backend: local-mock
+default_backend: auto
 adapter_boundary:
   status: active
   module: scripts/memory_backend.py
@@ -11,10 +11,15 @@ adapter_boundary:
     - compact
     - health
 backends:
+  - id: auto
+    kind: selector
+    status: active
+    purpose: choose qdrant when configured, otherwise fall back to the local file backend
+    adapter_status: implemented
   - id: local-mock
     kind: file-based
     status: active
-    purpose: local snapshot and retrieval backend used during phase-8 retrieval work
+    purpose: local snapshot and retrieval backend used as the fallback and test backend
     adapter_status: implemented
   - id: mem0
     kind: adapter
@@ -27,8 +32,8 @@ backends:
       project_env: AGENTCODEX_MEMORY_MEM0_PROJECT
   - id: qdrant
     kind: vector-store
-    status: implemented-not-default
-    purpose: preferred vector storage backend for retrieval augmentation
+    status: preferred
+    purpose: preferred vector storage backend for retrieval augmentation when configured
     adapter_status: implemented
     config:
       url_env: AGENTCODEX_MEMORY_QDRANT_URL

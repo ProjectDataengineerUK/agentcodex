@@ -1,6 +1,6 @@
 # Upstream Imports
 
-This document tracks the raw import layer copied into AgentCodex from the two upstream frameworks on April 22, 2026.
+This document tracks the raw import layer copied into AgentCodex from upstream frameworks and project sources.
 
 The goal of this layer is simple:
 
@@ -15,6 +15,7 @@ All imported upstream content lives under:
 
 - `.agentcodex/imports/agentspec/`
 - `.agentcodex/imports/ecc/`
+- `.agentcodex/imports/data-agents/`
 
 The machine-readable catalog is:
 
@@ -39,6 +40,8 @@ Imported surfaces:
 - `docs`: 5 files
 - `README.md`: imported as `.agentcodex/imports/agentspec/readme`
 - `CLAUDE.md`: imported as `.agentcodex/imports/agentspec/claude_md`
+- `scripts`: imported as `.agentcodex/imports/agentspec/scripts`
+- `plugin/.claude-plugin`: imported as `.agentcodex/imports/agentspec/plugin_metadata`
 
 Practical meaning:
 
@@ -78,13 +81,52 @@ Practical meaning:
 - the mirrored `docs`, `scripts/ci`, `schemas`, and `manifests` provide direct input for validation, installation, and governance work
 - imported files are preserved raw, then selectively adapted into AgentCodex-native docs and tooling
 
+## Imported From Data Agents
+
+Source repository:
+
+- `/home/user/Projetos/data-agents`
+
+Imported surfaces:
+
+- `agents`: imported as `.agentcodex/imports/data-agents/agents`
+- `commands`: imported as `.agentcodex/imports/data-agents/commands`
+- `compression`: imported as `.agentcodex/imports/data-agents/compression`
+- `config`: imported as `.agentcodex/imports/data-agents/config`
+- `evals`: imported as `.agentcodex/imports/data-agents/evals`
+- `hooks`: imported as `.agentcodex/imports/data-agents/hooks`
+- `kb`: imported as `.agentcodex/imports/data-agents/kb`
+- `mcp_servers`: imported as `.agentcodex/imports/data-agents/mcp_servers`
+- `memory`: imported as `.agentcodex/imports/data-agents/memory`
+- `monitoring`: imported as `.agentcodex/imports/data-agents/monitoring`
+- `scripts`: imported as `.agentcodex/imports/data-agents/scripts`
+- `skills`: imported as `.agentcodex/imports/data-agents/skills`
+- `templates`: imported as `.agentcodex/imports/data-agents/templates`
+- `tests`: imported as `.agentcodex/imports/data-agents/tests`
+- `tools`: imported as `.agentcodex/imports/data-agents/tools`
+- `ui`: imported as `.agentcodex/imports/data-agents/ui`
+- `utils`: imported as `.agentcodex/imports/data-agents/utils`
+- `wiki`: imported as `.agentcodex/imports/data-agents/wiki`
+- `workflow`: imported as `.agentcodex/imports/data-agents/workflow`
+- `.github/workflows`: imported as `.agentcodex/imports/data-agents/github_workflows`
+- `.claude/commands`: imported as `.agentcodex/imports/data-agents/claude_commands`
+- `.chainlit`: imported as `.agentcodex/imports/data-agents/chainlit`
+- `README.md`, `PRODUCT.md`, `CHANGELOG.md`, `LICENSE`, `Makefile`, `pyproject.toml`, `.mcp.json`, `.env.example`, and the technical manual are imported as top-level reference files
+
+Practical meaning:
+
+- Data Agents remains the stronger local source for Databricks/Fabric operating patterns, MCP server examples, memory lifecycle ideas, hooks, monitoring, and data-agent UI/runtime behavior.
+- AgentCodex preserves it as raw source material under `.agentcodex/imports/data-agents/`.
+- Selected high-value patterns are normalized into AgentCodex KB and policy docs instead of copied as runtime hooks.
+
 ## Current Totals
 
 Current raw imports copied into AgentCodex:
 
-- `agentspec`: 927 files
+- `agentspec`: 933 files
 - `everything-claude-code`: 1340 files
-- total: 2267 files
+- `data-agents`: 502 files
+- total: 2775 files
 
 ## How To Use The Imports
 
@@ -113,6 +155,16 @@ To refresh only one upstream:
 ```bash
 agentcodex import-upstreams agentspec
 agentcodex import-upstreams ecc
+agentcodex import-upstreams data-agents
+```
+
+After import refresh, regenerate the catalog and native extension registries:
+
+```bash
+agentcodex generate-import-catalog
+agentcodex generate-data-agents-extension
+agentcodex generate-roles
+agentcodex generate-routing
 ```
 
 ## KB Sync Automation

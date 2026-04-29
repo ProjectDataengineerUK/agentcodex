@@ -12,10 +12,11 @@ REPO_ROOT = SCRIPT_PATH.parents[3] if len(SCRIPT_PATH.parents) > 3 else PLUGIN_R
 RUNTIME_ROOT = PLUGIN_ROOT / "runtime" / "agentcodex-runtime"
 
 
-def resolve_args(args: list[str]) -> tuple[Path, str, bool, str | None] | None:
+def resolve_args(args: list[str]) -> tuple[Path, str, bool, str | None, str] | None:
     mode = "install"
-    with_codex = True
+    with_codex = False
     profile: str | None = None
+    install_mode = "light"
     positional: list[str] = []
     i = 0
     while i < len(args):
@@ -23,14 +24,37 @@ def resolve_args(args: list[str]) -> tuple[Path, str, bool, str | None] | None:
         if arg == "--mode":
             if i + 1 >= len(args):
                 return None
-            mode = args[i + 1]
+            value = args[i + 1]
+            if value in {"install", "sync"}:
+                mode = value
+            elif value in {"light", "full"}:
+                install_mode = value
+            else:
+                return None
             i += 2
+            continue
+        if arg == "--sync":
+            mode = "sync"
+            i += 1
+            continue
+        if arg == "--full":
+            install_mode = "full"
+            i += 1
+            continue
+        if arg == "--light":
+            install_mode = "light"
+            i += 1
             continue
         if arg == "--profile":
             if i + 1 >= len(args):
                 return None
             profile = args[i + 1]
+            install_mode = "full"
             i += 2
+            continue
+        if arg == "--with-codex":
+            with_codex = True
+            i += 1
             continue
         if arg == "--without-codex":
             with_codex = False
@@ -40,7 +64,7 @@ def resolve_args(args: list[str]) -> tuple[Path, str, bool, str | None] | None:
         i += 1
     if len(positional) != 1 or mode not in {"install", "sync"}:
         return None
-    return Path(positional[0]).resolve(), mode, with_codex, profile
+    return Path(positional[0]).resolve(), mode, with_codex, profile, install_mode
 
 
 def runtime_source_root() -> Path:
@@ -64,13 +88,26 @@ def sync_file(src: Path, dest: Path, mode: str, overwrite: bool = True) -> None:
     copy_file(src, dest)
 
 
+def sync_tree_contents(src: Path, dest: Path) -> None:
+    dest.mkdir(parents=True, exist_ok=True)
+    for path in sorted(src.rglob("*")):
+        rel = path.relative_to(src)
+        target = dest / rel
+        if path.is_dir():
+            target.mkdir(parents=True, exist_ok=True)
+            continue
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(path, target)
+
+
 def sync_tree(src: Path, dest: Path, mode: str) -> None:
-    if dest.exists():
-        if mode == "install":
-            shutil.rmtree(dest)
-        else:
-            shutil.rmtree(dest)
-    shutil.copytree(src, dest)
+    if not dest.exists():
+        shutil.copytree(src, dest)
+        return
+    if mode == "install":
+        sync_tree_contents(src, dest)
+        return
+    sync_tree_contents(src, dest)
 
 
 def copy_profile_overlay(source_root: Path, target: Path, profile: str) -> None:
@@ -81,7 +118,14 @@ def copy_profile_overlay(source_root: Path, target: Path, profile: str) -> None:
     sync_tree(overlay_root / "ops", target / ".agentcodex" / "ops", "sync")
 
 
-def install_or_sync(target: Path, source_root: Path, mode: str, with_codex: bool, profile: str | None) -> None:
+def install_or_sync(
+    target: Path,
+    source_root: Path,
+    mode: str,
+    with_codex: bool,
+    profile: str | None,
+    install_mode: str,
+) -> None:
     target.mkdir(parents=True, exist_ok=True)
     managed_root = target / ".agentcodex"
     for relative in [
@@ -89,6 +133,17 @@ def install_or_sync(target: Path, source_root: Path, mode: str, with_codex: bool
         "reports",
         "archive",
         "history",
+    ]:
+        (managed_root / relative).mkdir(parents=True, exist_ok=True)
+
+    bootstrap_root = source_root / ".agentcodex" / "bootstrap"
+    sync_file(bootstrap_root / "PROJECT_AGENTSCODEX_TEMPLATE.md", managed_root / "PROJECT_AGENTSCODEX.md", mode)
+    sync_file(bootstrap_root / "PROJECT_AGENTS_TEMPLATE.md", target / "AGENTS.md", mode, overwrite=False)
+
+    if install_mode == "light":
+        return
+
+    for relative in [
         "templates",
         "commands",
         "kb",
@@ -98,9 +153,6 @@ def install_or_sync(target: Path, source_root: Path, mode: str, with_codex: bool
     ]:
         (managed_root / relative).mkdir(parents=True, exist_ok=True)
 
-    bootstrap_root = source_root / ".agentcodex" / "bootstrap"
-    sync_file(bootstrap_root / "PROJECT_AGENTSCODEX_TEMPLATE.md", managed_root / "PROJECT_AGENTSCODEX.md", mode)
-    sync_file(bootstrap_root / "PROJECT_AGENTS_TEMPLATE.md", target / "AGENTS.md", mode, overwrite=False)
     sync_file(
         bootstrap_root / "EXAMPLE_DEFINE_TEMPLATE.md",
         managed_root / "features" / "DEFINE_EXAMPLE_PROJECT_FEATURE.md",
@@ -122,19 +174,28 @@ def install_or_sync(target: Path, source_root: Path, mode: str, with_codex: bool
 
 
 def main() -> int:
+    if not sys.argv[1:] or sys.argv[1] in {"help", "--help", "-h"}:
+        print(
+            "Usage: python3 plugins/agentcodex/scripts/install_runtime.py "
+            "<target-project-dir> [--mode install|sync|light|full] [--sync] [--full] "
+            "[--profile <profile-id>] [--with-codex|--without-codex]"
+        )
+        return 0
+
     resolved = resolve_args(sys.argv[1:])
     if resolved is None:
         print(
             "Usage: python3 plugins/agentcodex/scripts/install_runtime.py "
-            "<target-project-dir> [--mode install|sync] [--profile <profile-id>] [--without-codex]",
+            "<target-project-dir> [--mode install|sync|light|full] [--sync] [--full] "
+            "[--profile <profile-id>] [--with-codex|--without-codex]",
             file=sys.stderr,
         )
         return 1
 
-    target, mode, with_codex, profile = resolved
+    target, mode, with_codex, profile, install_mode = resolved
     source_root = runtime_source_root()
     try:
-        install_or_sync(target, source_root, mode, with_codex, profile)
+        install_or_sync(target, source_root, mode, with_codex, profile, install_mode)
     except ValueError:
         available = ", ".join(
             sorted(
@@ -148,10 +209,12 @@ def main() -> int:
         return 1
 
     action = "Installed" if mode == "install" else "Synchronized"
-    print(f"{action} AgentCodex runtime in {target}")
+    print(f"{action} AgentCodex {install_mode} runtime in {target}")
     if with_codex:
         print(f"Created or updated: {target / '.codex'}")
     print(f"Created or updated: {target / '.agentcodex'}")
+    if install_mode == "light":
+        print("Runtime assets remain in the AgentCodex plugin/package. Use --full to vendor them into the project.")
     if not (target / "AGENTS.md").exists():
         print(f"Expected AGENTS.md missing at {target / 'AGENTS.md'}", file=sys.stderr)
         return 1

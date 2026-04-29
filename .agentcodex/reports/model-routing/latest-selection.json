@@ -1,0 +1,28 @@
+{
+  "activity": "implementation",
+  "activity_reason": "explicit activity",
+  "budget": "standard",
+  "compact_first": false,
+  "confidence": 0.95,
+  "context_status": "ok",
+  "generated_at": "2026-04-29T18:12:45.100134+00:00",
+  "model": "gpt-5.3-codex",
+  "model_use_for": "implementation, tests, repo-native command work, bounded refactors",
+  "policy_path": ".agentcodex/model-routing.json",
+  "reasoning_effort": "medium",
+  "report_path": ".agentcodex/reports/model-routing/model-routing.md",
+  "risk": "low",
+  "risk_reason": "default low risk",
+  "role": null,
+  "role_coverage": {
+    "roles_resolved": 125,
+    "roles_total": 125,
+    "unresolved_roles": []
+  },
+  "role_reason": "no role",
+  "selection_reasons": [
+    "base activity tier: coding"
+  ],
+  "task": "crie teste focado",
+  "tier": "coding"
+}

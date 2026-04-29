@@ -1,5 +1,12 @@
 # Agent Routing
 
+## Model Selection
+
+- route first by activity, then specialist role, then risk, budget, and context pressure
+- use `agentcodex model-route` to persist selected model, tier, effort, and reasons
+- use smaller tiers for exploration, status, summaries, and deterministic low-risk updates
+- escalate high-risk security, compliance, production, migration, or architecture arbitration to frontier tiers
+
 ## Handoff Rules
 
 - watcher outputs hand off to analyzers when repeated signals, threshold breaches, or correlated failures appear

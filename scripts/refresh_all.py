@@ -51,6 +51,8 @@ def main() -> int:
 
     run_step("generate roles manifest", [python, str(ROOT / "scripts" / "generate_roles_manifest.py")])
     run_step("generate routing manifest", [python, str(ROOT / "scripts" / "generate_routing_manifest.py")])
+    run_step("generate ECC extension registry", [python, str(ROOT / "scripts" / "generate_ecc_extension_registry.py")])
+    run_step("generate Data Agents extension registry", [python, str(ROOT / "scripts" / "generate_data_agents_extension_registry.py")])
     run_step("generate status doc", [python, str(ROOT / "scripts" / "generate_status_doc.py")])
     run_step("sync all context histories", [python, str(ROOT / "scripts" / "sync_all_context_histories.py")])
     run_step("extract memory candidates", [python, str(ROOT / "scripts" / "memory_extract.py")])

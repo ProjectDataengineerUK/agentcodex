@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import os
 import sys
 import unittest
+from unittest import mock
 from pathlib import Path
 
 
@@ -17,6 +19,16 @@ class MemoryBackendTests(unittest.TestCase):
     def test_get_backend_returns_local_mock_by_default(self) -> None:
         resolved = backend.get_backend()
         self.assertEqual(resolved.backend_id, "local-mock")
+
+    def test_get_backend_auto_prefers_qdrant_when_configured(self) -> None:
+        with mock.patch.dict(os.environ, {"AGENTCODEX_MEMORY_QDRANT_URL": "http://localhost:6333"}, clear=False):
+            resolved = backend.get_backend("auto")
+            self.assertEqual(resolved.backend_id, "qdrant")
+
+    def test_get_backend_auto_falls_back_without_qdrant_config(self) -> None:
+        with mock.patch.dict(os.environ, {}, clear=True):
+            resolved = backend.get_backend("auto")
+            self.assertEqual(resolved.backend_id, "local-mock")
 
     def test_local_mock_exposes_expected_sources(self) -> None:
         resolved = backend.get_backend("local-mock")

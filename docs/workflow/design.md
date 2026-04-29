@@ -4,15 +4,15 @@
 
 Phase 2 of AgentCodex.
 
-Convert the defined requirements into a buildable design with file-level intent, architecture decisions, and role assignments.
+Convert validated requirements into a buildable technical design with architecture decisions, KB-grounded patterns, file-level intent, testing strategy, and role assignments.
 
 ## Inputs
 
-Accepted inputs:
-
 - `.agentcodex/features/DEFINE_{FEATURE}.md`
+- `.agentcodex/features/BRAINSTORM_{FEATURE}.md` when available
 - repository evidence
-- system constraints
+- KB domains named in define
+- system, platform, security, and operational constraints
 
 ## Outputs
 
@@ -20,53 +20,73 @@ Write:
 
 - `.agentcodex/features/DESIGN_{FEATURE}.md`
 
+Use:
+
+- `.agentcodex/templates/DESIGN_TEMPLATE.md`
+
+## Procedure
+
+1. Read the `DEFINE` artifact and verify it passed the clarity gate.
+2. Load relevant KB domains from `.agentcodex/kb/`.
+3. Inspect existing code/docs/tests for local patterns.
+4. Create an ASCII architecture diagram.
+5. Document components, flow, integrations, configuration, error handling, security, and observability.
+6. Record key decisions as inline ADRs with rejected alternatives.
+7. Create a complete file manifest.
+8. Assign a role or `(general)` to every file.
+9. Define code/config/test patterns grounded in local KB and repo conventions.
+10. Define the testing and verification strategy before build starts.
+11. Add pipeline architecture when data engineering context exists.
+
 ## Required Sections
 
+- KB patterns loaded
 - architecture overview
-- data flow or system flow
+- components
+- key decisions
 - file manifest
-- implementation strategy
-- dependencies and interfaces
-- test strategy
-- risks and open decisions
+- agent assignment rationale
+- code patterns
+- data flow
+- integration points
+- testing strategy
+- error handling
+- configuration
+- security considerations
+- observability
+- pipeline architecture when applicable
+- risks
+- revision history
+- exit check
 
 ## File Manifest Rule
 
 Each design must include a manifest that states:
 
 - target file or module
+- create/modify action
 - purpose
 - dependency notes
 - recommended role
 
-Example shape:
-
-```text
-- path: pipelines/orders_daily.py
-  purpose: orchestrate daily ingestion and transforms
-  depends_on: config/settings.py, jobs/orders_transform.py
-  role: pipeline-architect
-```
-
-## Procedure
-
-1. Read the `DEFINE` artifact.
-2. Identify the target architecture.
-3. Break work into files or modules.
-4. Assign a role per file when specialization matters.
-5. Define the test and verification approach before build starts.
-6. Call out migration risks and rollout constraints.
+Build should not start until the manifest is complete.
 
 ## Minimum Quality Gate
 
-- complete manifest exists
-- each major file has a purpose
-- testing approach is explicit
-- major dependencies are named
-- risks are identified
+- KB patterns loaded from define's domains
+- architecture diagram exists
+- each major component has a purpose
+- at least one decision has full rationale
+- complete file manifest exists
+- each file has a role assignment or `(general)`
+- testing strategy covers acceptance tests
+- error handling, configuration, security, and observability are explicit
+- pipeline architecture is present when data context exists
+- major dependencies and risks are named
 
 ## Recommended Role Usage
 
+- `workflow-designer` as the primary role
 - `explorer` for current architecture evidence
 - `domain-researcher` for domain validation
 - `reviewer` for pre-build design risk review
@@ -76,5 +96,7 @@ Example shape:
 Move to `build` when:
 
 - the manifest is complete
-- the implementation strategy is internally consistent
+- implementation strategy is internally consistent
 - verification expectations are defined
+- risks and assumptions are documented
+

@@ -6,20 +6,64 @@ Instead, command intent is represented as explicit procedure documents that Code
 
 For repository installation and bootstrap, the preferred Codex-first command is:
 
-- `agentcodex install <target-project-dir> [--profile <profile-id>]`
+- `agentcodex install <target-project-dir> [--mode light|full] [--profile <profile-id>]`
+- `agentcodex start`
+- `agentcodex daily-tasks`
+- `agentcodex model-route`
+- `agentcodex generate-ecc-extension`
+- `agentcodex generate-data-agents-extension`
 
-This command maps to the bootstrap flow with local `.codex/` support enabled by default.
+This command maps to the lightweight bootstrap flow by default, matching AgentSpec's plugin model.
+
+Default lightweight install writes only:
+
+- `AGENTS.md`
+- `.agentcodex/features/`
+- `.agentcodex/reports/`
+- `.agentcodex/archive/`
+- `.agentcodex/history/`
+
+Runtime assets such as KB, command procedures, templates, routing, maturity baselines, and role docs remain in the installed plugin/package unless full mode is requested:
+
+```bash
+agentcodex install <target-project-dir> --mode full --with-codex
+```
 
 Current procedures:
 
+- `docs/commands/brainstorm.md`
+- `docs/commands/start.md`
+- `docs/commands/daily-tasks.md`
+- `docs/commands/model-route.md`
+- `docs/commands/define.md`
+- `docs/commands/design.md`
+- `docs/commands/build.md`
+- `docs/commands/ship.md`
+- `docs/commands/iterate.md`
+- `docs/commands/create-pr.md`
+- `docs/commands/diff-review.md`
+- `docs/commands/fact-check.md`
+- `docs/commands/generate-slides.md`
+- `docs/commands/generate-visual-plan.md`
+- `docs/commands/generate-web-diagram.md`
+- `docs/commands/plan-review.md`
+- `docs/commands/project-recap.md`
+- `docs/commands/share.md`
 - `docs/commands/project-intake.md`
 - `docs/commands/pipeline.md`
 - `docs/commands/schema.md`
+- `docs/commands/sql-review.md`
+- `docs/commands/lakehouse.md`
+- `docs/commands/migrate.md`
 - `docs/commands/data-contract.md`
 - `docs/commands/data-quality.md`
 - `docs/commands/ai-pipeline.md`
 - `docs/commands/review.md`
+- `docs/commands/judge.md`
+- `docs/commands/readme-maker.md`
+- `docs/commands/memory.md`
 - `docs/commands/meeting.md`
+- `docs/commands/status.md`
 - `docs/commands/sync-context.md`
 - `docs/commands/create-kb.md`
 - `docs/commands/platform-health.md`
@@ -35,13 +79,15 @@ Related governance:
 - `docs/CONTEXT-HISTORY.md`
 - `agentcodex project-intake`
 - `agentcodex new-context <feature-or-topic>`
-- `agentcodex install <target-project-dir> [--profile <profile-id>]`
+- `agentcodex install <target-project-dir> [--mode light|full] [--profile <profile-id>]`
+- `agentcodex generate-ecc-extension`
+- `agentcodex generate-data-agents-extension`
 
-When a project is bootstrapped or synchronized, these procedures are copied into:
+When a project is bootstrapped or synchronized in full mode, these procedures are copied into:
 
 - `.agentcodex/commands/`
 
-That project-local bundle is now checked by `agentcodex check-project` for:
+That full project-local bundle is checked by `agentcodex check-project` for:
 
 - expected procedure presence
 - minimum required sections

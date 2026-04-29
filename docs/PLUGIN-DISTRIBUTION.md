@@ -17,8 +17,9 @@ Install AgentCodex in this repository.
 The plugin then applies:
 
 - `AGENTS.md`
-- `.codex/`
-- `.agentcodex/`
+- lightweight `.agentcodex/` workflow state directories
+
+This intentionally mirrors AgentSpec's recommended plugin installation model: the plugin owns runtime assets, while each target repository stores only local workflow state and outputs unless the user explicitly asks for a full vendored scaffold.
 
 No source-repo clone should be required for the end user.
 
@@ -29,6 +30,7 @@ The repository contains:
 - plugin manifest: `plugins/agentcodex/.codex-plugin/plugin.json`
 - plugin skill: `plugins/agentcodex/skills/install-agentcodex/SKILL.md`
 - plugin installer: `plugins/agentcodex/scripts/install_runtime.py`
+- repository marketplace root: `marketplace.json`
 - local marketplace entry: `.agents/plugins/marketplace.json`
 - runtime bundle builder: `scripts/build_plugin_runtime.py`
 - plugin packager: `scripts/package_plugin.py`
@@ -60,6 +62,29 @@ Practical implication:
 
 - do not promise `codex install agentcodex` as a supported public install path unless OpenAI publishes that registry/install surface explicitly
 - treat plugin library or workspace-level plugin installation as the supported target distribution model
+- when using the Codex CLI marketplace source flow, prefer the repository root marketplace at `marketplace.json`
+
+## Repository marketplace source
+
+This repository now exposes a marketplace root at:
+
+- `marketplace.json`
+
+That file references the bundled plugin tree under:
+
+- `./plugins/agentcodex`
+
+If your installed Codex CLI supports Git-based marketplace sources, the intended command is:
+
+```bash
+codex plugin marketplace add https://github.com/ProjectDataengineerUK/agentcodex.git
+```
+
+Notes:
+
+- use the repository Git URL, not a `raw.githubusercontent.com/.../marketplace.json` URL
+- the CLI help on this machine indicates `codex plugin marketplace add <SOURCE>` accepts Git URLs and marketplace root directories
+- whether the plugin becomes directly installable from the UI after adding the marketplace depends on the Codex build and workspace capabilities in use
 
 ## Maintainer release preparation
 
@@ -154,7 +179,13 @@ Because the public Codex docs currently confirm plugin/library support but do no
 1. maintain the plugin in this source repository
 2. package a self-contained plugin archive per release
 3. register or upload that package through the Codex plugin workflow available in your workspace
-4. have the plugin install the scaffold into user repositories from the bundled runtime
+4. have the plugin initialize lightweight workflow state in user repositories from the bundled runtime
+
+Full vendored installs remain available for teams that want repo-local copies of KB, templates, routing, command procedures, and Codex agent config:
+
+```bash
+agentcodex install <target-project-dir> --mode full --with-codex
+```
 
 ## Current gap to close
 

@@ -4,11 +4,19 @@ Use this skill when the user wants to install, sync, or validate AgentCodex in a
 
 ## Purpose
 
-Materialize the AgentCodex local runtime inside a target project by writing:
+Initialize AgentCodex project-local workflow state while keeping the runtime assets in the plugin by default.
+
+The default behavior matches AgentSpec's plugin ergonomics: do not copy the full framework into every project.
+
+Default lightweight install writes:
 
 - `AGENTS.md`
-- `.codex/`
-- `.agentcodex/`
+- `.agentcodex/features/`
+- `.agentcodex/reports/`
+- `.agentcodex/archive/`
+- `.agentcodex/history/`
+
+Full install remains available when a team wants to vendor the runtime into the repository.
 
 ## Preferred commands
 
@@ -21,16 +29,22 @@ python3 plugins/agentcodex/scripts/install_runtime.py .
 Install with a maturity profile:
 
 ```bash
-python3 plugins/agentcodex/scripts/install_runtime.py . --profile agentic-llm
+python3 plugins/agentcodex/scripts/install_runtime.py . --full --profile agentic-llm
 ```
 
-Sync an existing repository to the latest bundled scaffold:
+Install the full bundled scaffold:
 
 ```bash
-python3 plugins/agentcodex/scripts/install_runtime.py . --mode sync
+python3 plugins/agentcodex/scripts/install_runtime.py . --full --with-codex
 ```
 
-Validate an existing repository after install or sync:
+Sync an existing repository to the latest bundled full scaffold:
+
+```bash
+python3 plugins/agentcodex/scripts/install_runtime.py . --sync --full
+```
+
+Validate a full vendored repository after install or sync:
 
 ```bash
 python3 scripts/agentcodex.py check-project .
@@ -40,4 +54,5 @@ python3 scripts/agentcodex.py check-project .
 
 - The installer resolves runtime assets from a bundled runtime directory when present.
 - During local development inside the AgentCodex source repository, the installer can fall back to the canonical repo files.
-- Prefer `install_runtime.py` over directly copying files by hand so profile overlays and managed directories stay consistent.
+- `check-project` expects a full vendored scaffold; lightweight installs are intentionally smaller.
+- Prefer lightweight install unless the user explicitly asks for a full vendored scaffold.

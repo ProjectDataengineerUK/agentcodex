@@ -29,6 +29,7 @@
 ## Quick Reference
 
 - [quick-reference.md](quick-reference.md) - Fast lookup tables
+- [data-agents-quality-operations.md](data-agents-quality-operations.md) - Data Agents quality dimensions, profiling, expectations, and SLA rules
 
 ## Agent Usage
 

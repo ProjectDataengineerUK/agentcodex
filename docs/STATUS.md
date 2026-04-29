@@ -4,11 +4,22 @@ Generated status snapshot for AgentCodex.
 
 ## Current Surface
 
-- documented roles: 66
-- command procedures: 14
+- documented roles: 125
+- command procedures: 40
 - codex agents: 3
 - ADRs: 3
-- history entries: 4
+- history entries: 7
+
+## Upstream Role Coverage
+
+- coverage report: `docs/ROLE-COVERAGE.md`
+- imported AgentSpec files under `.agentcodex/imports/agentspec/agents/`: 60
+- imported ECC agents under `.agentcodex/imports/ecc/agents/`: 48
+- gross imported AgentSpec + ECC files: 108
+- unique imported filename stems: 107
+- exact upstream stems already active as AgentCodex roles: 96
+- exact upstream stems not active as AgentCodex roles: 11
+- AgentCodex-native role stems beyond exact upstream matches: 29
 
 ## Project Standard
 
@@ -47,9 +58,73 @@ Profiles:
 - `agentic-llm`: Maturity 5 Agentic LLMOps
 - `regulated-enterprise`: Maturity 5 Regulated Enterprise
 
+## Workflow Fidelity
+
+- manifest: `.agentcodex/workflow-fidelity.json`
+- version: 0.1.0
+- source contract: `.agentcodex/imports/agentspec/sdd/architecture/WORKFLOW_CONTRACTS.yaml`
+- phases: 6
+
+Phases:
+- `brainstorm`
+- `build`
+- `define`
+- `design`
+- `iterate`
+- `ship`
+
+## ECC Fidelity
+
+- manifest: `.agentcodex/ecc-fidelity.json`
+- version: 0.1.0
+- source root: `.agentcodex/imports/ecc`
+- preserved surfaces: 10
+- codex runtime adaptations: 4
+- direct ECC role matches: 13
+- validation stack files: 10
+- ported ECC validator checks: 5
+
+## ECC Extension Registry
+
+- manifest: `.agentcodex/ecc-extension.json`
+- commands: 79
+- agents: 48
+- skills: 183
+- rules: 87
+- install modules: 20
+- Codex/OpenCode modules: 19
+- active command name matches: 1
+- active role name matches: 47
+
+## Data Agents Extension Registry
+
+- manifest: `.agentcodex/data-agents-extension.json`
+- agents: 12
+- commands: 6
+- skills: 44
+- KB files: 92
+- MCP servers: 13
+- hooks: 12
+- tests: 42
+- templates: 5
+- mapped agents: 12
+- mapped commands: 4
+
+## Model Routing
+
+- manifest: `.agentcodex/model-routing.json`
+- version: 0.1.0
+- model tiers: 4
+- activities: 10
+- role overrides: 14
+- latest selected model: `gpt-5.3-codex`
+- latest activity: `implementation`
+- latest tier: `coding`
+
 ## Automation
 
 - `agentcodex refresh-all` refreshes generated artifacts and validates the repo
+- `agentcodex model-route [task]` records automatic model selection for token and risk control
 - `agentcodex readiness-report <target-project-dir>` writes a project readiness report
 - `agentcodex ship-gate <target-project-dir>` enforces readiness before ship
 - `agentcodex control-plane-check <target-project-dir>` scores multi-agent, token, cost, and security/compliance readiness

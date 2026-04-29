@@ -10,6 +10,8 @@ ROOT = Path(__file__).resolve().parent.parent
 OBS_ROOT = ROOT / ".agentcodex" / "observability"
 METRICS_ROOT = OBS_ROOT / "metrics"
 REPORTS_ROOT = ROOT / ".agentcodex" / "reports" / "session-controls"
+MODEL_ROUTING_POLICY = ROOT / ".agentcodex" / "model-routing.json"
+MODEL_ROUTING_LATEST = ROOT / ".agentcodex" / "reports" / "model-routing" / "latest-selection.json"
 
 CONTEXT_LIMIT = 180_000
 WARN_THRESHOLD = 0.80
@@ -91,11 +93,30 @@ def infer_cost_summary() -> dict[str, object]:
     }
 
 
+def infer_model_routing_summary() -> dict[str, object]:
+    policy = load_json(MODEL_ROUTING_POLICY)
+    latest = load_json(MODEL_ROUTING_LATEST)
+    return {
+        "policy_present": bool(policy),
+        "policy_version": policy.get("version"),
+        "record_every_automatic_selection": bool(
+            policy.get("token_policy", {}).get("record_every_automatic_selection", False)
+        ),
+        "latest_model": latest.get("model"),
+        "latest_activity": latest.get("activity"),
+        "latest_tier": latest.get("tier"),
+        "latest_reasoning_effort": latest.get("reasoning_effort"),
+        "latest_generated_at": latest.get("generated_at"),
+        "classification_mode": "repo-local-model-routing-policy",
+    }
+
+
 def write_report(payload: dict[str, object]) -> Path:
     REPORTS_ROOT.mkdir(parents=True, exist_ok=True)
     path = REPORTS_ROOT / "session-controls.md"
     context = payload["context_budget"]
     cost = payload["cost_summary"]
+    model_routing = payload["model_routing"]
     lines = [
         "# Session Controls Report",
         "",
@@ -125,6 +146,22 @@ def write_report(payload: dict[str, object]) -> Path:
     lines.extend(["", "### By Script", ""])
     for script, count in sorted(cost["by_script"].items()):
         lines.append(f"- {script}: {count}")
+    lines.extend(
+        [
+            "",
+            "## Model Routing",
+            "",
+            f"- policy_present: {model_routing['policy_present']}",
+            f"- policy_version: {model_routing['policy_version']}",
+            f"- record_every_automatic_selection: {model_routing['record_every_automatic_selection']}",
+            f"- latest_model: {model_routing['latest_model']}",
+            f"- latest_activity: {model_routing['latest_activity']}",
+            f"- latest_tier: {model_routing['latest_tier']}",
+            f"- latest_reasoning_effort: {model_routing['latest_reasoning_effort']}",
+            f"- latest_generated_at: {model_routing['latest_generated_at']}",
+            f"- classification_mode: {model_routing['classification_mode']}",
+        ]
+    )
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return path
 
@@ -134,6 +171,7 @@ def build_payload() -> dict[str, object]:
         "generated_at": datetime.now(UTC).isoformat(),
         "context_budget": infer_context_budget(),
         "cost_summary": infer_cost_summary(),
+        "model_routing": infer_model_routing_summary(),
     }
     report_path = write_report(payload)
     payload["report_path"] = str(report_path.relative_to(ROOT))

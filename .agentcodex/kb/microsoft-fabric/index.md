@@ -24,6 +24,7 @@
 ## Quick Reference
 
 - [quick-reference.md](quick-reference.md) -- Fast lookup tables and decision matrices
+- [fabric-data-agents-enrichment.md](fabric-data-agents-enrichment.md) -- Data Agents Fabric, Direct Lake, RTI, and cross-platform notes
 
 ## Key Concepts
 

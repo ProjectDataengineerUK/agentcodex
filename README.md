@@ -11,11 +11,13 @@ It keeps the practical parts:
 
 ## Install
 
-End-user flow:
+For other users without this repository cloned, add the AgentCodex marketplace source:
 
-1. Install the `AgentCodex` plugin in Codex.
-2. Open your repository in Codex.
-3. Ask Codex:
+```bash
+codex plugin marketplace add https://github.com/ProjectDataengineerUK/agentcodex.git
+```
+
+Then install or enable `AgentCodex` from the Codex plugin/library surface, open your repository, and ask:
 
 ```text
 Install AgentCodex in this repository.
@@ -24,24 +26,41 @@ Install AgentCodex in this repository.
 This applies:
 
 - `AGENTS.md`
-- `.codex/`
-- `.agentcodex/`
+- lightweight `.agentcodex/` workflow state directories
 
-For a home-local Codex setup, prepare the plugin with:
+AgentCodex now follows the same default installation model as AgentSpec: runtime assets stay in the plugin/package, while the target project receives only minimal workflow state. To vendor the full runtime into a project, run:
+
+```bash
+agentcodex install <target-project-dir> --mode full --with-codex
+```
+
+Local shortcut on this machine:
+
+- `codex install agentcodex` works on this machine because a local Codex command shim is installed in `~/.local/bin/codex`
+- the shim delegates all other commands to the real Codex binary
+
+If you need to install that shim manually:
+
+```bash
+python3 scripts/install_codex_command_shim.py
+```
+
+If you need to install the plugin without the shim:
 
 ```bash
 python3 scripts/install_codex_plugin.py
 ```
 
-That installs a local `AgentCodex` plugin entry for Codex and prepares the runtime bundle.
-
-Current public docs confirm Codex plugin/library support, but do not document a third-party registry flow equivalent to `codex install agentcodex` by package name.
-Treat the supported distribution target as a Codex plugin installed from a plugin surface/library, not a guaranteed name-based CLI registry install.
-
 To remove the local plugin entry:
 
 ```bash
 python3 scripts/install_codex_plugin.py --uninstall
+```
+
+To remove the command shim:
+
+```bash
+python3 scripts/install_codex_command_shim.py --uninstall
 ```
 
 ## Quick Start
@@ -64,7 +83,7 @@ Raw imported upstream material is preserved separately under:
 - `.agentcodex/imports/agentspec/`
 - `.agentcodex/imports/ecc/`
 
-Current runtime surfaces:
+Full vendored runtime surfaces:
 
 - `AGENTS.md`
 - `.codex/config.toml`
@@ -74,6 +93,8 @@ Current runtime surfaces:
 - `.agentcodex/kb/`
 - `.agentcodex/features/`
 - `.agentcodex/history/`
+
+In lightweight installs, most runtime surfaces remain in the installed plugin or package instead of being copied into the target repository.
 
 ## Distribution
 
@@ -87,6 +108,12 @@ Before publishing, validate plugin metadata readiness with:
 
 ```bash
 python3 scripts/agentcodex.py validate-plugin
+```
+
+For marketplace-based installation tests, use:
+
+```bash
+codex plugin marketplace add https://github.com/ProjectDataengineerUK/agentcodex.git
 ```
 
 ## Credits

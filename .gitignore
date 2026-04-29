@@ -5,6 +5,7 @@ __pycache__/
 # Local virtual environments
 .venv/
 .venv-packaging/
+.venv-start/
 
 # AgentCodex runtime state
 .agentcodex/workflows/*

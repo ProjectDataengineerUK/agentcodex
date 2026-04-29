@@ -1,8 +1,8 @@
 # Memory Extract Report
 
-- generated_at: 2026-04-23T13:04:47.856804+00:00
+- generated_at: 2026-04-29T18:25:44.180067+00:00
 - extracted: 2
-- candidates_path: .agentcodex/memory/candidates/memory-extract-2026-04-23.json
+- candidates_path: .agentcodex/memory/candidates/memory-extract-2026-04-29.json
 
 ## Candidates
 
