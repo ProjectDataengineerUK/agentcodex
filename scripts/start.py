@@ -12,7 +12,19 @@ ROOT = Path.cwd()
 REPORTS_ROOT = ROOT / ".agentcodex" / "reports"
 FEATURES_ROOT = ROOT / ".agentcodex" / "features"
 CONTEXT_PATH = ROOT / "context.md"
-IGNORED_DIRS = {".git", ".agentcodex", ".codex", "dist", "build", "node_modules", "__pycache__", ".venv", "venv"}
+IGNORED_DIRS = {
+    ".git",
+    ".agentcodex",
+    ".codex",
+    "dist",
+    "build",
+    "node_modules",
+    "__pycache__",
+    ".venv",
+    ".venv-packaging",
+    ".venv-start",
+    "venv",
+}
 BASE_MARKERS = {
     "README.md",
     "AGENTS.md",
@@ -33,6 +45,7 @@ TEXT_SIDEcars = {".txt", ".md", ".srt", ".vtt"}
 
 @dataclass(frozen=True)
 class ProjectEvidence:
+    all_files: list[str]
     base_files: list[str]
     markdown_files: list[str]
     pdf_files: list[str]
@@ -66,7 +79,7 @@ def prompt_yes_no(question: str, default: bool = False) -> bool:
 def prompt_choice(question: str, options: list[tuple[str, str]]) -> tuple[str, str]:
     print(question)
     for key, label in options:
-        print(f"({key}) {label}")
+        print(f"{key}. {label}")
     while True:
         answer = input("Choose one option: ").strip().lower()
         for key, label in options:
@@ -126,6 +139,7 @@ def sidecar_text(path: Path) -> str | None:
 
 
 def collect_project_evidence(root: Path) -> ProjectEvidence:
+    all_files: list[str] = []
     base_files: list[str] = []
     markdown_files: list[str] = []
     pdf_files: list[str] = []
@@ -137,6 +151,7 @@ def collect_project_evidence(root: Path) -> ProjectEvidence:
         if any(part in IGNORED_DIRS for part in path.parts):
             continue
         rel = str(path.relative_to(root))
+        all_files.append(rel)
         if path.name in BASE_MARKERS or path.suffix.lower() in {".toml", ".yaml", ".yml"} and path.name in {"pyproject.toml", "package.json"}:
             base_files.append(rel)
         if path.suffix.lower() == MARKDOWN_SUFFIX:
@@ -147,6 +162,7 @@ def collect_project_evidence(root: Path) -> ProjectEvidence:
             video_files.append(rel)
 
     return ProjectEvidence(
+        all_files=sorted(all_files),
         base_files=sorted(base_files),
         markdown_files=sorted(markdown_files),
         pdf_files=sorted(pdf_files),
@@ -165,9 +181,12 @@ def build_base_project_report(evidence: ProjectEvidence, answers: dict[str, str]
         "",
         f"- generated_at: `{now_iso()}`",
         f"- root: `{ROOT}`",
+        f"- selected_option: `{answers['selected_option']}`",
+        f"- delivered_report: `{answers['delivered_report']}`",
         "",
         "## Scan",
         "",
+        f"- total files detected: {len(evidence.all_files)}",
         f"- base files detected: {len(evidence.base_files)}",
         f"- markdown files detected: {len(evidence.markdown_files)}",
         f"- pdf files detected: {len(evidence.pdf_files)}",
@@ -175,10 +194,10 @@ def build_base_project_report(evidence: ProjectEvidence, answers: dict[str, str]
         "",
         "## Selected Reports",
         "",
-        f"- detailed project report: {answers['detailed_report']}",
-        f"- maturity report: {answers['maturity_report']}",
-        f"- vulnerability report: {answers['vulnerability_report']}",
-        f"- improvement report: {answers['improvement_report']}",
+        f"- detailed project report: {answers.get('detailed_report', 'no')}",
+        f"- maturity report: {answers.get('maturity_report', 'no')}",
+        f"- vulnerability report: {answers.get('vulnerability_report', 'no')}",
+        f"- improvement report: {answers.get('improvement_report', 'no')}",
         "",
         "## Base Files",
         "",
@@ -193,6 +212,168 @@ def build_base_project_report(evidence: ProjectEvidence, answers: dict[str, str]
         ]
     )
     return "\n".join(lines) + "\n"
+
+
+def limited_items(items: list[str], limit: int = 80) -> list[str]:
+    if len(items) <= limit:
+        return items
+    return items[:limit] + [f"... {len(items) - limit} more"]
+
+
+def build_detailed_project_report(evidence: ProjectEvidence) -> str:
+    lines = [
+        "# Detailed Project Report",
+        "",
+        f"- generated_at: `{now_iso()}`",
+        f"- root: `{ROOT}`",
+        "",
+        "## Inventory",
+        "",
+        f"- total files detected: {len(evidence.all_files)}",
+        f"- top-level entries detected: {len(evidence.top_level_entries)}",
+        f"- base files detected: {len(evidence.base_files)}",
+        f"- markdown files detected: {len(evidence.markdown_files)}",
+        f"- pdf files detected: {len(evidence.pdf_files)}",
+        f"- video files detected: {len(evidence.video_files)}",
+        "",
+        "## Top-Level Entries",
+        "",
+    ]
+    lines.extend(f"- `{item}`" for item in evidence.top_level_entries or ["[none]"])
+    lines.extend(["", "## Base Files", ""])
+    lines.extend(f"- `{item}`" for item in evidence.base_files or ["[none]"])
+    lines.extend(["", "## Markdown Evidence", ""])
+    for rel_path in limited_items(evidence.markdown_files):
+        if rel_path.startswith("... "):
+            lines.append(f"- {rel_path}")
+            continue
+        excerpt = first_non_empty_line(ROOT / rel_path) or "[empty or unreadable]"
+        lines.append(f"- `{rel_path}`")
+        lines.append(f"  - excerpt: {excerpt}")
+    lines.extend(
+        [
+            "",
+            "## Recommended Next Step",
+            "",
+            "- Use `agentcodex project-intake` for a new/refactor definition, or run `/ship` only after real build evidence exists.",
+        ]
+    )
+    return "\n".join(lines) + "\n"
+
+
+def build_maturity_report(evidence: ProjectEvidence) -> str:
+    signals = {
+        "instruction surface": "AGENTS.md" in evidence.base_files,
+        "readme": "README.md" in evidence.base_files,
+        "python package metadata": "pyproject.toml" in evidence.base_files,
+        "documentation depth": len(evidence.markdown_files) >= 10,
+        "tests present": any(path.startswith(".agentcodex/tests/") or "/tests/" in path for path in evidence.all_files),
+    }
+    score = round(sum(1 for value in signals.values() if value) / len(signals) * 100, 1)
+    lines = [
+        "# Project Maturity Report",
+        "",
+        f"- generated_at: `{now_iso()}`",
+        f"- root: `{ROOT}`",
+        f"- maturity_score: {score}",
+        "",
+        "## Signals",
+        "",
+    ]
+    lines.extend(f"- {name}: {'present' if present else 'missing'}" for name, present in signals.items())
+    lines.extend(["", "## Interpretation", ""])
+    if score >= 80:
+        lines.append("- The repository has strong baseline project structure for AgentCodex operation.")
+    elif score >= 60:
+        lines.append("- The repository has usable structure but should close missing operating evidence before ship.")
+    else:
+        lines.append("- The repository needs more baseline documentation, tests, and operating metadata before ship.")
+    return "\n".join(lines) + "\n"
+
+
+def build_vulnerability_report(evidence: ProjectEvidence) -> str:
+    risky_names = {"env", ".env", "id_rsa", "credentials", "secret", "token", "password"}
+    findings: list[str] = []
+    for rel_path in evidence.all_files:
+        lowered = rel_path.lower()
+        if any(name in lowered for name in risky_names):
+            findings.append(rel_path)
+    lines = [
+        "# Vulnerability Report",
+        "",
+        f"- generated_at: `{now_iso()}`",
+        f"- root: `{ROOT}`",
+        "- scope: filename and repository-structure scan only",
+        "",
+        "## Findings",
+        "",
+    ]
+    if findings:
+        lines.extend(f"- review potentially sensitive path: `{item}`" for item in limited_items(sorted(findings), 80))
+    else:
+        lines.append("- no obviously sensitive filenames detected in the scanned file inventory")
+    lines.extend(
+        [
+            "",
+            "## Required Follow-up",
+            "",
+            "- Run a deeper code/path-handling security review before treating this as a full vulnerability assessment.",
+        ]
+    )
+    return "\n".join(lines) + "\n"
+
+
+def build_improvement_report(evidence: ProjectEvidence) -> str:
+    recommendations = [
+        "Keep command behavior documented in both `docs/commands/` and `.agentcodex/commands/` when the runtime surface changes.",
+        "Keep generated reports under `.agentcodex/reports/` so later sessions can resume from files.",
+        "Run `python3 scripts/validate_agentcodex.py` after workflow, role, routing, or command-surface changes.",
+    ]
+    if not any(path.startswith(".agentcodex/tests/") for path in evidence.all_files):
+        recommendations.append("Add AgentCodex regression tests for the updated workflow behavior.")
+    lines = [
+        "# Project Improvement Report",
+        "",
+        f"- generated_at: `{now_iso()}`",
+        f"- root: `{ROOT}`",
+        "",
+        "## Recommendations",
+        "",
+    ]
+    lines.extend(f"- {item}" for item in recommendations)
+    return "\n".join(lines) + "\n"
+
+
+REPORT_OPTIONS = [
+    ("1", "Detailed project report", "start-detailed-project-report.md", "detailed_report", build_detailed_project_report),
+    ("2", "Project maturity level", "start-maturity-report.md", "maturity_report", build_maturity_report),
+    ("3", "Vulnerability report", "start-vulnerability-report.md", "vulnerability_report", build_vulnerability_report),
+    ("4", "Project improvement report", "start-improvement-report.md", "improvement_report", build_improvement_report),
+    ("5", "All reports", "", "all_reports", None),
+]
+
+
+def deliver_selected_reports(evidence: ProjectEvidence, selected_key: str) -> tuple[dict[str, str], list[Path]]:
+    answers = {
+        "selected_option": selected_key,
+        "detailed_report": "no",
+        "maturity_report": "no",
+        "vulnerability_report": "no",
+        "improvement_report": "no",
+        "delivered_report": "",
+    }
+    selected_options = REPORT_OPTIONS[:-1] if selected_key == "5" else [option for option in REPORT_OPTIONS if option[0] == selected_key]
+    written: list[Path] = []
+    for _, label, filename, answer_key, builder in selected_options:
+        if builder is None:
+            continue
+        path = REPORTS_ROOT / filename
+        write_text(path, builder(evidence))
+        answers[answer_key] = "yes"
+        written.append(path)
+        print(f"Created {label.lower()}: {path.relative_to(ROOT)}")
+    answers["delivered_report"] = ", ".join(str(path.relative_to(ROOT)) for path in written)
+    return answers, written
 
 
 def build_context_markdown(evidence: ProjectEvidence) -> str:
@@ -295,16 +476,11 @@ def main() -> int:
     evidence = collect_project_evidence(ROOT)
 
     if has_base_project(evidence):
-        detailed = prompt_yes_no("Do you want a detailed project report?", default=True)
-        maturity = prompt_yes_no("Do you want the project maturity level?", default=True)
-        vulnerability = prompt_yes_no("Do you want a vulnerability report?", default=False)
-        improvement = prompt_yes_no("Do you want a project improvement report?", default=True)
-        answers = {
-            "detailed_report": "yes" if detailed else "no",
-            "maturity_report": "yes" if maturity else "no",
-            "vulnerability_report": "yes" if vulnerability else "no",
-            "improvement_report": "yes" if improvement else "no",
-        }
+        selected_key, _ = prompt_choice(
+            "What do you want AgentCodex to deliver now?",
+            [(key, label) for key, label, *_ in REPORT_OPTIONS],
+        )
+        answers, _ = deliver_selected_reports(evidence, selected_key)
         report_path = REPORTS_ROOT / "start-report.md"
         write_text(report_path, build_base_project_report(evidence, answers))
         print(f"Created start report: {report_path.relative_to(ROOT)}")

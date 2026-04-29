@@ -17,9 +17,11 @@ import start  # noqa: E402
 class StartFlowTests(unittest.TestCase):
     def setUp(self) -> None:
         self.original_root = start.ROOT
+        self.original_reports_root = start.REPORTS_ROOT
 
     def tearDown(self) -> None:
         start.ROOT = self.original_root
+        start.REPORTS_ROOT = self.original_reports_root
 
     def test_detects_base_project_files(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -34,6 +36,7 @@ class StartFlowTests(unittest.TestCase):
             self.assertTrue(start.has_base_project(evidence))
             self.assertIn("README.md", evidence.base_files)
             self.assertIn("docs/notes.md", evidence.markdown_files)
+            self.assertIn("README.md", evidence.all_files)
 
     def test_context_includes_markdown_pdf_and_video_inventory(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -68,6 +71,24 @@ class StartFlowTests(unittest.TestCase):
             self.assertIn("Read context.md", prompt)
             self.assertIn("brainstorm flow", prompt)
             self.assertIn(str(root), prompt)
+
+    def test_deliver_selected_reports_writes_detailed_report_for_option_one(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / ".agentcodex" / "reports").mkdir(parents=True)
+            (root / "README.md").write_text("# Project\nUseful context\n", encoding="utf-8")
+
+            start.ROOT = root
+            start.REPORTS_ROOT = root / ".agentcodex" / "reports"
+            evidence = start.collect_project_evidence(root)
+
+            answers, written = start.deliver_selected_reports(evidence, "1")
+
+            self.assertEqual(answers["detailed_report"], "yes")
+            self.assertEqual(answers["maturity_report"], "no")
+            self.assertEqual(len(written), 1)
+            self.assertTrue((root / ".agentcodex" / "reports" / "start-detailed-project-report.md").exists())
+            self.assertIn("start-detailed-project-report.md", answers["delivered_report"])
 
 
 if __name__ == "__main__":
