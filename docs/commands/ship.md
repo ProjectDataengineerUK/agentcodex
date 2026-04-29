@@ -6,6 +6,8 @@ Archive a completed feature with verification evidence and lessons learned. This
 
 Use this only when build is complete, verification has passed, and the feature is ready to archive.
 
+If a user asks for `/ship`, treat it as this Codex-native procedure. Do not assume a Claude slash-command runtime exists.
+
 ## Primary Role
 
 - workflow-shipper
@@ -34,6 +36,7 @@ Read and verify:
 Confirm:
 
 - build report shows 100% completion or explicitly justified exceptions
+- build report is not an example/scaffold-only artifact
 - all tests pass or exceptions are documented and accepted
 - no blocking issues remain
 - acceptance criteria from define are reviewed
@@ -49,6 +52,14 @@ python3 scripts/agentcodex.py ship-gate <target-project-dir>
 ```
 
 Do not mark shipped while required project-standard blocks remain incomplete unless an explicit exception is documented.
+
+If the gates pass but the feature artifacts are not shippable, for example because `BUILD_REPORT_{FEATURE}.md` is marked `status: example` or says no verification commands were executed, do not create a shipped archive. Instead, write a repo-local gate report under `.agentcodex/reports/ship-run-{DATE}.md` explaining:
+
+- commands run
+- readiness and ship-gate result
+- candidate feature artifacts reviewed
+- blocking reason
+- follow-up needed before archive
 
 ### Step 3: Create Archive Folder
 
@@ -110,6 +121,7 @@ Do not mark ship complete until:
 - [ ] DESIGN document exists
 - [ ] BUILD_REPORT exists
 - [ ] build report shows completion
+- [ ] build report is not example/scaffold-only evidence
 - [ ] all required tests pass or accepted exceptions are documented
 - [ ] no blocking issues remain
 - [ ] acceptance criteria are verified
@@ -126,3 +138,4 @@ After shipping, the next step is either:
 - start a new feature with `brainstorm` or `define`
 - open follow-up work from the shipped artifact's recommendations
 
+If ship was blocked, the next step is to update the build report with real implementation and verification evidence, then re-run this procedure.

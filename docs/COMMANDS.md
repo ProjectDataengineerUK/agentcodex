@@ -74,6 +74,17 @@ Current procedures:
 
 These procedures are ports of high-value AgentSpec command flows into Codex-native project documentation.
 
+## Ship Procedure Note
+
+`/ship` maps to `docs/commands/ship.md` and `.agentcodex/commands/ship.md`. In Codex, it is a file-based procedure:
+
+1. run `agentcodex readiness-report <target-project-dir>`
+2. run `agentcodex ship-gate <target-project-dir>`
+3. verify `DEFINE`, `DESIGN`, and `BUILD_REPORT` artifacts
+4. archive only when the build report contains real completion and verification evidence
+
+If the gates pass but the candidate feature is scaffold/example-only, record `.agentcodex/reports/ship-run-{DATE}.md` and leave the feature unarchived until real build evidence exists.
+
 Related governance:
 
 - `docs/CONTEXT-HISTORY.md`

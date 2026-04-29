@@ -6,6 +6,8 @@ Phase 4 of AgentCodex.
 
 Close the implementation loop, verify delivered work, archive artifacts, capture lessons, and mark the feature as shipped or explicitly not shippable.
 
+When a user asks for `/ship`, run this Codex-native file-based procedure. AgentCodex does not require or assume a Claude slash-command runtime.
+
 ## Inputs
 
 - `.agentcodex/features/BRAINSTORM_{FEATURE}.md` when present
@@ -33,7 +35,7 @@ Use:
 ## Procedure
 
 1. Verify all required artifacts exist.
-2. Confirm the build report shows completion.
+2. Confirm the build report shows completion and is not example/scaffold-only evidence.
 3. Confirm tests pass or exceptions are documented and accepted.
 4. Re-check original acceptance tests and success criteria.
 5. Run the project-standard readiness and ship gates when applicable:
@@ -45,6 +47,8 @@ Use:
 9. Record timeline, metrics, what was built, deviations, lessons, follow-up work, and risks.
 10. Update archived artifact status to shipped when possible.
 11. Document whether working files are kept or removed.
+
+If readiness and ship gates pass but the candidate feature artifacts are not shippable, do not create `SHIPPED_{DATE}.md`. Write `.agentcodex/reports/ship-run-{DATE}.md` with the gates, reviewed artifacts, blocking reason, and follow-up work.
 
 ## Required Sections
 
@@ -69,6 +73,7 @@ Use:
 
 - all required artifacts verified
 - build completion verified
+- build evidence is not example/scaffold-only
 - tests pass or accepted exceptions are documented
 - acceptance criteria reviewed
 - success criteria verified
@@ -92,4 +97,3 @@ The archive should help a future agent understand:
 - how it was verified
 - what still needs work
 - what should be reused or avoided next time
-
