@@ -35,7 +35,7 @@ Use this as the first command after installation when the operator wants AgentCo
 2. Scan the project for base files such as `README.md`, `AGENTS.md`, `pyproject.toml`, `package.json`, `go.mod`, `Cargo.toml`, `pom.xml`, or `Makefile`.
 3. If base files are present, show a numbered delivery menu:
    - `1. Detailed project report`
-   - `2. Project maturity level`
+   - `2. DataOps / MLOps / LLMOps maturity`
    - `3. Vulnerability report`
    - `4. Project improvement report`
    - `5. All reports`
@@ -50,7 +50,7 @@ Use this as the first command after installation when the operator wants AgentCo
 
 - `.agentcodex/reports/start-report.md` when base project files already exist
 - `.agentcodex/reports/start-detailed-project-report.md` for option `1`
-- `.agentcodex/reports/start-maturity-report.md` for option `2`
+- `.agentcodex/reports/start-maturity-report.md` for option `2`, with DataOps, MLOps, and LLMOps maturity tracks
 - `.agentcodex/reports/start-vulnerability-report.md` for option `3`
 - `.agentcodex/reports/start-improvement-report.md` for option `4`
 - `context.md` when the project needs raw-context collection first

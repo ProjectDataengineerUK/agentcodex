@@ -90,6 +90,28 @@ class StartFlowTests(unittest.TestCase):
             self.assertTrue((root / ".agentcodex" / "reports" / "start-detailed-project-report.md").exists())
             self.assertIn("start-detailed-project-report.md", answers["delivered_report"])
 
+    def test_maturity_report_includes_dataops_mlops_llmops_tracks(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / ".agentcodex" / "reports").mkdir(parents=True)
+            (root / "README.md").write_text("# Project\nUseful context\n", encoding="utf-8")
+            (root / ".agentcodex" / "features" / "example-project-standard").mkdir(parents=True)
+            (root / ".agentcodex" / "model-routing.json").write_text("{}", encoding="utf-8")
+
+            start.ROOT = root
+            start.REPORTS_ROOT = root / ".agentcodex" / "reports"
+            evidence = start.collect_project_evidence(root)
+
+            answers, written = start.deliver_selected_reports(evidence, "2")
+            report = (root / ".agentcodex" / "reports" / "start-maturity-report.md").read_text(encoding="utf-8")
+
+            self.assertEqual(answers["maturity_report"], "yes")
+            self.assertEqual(len(written), 1)
+            self.assertIn("DataOps MLOps LLMOps Maturity Report", report)
+            self.assertIn("- DATAOPS:", report)
+            self.assertIn("- MLOPS:", report)
+            self.assertIn("- LLMOPS:", report)
+
 
 if __name__ == "__main__":
     unittest.main()

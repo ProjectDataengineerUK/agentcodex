@@ -53,6 +53,13 @@ class ProjectEvidence:
     top_level_entries: list[str]
 
 
+@dataclass(frozen=True)
+class MaturityCheck:
+    label: str
+    required_paths: tuple[str, ...]
+    note: str
+
+
 def now_iso() -> str:
     return datetime.now(UTC).isoformat()
 
@@ -261,33 +268,277 @@ def build_detailed_project_report(evidence: ProjectEvidence) -> str:
     return "\n".join(lines) + "\n"
 
 
-def build_maturity_report(evidence: ProjectEvidence) -> str:
-    signals = {
-        "instruction surface": "AGENTS.md" in evidence.base_files,
-        "readme": "README.md" in evidence.base_files,
-        "python package metadata": "pyproject.toml" in evidence.base_files,
-        "documentation depth": len(evidence.markdown_files) >= 10,
-        "tests present": any(path.startswith(".agentcodex/tests/") or "/tests/" in path for path in evidence.all_files),
+MATURITY_TRACKS: dict[str, dict[str, object]] = {
+    "DATAOPS": {
+        "title": "DataOps",
+        "baseline": "data-platform",
+        "description": "Pipeline, data quality, lineage, contracts, deployment, and governed operations.",
+        "checks": (
+            MaturityCheck(
+                "project-standard scaffold",
+                (".agentcodex/features/example-project-standard/CHECKLIST.md",),
+                "Feature work is anchored to the AgentCodex Project Standard.",
+            ),
+            MaturityCheck(
+                "pipeline orchestration",
+                (
+                    ".agentcodex/features/example-project-standard/execution/orchestration.md",
+                    ".agentcodex/features/example-project-standard/execution/pipelines/README.md",
+                    ".agentcodex/features/example-project-standard/execution/schedules.md",
+                ),
+                "Pipeline execution, ownership, and schedules are explicit.",
+            ),
+            MaturityCheck(
+                "data quality gates",
+                (
+                    ".agentcodex/features/example-project-standard/validation/data-quality.md",
+                    ".agentcodex/features/example-project-standard/validation/rules.md",
+                    ".agentcodex/features/example-project-standard/validation/tests/README.md",
+                ),
+                "Data quality checks can block release.",
+            ),
+            MaturityCheck(
+                "lineage and contracts",
+                (
+                    ".agentcodex/features/example-project-standard/metadata/lineage.md",
+                    ".agentcodex/features/example-project-standard/contracts/schema-contracts/README.md",
+                    ".agentcodex/features/example-project-standard/contracts/compatibility.md",
+                ),
+                "Lineage and schema/data contract expectations are visible.",
+            ),
+            MaturityCheck(
+                "deployment and rollback",
+                (
+                    ".agentcodex/features/example-project-standard/deploy/ci-cd.md",
+                    ".agentcodex/features/example-project-standard/deploy/environments.md",
+                ),
+                "Promotion, environment, and rollback paths are documented.",
+            ),
+        ),
+    },
+    "MLOPS": {
+        "title": "MLOps",
+        "baseline": "start-mlops-track",
+        "description": "Model lifecycle, validation, deployment, monitoring, governance, and cost controls.",
+        "checks": (
+            MaturityCheck(
+                "model registry and experiment tracking",
+                (
+                    ".agentcodex/ops/mlops/model-registry.md",
+                    ".agentcodex/ops/mlops/experiments.md",
+                ),
+                "Model versions, training runs, metrics, and approval history are traceable.",
+            ),
+            MaturityCheck(
+                "model validation gates",
+                (
+                    ".agentcodex/features/example-project-standard/validation/rules.md",
+                    ".agentcodex/features/example-project-standard/validation/tests/README.md",
+                ),
+                "Model validation has explicit checks before release.",
+            ),
+            MaturityCheck(
+                "model deployment and rollback",
+                (
+                    ".agentcodex/features/example-project-standard/deploy/ci-cd.md",
+                    ".agentcodex/features/example-project-standard/deploy/environments.md",
+                ),
+                "Model promotion and rollback are treated as release operations.",
+            ),
+            MaturityCheck(
+                "model monitoring",
+                (
+                    ".agentcodex/features/example-project-standard/operations/observability/metrics.md",
+                    ".agentcodex/features/example-project-standard/operations/observability/alerts.md",
+                ),
+                "Runtime quality, drift, and incident signals have monitoring surfaces.",
+            ),
+            MaturityCheck(
+                "model governance and access",
+                (
+                    ".agentcodex/features/example-project-standard/controls/governance.md",
+                    ".agentcodex/features/example-project-standard/security/access-control.md",
+                    ".agentcodex/features/example-project-standard/operations/cost/cost-model.md",
+                ),
+                "Ownership, access, and cost controls are part of the model operating surface.",
+            ),
+        ),
+    },
+    "LLMOPS": {
+        "title": "LLMOps",
+        "baseline": "agentic-llm",
+        "description": "LLM model policy, prompt/eval governance, token control, supervision, and quarantine.",
+        "checks": (
+            MaturityCheck(
+                "LLM model policy",
+                (".agentcodex/ops/agentic-llm/model-policy.md",),
+                "Allowed models, routing, token budgets, and governance are explicit.",
+            ),
+            MaturityCheck(
+                "prompt and eval governance",
+                (
+                    ".agentcodex/ops/agentic-llm/prompt-registry.md",
+                    ".agentcodex/ops/agentic-llm/evals.md",
+                    ".agentcodex/ops/agentic-llm/guardrails.md",
+                ),
+                "Prompts, evals, and guardrails are versioned and auditable.",
+            ),
+            MaturityCheck(
+                "token and cost controls",
+                (
+                    ".agentcodex/model-routing.json",
+                    ".agentcodex/features/example-project-standard/operations/cost/optimization.md",
+                ),
+                "Model routing and optimization evidence exist before autonomous expansion.",
+            ),
+            MaturityCheck(
+                "supervision and quarantine",
+                (
+                    ".agentcodex/features/example-project-standard/operations/sentinel/supervision.md",
+                    ".agentcodex/features/example-project-standard/operations/sentinel/quarantine.md",
+                ),
+                "Human approval, blocked actions, and quarantine paths are documented.",
+            ),
+            MaturityCheck(
+                "API contracts and access",
+                (
+                    ".agentcodex/features/example-project-standard/contracts/api-contracts/README.md",
+                    ".agentcodex/features/example-project-standard/security/access-control.md",
+                ),
+                "LLM-facing APIs and access boundaries are governed.",
+            ),
+        ),
+    },
+}
+
+
+def score_maturity_check(check: MaturityCheck) -> tuple[str, int, list[str], list[str]]:
+    present: list[str] = []
+    missing: list[str] = []
+    for rel_path in check.required_paths:
+        path = ROOT / rel_path
+        if path.exists():
+            present.append(rel_path)
+        else:
+            missing.append(rel_path)
+
+    total = len(check.required_paths)
+    score = round((len(present) / total) * 100) if total else 0
+    if not missing:
+        status = "pass"
+    elif present:
+        status = "warn"
+    else:
+        status = "fail"
+    return status, score, present, missing
+
+
+def maturity_status(score: float) -> str:
+    if score >= 85:
+        return "pass"
+    if score >= 55:
+        return "warn"
+    return "fail"
+
+
+def build_maturity_track_report(track_id: str, track: dict[str, object]) -> dict[str, object]:
+    checks = track["checks"]
+    assert isinstance(checks, tuple)
+    check_reports: list[dict[str, object]] = []
+    for check in checks:
+        assert isinstance(check, MaturityCheck)
+        status, score, present, missing = score_maturity_check(check)
+        check_reports.append(
+            {
+                "label": check.label,
+                "status": status,
+                "score": score,
+                "present": present,
+                "missing": missing,
+                "note": check.note,
+            }
+        )
+    track_score = round(sum(item["score"] for item in check_reports) / len(check_reports), 1) if check_reports else 0.0
+    return {
+        "id": track_id,
+        "title": track["title"],
+        "baseline": track["baseline"],
+        "description": track["description"],
+        "status": maturity_status(track_score),
+        "score": track_score,
+        "checks": check_reports,
     }
-    score = round(sum(1 for value in signals.values() if value) / len(signals) * 100, 1)
+
+
+def build_maturity_report(evidence: ProjectEvidence) -> str:
+    track_reports = [build_maturity_track_report(track_id, track) for track_id, track in MATURITY_TRACKS.items()]
+    overall_score = round(sum(float(track["score"]) for track in track_reports) / len(track_reports), 1)
+    overall_status = maturity_status(overall_score)
     lines = [
-        "# Project Maturity Report",
+        "# DataOps MLOps LLMOps Maturity Report",
         "",
         f"- generated_at: `{now_iso()}`",
         f"- root: `{ROOT}`",
-        f"- maturity_score: {score}",
+        f"- maturity_model: `DataOps + MLOps + LLMOps`",
+        f"- status: `{overall_status}`",
+        f"- maturity_score: {overall_score}",
         "",
-        "## Signals",
+        "## Track Summary",
         "",
     ]
-    lines.extend(f"- {name}: {'present' if present else 'missing'}" for name, present in signals.items())
-    lines.extend(["", "## Interpretation", ""])
-    if score >= 80:
-        lines.append("- The repository has strong baseline project structure for AgentCodex operation.")
-    elif score >= 60:
-        lines.append("- The repository has usable structure but should close missing operating evidence before ship.")
+    for track in track_reports:
+        lines.append(
+            f"- {track['id']}: {track['status']} ({track['score']}) "
+            f"- baseline: `{track['baseline']}`"
+        )
+    lines.extend(["", "## Tracks", ""])
+    for track in track_reports:
+        lines.extend(
+            [
+                f"### {track['title']}",
+                "",
+                f"- id: `{track['id']}`",
+                f"- status: `{track['status']}`",
+                f"- score: {track['score']}",
+                f"- baseline: `{track['baseline']}`",
+                f"- scope: {track['description']}",
+                "",
+                "#### Checks",
+                "",
+            ]
+        )
+        for check in track["checks"]:
+            assert isinstance(check, dict)
+            lines.extend(
+                [
+                    f"- {check['label']}: {check['status']} ({check['score']})",
+                    f"  - note: {check['note']}",
+                ]
+            )
+            present = check["present"]
+            missing = check["missing"]
+            assert isinstance(present, list)
+            assert isinstance(missing, list)
+            if present:
+                lines.append(f"  - present: {', '.join(f'`{item}`' for item in present)}")
+            if missing:
+                lines.append(f"  - missing: {', '.join(f'`{item}`' for item in missing)}")
+        lines.append("")
+
+    lines.extend(["## Interpretation", ""])
+    if overall_status == "pass":
+        lines.append("- The repository has strong DataOps, MLOps, and LLMOps operating evidence.")
+    elif overall_status == "warn":
+        lines.append("- The repository has usable operating structure but should close the weaker maturity tracks before ship.")
     else:
-        lines.append("- The repository needs more baseline documentation, tests, and operating metadata before ship.")
+        lines.append("- The repository needs explicit DataOps, MLOps, and LLMOps operating artifacts before ship.")
+    lines.extend(
+        [
+            "- Use `agentcodex maturity5-check <target-project-dir> --profile data-platform` for the executable DataOps gate.",
+            "- Use `agentcodex maturity5-check <target-project-dir> --profile agentic-llm` for the executable LLMOps gate.",
+            "- MLOps is reported here as a start-time operating track until a dedicated executable profile is added.",
+        ]
+    )
     return "\n".join(lines) + "\n"
 
 
@@ -346,7 +597,7 @@ def build_improvement_report(evidence: ProjectEvidence) -> str:
 
 REPORT_OPTIONS = [
     ("1", "Detailed project report", "start-detailed-project-report.md", "detailed_report", build_detailed_project_report),
-    ("2", "Project maturity level", "start-maturity-report.md", "maturity_report", build_maturity_report),
+    ("2", "DataOps / MLOps / LLMOps maturity", "start-maturity-report.md", "maturity_report", build_maturity_report),
     ("3", "Vulnerability report", "start-vulnerability-report.md", "vulnerability_report", build_vulnerability_report),
     ("4", "Project improvement report", "start-improvement-report.md", "improvement_report", build_improvement_report),
     ("5", "All reports", "", "all_reports", None),
