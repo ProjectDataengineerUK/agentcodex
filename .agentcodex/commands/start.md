@@ -42,8 +42,11 @@ Use this as the first command after installation when the operator wants AgentCo
    - `5. All reports`
 4. Let the operator select an option by number, then write the selected report before writing the scan summary to `.agentcodex/reports/start-report.md`.
 5. If project-owned base files are not present, read all markdown files in the repository, collect any sidecar text for PDFs and videos when available, and create `context.md` at the project root.
+   - Treat PDFs as multimodal evidence, not text-only evidence.
+   - For each PDF, attempt text extraction first, then render pages as images when diagrams, screenshots, architecture drawings, tables, or low text yield are present.
+   - Inspect rendered pages visually and use OCR when useful; summarize text, images, diagrams, and architecture flows separately so visual content is not silently skipped.
 6. Write an English brainstorm prompt based on `context.md` to `.agentcodex/reports/start-brainstorm-prompt.md`.
-   - Include a compact evidence brief from detected markdown, PDF sidecar/extracted text, and video sidecars.
+   - Include a compact evidence brief from detected markdown, PDF sidecar/extracted text, PDF visual inspection notes, and video sidecars.
    - Include a sequential question flow so `workflow-brainstormer` can start with Question 1 and proceed one answer at a time.
 7. Create a draft brainstorm artifact under `.agentcodex/features/BRAINSTORM_{PROJECT}.md`.
 8. Hand the project to `workflow-brainstormer` so the next step can continue from the generated context.

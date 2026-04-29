@@ -43,6 +43,11 @@ MARKDOWN_SUFFIX = ".md"
 PDF_SUFFIX = ".pdf"
 VIDEO_SUFFIXES = {".mp4", ".mov", ".mkv", ".avi", ".webm", ".m4v"}
 TEXT_SIDEcars = {".txt", ".md", ".srt", ".vtt"}
+PDF_MULTIMODAL_NOTE = (
+    "PDFs must be reviewed as multimodal evidence: extract text, then render pages "
+    "for visual inspection/OCR when diagrams, screenshots, architecture drawings, "
+    "tables, or low text yield are present."
+)
 
 
 @dataclass(frozen=True)
@@ -703,6 +708,7 @@ def build_context_markdown(evidence: ProjectEvidence) -> str:
 
     lines.extend(["", "## PDF Evidence", ""])
     if evidence.pdf_files:
+        lines.append(f"- multimodal review rule: {PDF_MULTIMODAL_NOTE}")
         for rel_path in evidence.pdf_files:
             path = ROOT / rel_path
             transcript = document_text(path)
@@ -711,6 +717,7 @@ def build_context_markdown(evidence: ProjectEvidence) -> str:
                 lines.append(f"  - extracted text: {transcript}")
             else:
                 lines.append("  - extracted text: unavailable in this environment")
+            lines.append("  - visual inspection: render pages and inspect images, diagrams, tables, and architecture flows before treating the PDF as complete")
     else:
         lines.append("- [none]")
 
@@ -749,12 +756,14 @@ def build_evidence_brief(evidence: ProjectEvidence, limit: int = 4) -> list[str]
             lines.append(f"- `{rel_path}`: {excerpt}")
     if evidence.pdf_files:
         lines.append("PDF evidence:")
+        lines.append(f"- Review rule: {PDF_MULTIMODAL_NOTE}")
         for rel_path in evidence.pdf_files[:limit]:
             transcript = document_text(ROOT / rel_path, limit=900)
             if transcript:
                 lines.append(f"- `{rel_path}`: {transcript}")
             else:
                 lines.append(f"- `{rel_path}`: detected, but text extraction was unavailable")
+            lines.append("  - visual follow-up: inspect rendered pages for images, diagrams, tables, screenshots, and architecture flows")
     if evidence.video_files:
         lines.append("Video evidence:")
         for rel_path in evidence.video_files[:limit]:
@@ -808,6 +817,7 @@ def build_brainstorm_prompt(evidence: ProjectEvidence) -> str:
             "",
             "Start now with only Question 1. Use the available evidence to avoid a blank generic question.",
             "If PDF text was extracted, summarize it briefly before asking Question 1.",
+            "Do not treat extracted PDF text as complete until pages with images, diagrams, tables, screenshots, or architecture drawings were rendered and inspected.",
             "If PDF text was not extracted, say which file was detected and ask the operator to provide or confirm its main objective.",
             "Prefer A/B/C options when there are clear alternatives.",
             "",

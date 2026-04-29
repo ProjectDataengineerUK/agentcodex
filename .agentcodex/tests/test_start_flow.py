@@ -84,6 +84,8 @@ class StartFlowTests(unittest.TestCase):
             self.assertIn("First line", context)
             self.assertIn("report.pdf", context)
             self.assertIn("pdf transcript sidecar", context)
+            self.assertIn("multimodal review rule", context)
+            self.assertIn("visual inspection", context)
             self.assertIn("clip.mp4", context)
             self.assertIn("video transcript sidecar", context)
 
@@ -105,6 +107,7 @@ class StartFlowTests(unittest.TestCase):
             self.assertIn("## Evidence Brief", prompt)
             self.assertIn("## Sequential Brainstorm Flow", prompt)
             self.assertIn("Build a governed Databricks pipeline", prompt)
+            self.assertIn("Do not treat extracted PDF text as complete", prompt)
             self.assertIn("Start now with only Question 1", prompt)
 
     def test_deliver_selected_reports_writes_detailed_report_for_option_one(self) -> None:
