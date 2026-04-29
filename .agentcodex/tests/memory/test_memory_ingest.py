@@ -53,6 +53,19 @@ class MemoryIngestTests(unittest.TestCase):
         score = ingest.similarity(left, right, "semantic")
         self.assertGreaterEqual(score, 0.82)
 
+    def test_resolve_source_path_rejects_unapproved_absolute_path(self) -> None:
+        source = Path("/tmp/memory-payload.json")
+
+        with self.assertRaises(ValueError):
+            ingest.resolve_source_path(str(source))
+
+    def test_resolve_source_path_accepts_approved_root(self) -> None:
+        source = ingest.MEMORY_INGEST_ROOT / "payload.json"
+
+        resolved = ingest.resolve_source_path(str(source))
+
+        self.assertEqual(resolved, source.resolve())
+
 
 if __name__ == "__main__":
     unittest.main()

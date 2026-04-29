@@ -14,6 +14,10 @@ from observability_runtime import ScriptRun
 
 
 ROOT = Path(__file__).resolve().parent.parent
+MEMORY_ROOT = ROOT / ".agentcodex" / "memory"
+MEMORY_CANDIDATES_ROOT = MEMORY_ROOT / "candidates"
+MEMORY_INGEST_ROOT = MEMORY_ROOT / "ingest"
+ALLOWED_SOURCE_ROOTS = (MEMORY_CANDIDATES_ROOT, MEMORY_INGEST_ROOT)
 REPORTS_ROOT = ROOT / ".agentcodex" / "reports" / "memory"
 BACKEND = get_backend()
 
@@ -137,6 +141,21 @@ def display_path(path: Path) -> str:
         return str(path)
 
 
+def resolve_source_path(path_arg: str, allowed_roots: tuple[Path, ...] = ALLOWED_SOURCE_ROOTS) -> Path:
+    path = Path(path_arg)
+    if not path.is_absolute():
+        path = ROOT / path
+    resolved = path.resolve()
+    for root in allowed_roots:
+        try:
+            resolved.relative_to(root.resolve())
+            return resolved
+        except ValueError:
+            continue
+    allowed_display = ", ".join(str(root.relative_to(ROOT)) for root in allowed_roots)
+    raise ValueError(f"source file must stay within approved memory roots: {allowed_display}")
+
+
 def main() -> int:
     run = ScriptRun(ROOT, "memory-ingest")
     started = time.perf_counter()
@@ -148,12 +167,19 @@ def main() -> int:
         return print_usage()
 
     memory_type = sys.argv[1].strip()
-    source_path = Path(sys.argv[2]).resolve()
     if memory_type not in REQUIRED_FIELDS:
         record_memory_failure("memory-ingest", f"invalid memory type: {memory_type}", "argument-parse")
         run.event("error", "memory ingest failed", reason=f"invalid memory type: {memory_type}")
         update_memory_metrics("memory-ingest", {"write_count": 0, "dedup_count": 0, "latency_ms": 0}, "failed")
         return print_usage()
+    try:
+        source_path = resolve_source_path(sys.argv[2])
+    except ValueError as exc:
+        record_memory_failure("memory-ingest", str(exc), "load-source")
+        run.event("error", "memory ingest failed", reason=str(exc))
+        update_memory_metrics("memory-ingest", {"write_count": 0, "dedup_count": 0, "latency_ms": 0}, "failed")
+        print(str(exc))
+        return 1
     if not source_path.exists():
         record_memory_failure("memory-ingest", f"source file missing: {source_path}", "load-source")
         run.event("error", "memory ingest failed", reason=f"source file missing: {source_path}")
