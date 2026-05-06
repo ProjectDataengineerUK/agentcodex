@@ -48,6 +48,7 @@ Current procedures:
 - `docs/commands/generate-web-diagram.md`
 - `docs/commands/plan-review.md`
 - `docs/commands/project-recap.md`
+- `docs/commands/project-structure.md`
 - `docs/commands/share.md`
 - `docs/commands/project-intake.md`
 - `docs/commands/pipeline.md`
@@ -67,6 +68,13 @@ Current procedures:
 - `docs/commands/sync-context.md`
 - `docs/commands/create-kb.md`
 - `docs/commands/platform-health.md`
+- `docs/commands/status-reconcile.md`
+- `docs/commands/architecture-pivot.md`
+- `docs/commands/preflight.md`
+- `docs/commands/stack-detect.md`
+- `docs/commands/failure-pattern-promote.md`
+- `docs/commands/databricks-readiness.md`
+- `docs/commands/approval-gate-sync.md`
 - `docs/commands/session-controls.md`
 - `docs/commands/memory-candidates.md`
 - `docs/commands/audit-summary.md`

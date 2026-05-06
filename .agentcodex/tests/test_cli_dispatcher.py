@@ -31,6 +31,14 @@ class CliDispatcherTests(unittest.TestCase):
             "memory-ingest",
             "memory-compact",
             "memory-validate",
+            "status-reconcile",
+            "architecture-pivot",
+            "preflight",
+            "stack-detect",
+            "failure-pattern-promote",
+            "databricks-readiness",
+            "project-structure",
+            "approval-gate-sync",
         }
 
         self.assertTrue(required.issubset(set(dispatcher.command_names())))
@@ -72,6 +80,18 @@ class CliDispatcherTests(unittest.TestCase):
 
         self.assertEqual(exit_code, 1)
         self.assertEqual(calls, [])
+
+    def test_dispatch_forwards_status_reconcile(self) -> None:
+        calls: list[tuple[str, list[str]]] = []
+
+        exit_code = dispatcher.dispatch(
+            ["status-reconcile", "/tmp/project", "--json"],
+            lambda script, args: calls.append((script, args)) or 0,
+            "agentcodex",
+        )
+
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(calls, [("status_reconcile.py", ["/tmp/project", "--json"])])
 
 
 if __name__ == "__main__":

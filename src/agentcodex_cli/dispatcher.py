@@ -297,6 +297,47 @@ COMMANDS: dict[str, CommandSpec] = {
         "Run repo-local Databricks or Fabric platform health checks",
         "<databricks|fabric> [--json]",
     ),
+    "status-reconcile": CommandSpec(
+        "status_reconcile.py",
+        "Reconcile architecture and evidence signals into a canonical repo-local state snapshot",
+        "[target-project-dir] [--json]",
+    ),
+    "architecture-pivot": CommandSpec(
+        "architecture_pivot.py",
+        "Record an architecture pivot and mark mandatory propagation targets for reconciliation",
+        "[target-project-dir] --to <new-architecture> [--from <old-architecture>] [--rationale <text>] [--json]",
+    ),
+    "preflight": CommandSpec(
+        "preflight.py",
+        "Run stack-aware preflight checks before build or deploy slices",
+        "[target-project-dir] [--stack <id>] [--json]",
+    ),
+    "stack-detect": CommandSpec(
+        "stack_detect.py",
+        "Detect the project stack by layer and recommend specialists plus risk areas",
+        "[target-project-dir] [--json]",
+    ),
+    "failure-pattern-promote": CommandSpec(
+        "failure_pattern_promote.py",
+        "Cluster recurrent failure signals and emit repo-local guardrail promotion candidates",
+        "[target-project-dir] [--json]",
+    ),
+    "databricks-readiness": CommandSpec(
+        "databricks_readiness.py",
+        "Run a Databricks-specific readiness review over bundles, apps, jobs, governance, and runtime boundaries",
+        "[target-project-dir] [--json]",
+    ),
+    "project-structure": CommandSpec(
+        "project_structure.py",
+        "Summarize the canonical AgentCodex structure groups and write a repo-local layout report",
+        "[--json]",
+    ),
+    "approval-gate-sync": CommandSpec(
+        "approval_gate_sync.py",
+        "Persist approval-gate state transitions in a canonical repo-local control plane file",
+        "[target-project-dir] <gate-id> <pending|approved|dispatched|executed|expired|invalidated> [--commit <sha>] [--run <id-or-url>] [--note <text>] [--json]",
+        min_args=2,
+    ),
     "memory-validate": CommandSpec(
         "memory_validate.py",
         "Validate memory schemas, examples, snapshots, and synthetic contracts",
