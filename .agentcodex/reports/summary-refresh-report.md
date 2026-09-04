@@ -1,18 +1,11 @@
 # Summary Refresh Report
 
-- generated_at: 2026-04-23T18:09:30.113456+00:00
-- source_count: 25
-- summary_file_count: 100
-- source_domains: 13
+- generated_at: 2026-09-04T11:44:58.157113+00:00
+- source_count: 20
+- summary_file_count: 80
+- source_domains: 12
 - freshness_state: current
-- normalized_legacy_dirs_removed: 4
-
-## Legacy Cleanup
-
-- removed legacy summary path: `.agentcodex/cache/summaries/ingestion/airbyte`
-- removed legacy summary path: `.agentcodex/cache/summaries/agents/openai-agents-python`
-- removed legacy summary path: `.agentcodex/cache/summaries/vector-db/qdrant`
-- removed legacy summary path: `.agentcodex/cache/summaries/parsing/unstructured`
+- normalized_legacy_dirs_removed: 0
 
 ## access-control
 
@@ -28,13 +21,6 @@
 - `azure-sdk-python` category=`azure` -> .agentcodex/cache/summaries/azure/azure-sdk-python/overview.md, .agentcodex/cache/summaries/azure/azure-sdk-python/latest-notes.md, .agentcodex/cache/summaries/azure/azure-sdk-python/integration-notes.md, .agentcodex/cache/summaries/azure/azure-sdk-python/anti-patterns.md
 - `azure-search-openai-demo` category=`azure` -> .agentcodex/cache/summaries/azure/azure-search-openai-demo/overview.md, .agentcodex/cache/summaries/azure/azure-search-openai-demo/latest-notes.md, .agentcodex/cache/summaries/azure/azure-search-openai-demo/integration-notes.md, .agentcodex/cache/summaries/azure/azure-search-openai-demo/anti-patterns.md
 
-## data-contracts
-
-- `asyncapi-spec` category=`data-contracts` -> .agentcodex/cache/summaries/data-contracts/asyncapi-spec/overview.md, .agentcodex/cache/summaries/data-contracts/asyncapi-spec/latest-notes.md, .agentcodex/cache/summaries/data-contracts/asyncapi-spec/integration-notes.md, .agentcodex/cache/summaries/data-contracts/asyncapi-spec/anti-patterns.md
-- `json-schema-spec` category=`data-contracts` -> .agentcodex/cache/summaries/data-contracts/json-schema-spec/overview.md, .agentcodex/cache/summaries/data-contracts/json-schema-spec/latest-notes.md, .agentcodex/cache/summaries/data-contracts/json-schema-spec/integration-notes.md, .agentcodex/cache/summaries/data-contracts/json-schema-spec/anti-patterns.md
-- `openapi-specification` category=`data-contracts` -> .agentcodex/cache/summaries/data-contracts/openapi-specification/overview.md, .agentcodex/cache/summaries/data-contracts/openapi-specification/latest-notes.md, .agentcodex/cache/summaries/data-contracts/openapi-specification/integration-notes.md, .agentcodex/cache/summaries/data-contracts/openapi-specification/anti-patterns.md
-- `protobuf` category=`data-contracts` -> .agentcodex/cache/summaries/data-contracts/protobuf/overview.md, .agentcodex/cache/summaries/data-contracts/protobuf/latest-notes.md, .agentcodex/cache/summaries/data-contracts/protobuf/integration-notes.md, .agentcodex/cache/summaries/data-contracts/protobuf/anti-patterns.md
-
 ## databricks
 
 - `databricks-bundle-examples` category=`databricks` -> .agentcodex/cache/summaries/databricks/databricks-bundle-examples/overview.md, .agentcodex/cache/summaries/databricks/databricks-bundle-examples/latest-notes.md, .agentcodex/cache/summaries/databricks/databricks-bundle-examples/integration-notes.md, .agentcodex/cache/summaries/databricks/databricks-bundle-examples/anti-patterns.md
@@ -46,7 +32,6 @@
 ## governance
 
 - `openmetadata` category=`governance` -> .agentcodex/cache/summaries/governance/openmetadata/overview.md, .agentcodex/cache/summaries/governance/openmetadata/latest-notes.md, .agentcodex/cache/summaries/governance/openmetadata/integration-notes.md, .agentcodex/cache/summaries/governance/openmetadata/anti-patterns.md
-- `soda-core` category=`governance` -> .agentcodex/cache/summaries/governance/soda-core/overview.md, .agentcodex/cache/summaries/governance/soda-core/latest-notes.md, .agentcodex/cache/summaries/governance/soda-core/integration-notes.md, .agentcodex/cache/summaries/governance/soda-core/anti-patterns.md
 - `unity-catalog` category=`governance` -> .agentcodex/cache/summaries/governance/unity-catalog/overview.md, .agentcodex/cache/summaries/governance/unity-catalog/latest-notes.md, .agentcodex/cache/summaries/governance/unity-catalog/integration-notes.md, .agentcodex/cache/summaries/governance/unity-catalog/anti-patterns.md
 
 ## lineage
