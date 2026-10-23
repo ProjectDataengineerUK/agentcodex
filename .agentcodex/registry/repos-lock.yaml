@@ -2,127 +2,127 @@ version: 0.1.0
 description: observed upstream repository state for trusted public sources used by AgentCodex
 entries:
   - source_id: airbyte
-    observed_ref: 3fa3fdc10b38b26613202d636cc7a7746b8e3ac9
-    observed_at: 2026-04-23T11:55:33.211675+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: b5b45d6f39432e9c8da515b7217b18a84664fbe1
+    observed_at: 2026-10-23T12:07:40.035582+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: asyncapi-spec
     observed_ref: 
-    observed_at: 2026-04-23T11:55:48.692979+00:00
+    observed_at: 2026-10-23T12:07:46.653355+00:00
     update_status: blocked
     notes: HTTP Error 403: rate limit exceeded
   - source_id: azure-sdk-python
-    observed_ref: bcea9f059f24ee77e047591cdeb415f07ac94655
-    observed_at: 2026-04-23T11:55:40.122390+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: f7bfe0bd72b962271f5fc42f89c57775ac65461b
+    observed_at: 2026-10-23T12:07:41.929526+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: azure-search-openai-demo
-    observed_ref: 95ce0c9484b338b3819914d0c1a1fa8d19a3ff9b
-    observed_at: 2026-04-23T11:55:41.669641+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: 558ffd397eddcfe4da5c85ebc285796b367eb9b2
+    observed_at: 2026-10-23T12:07:42.512127+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: databricks-bundle-examples
-    observed_ref: a7bf6cd51e58ac2119e7f437c4b725ba6f44c81c
-    observed_at: 2026-04-23T11:55:43.024058+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: 463e8383903666046f48ae3babbf77d5615c7ab4
+    observed_at: 2026-10-23T12:07:44.051816+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: dbt-core
-    observed_ref: 4256ece364d1194a0c2b9797b623885db08b018c
-    observed_at: 2026-04-23T11:55:34.818154+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: 4b4701c77baaf19ae5d6c9cee40e8b766cd796d6
+    observed_at: 2026-10-23T12:07:40.490747+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: json-schema-spec
     observed_ref: 
-    observed_at: 2026-04-23T11:55:48.784979+00:00
+    observed_at: 2026-10-23T12:07:46.687394+00:00
     update_status: blocked
     notes: HTTP Error 403: rate limit exceeded
   - source_id: langfuse
     observed_ref: 
-    observed_at: 2026-04-23T11:55:48.536911+00:00
+    observed_at: 2026-10-23T12:07:46.579655+00:00
     update_status: blocked
     notes: HTTP Error 403: rate limit exceeded
   - source_id: llama-index
-    observed_ref: 5802b8ded5a3a0ed9b8153805134bfcde09eb375
-    observed_at: 2026-04-23T11:55:26.408681+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: 619d74664e8404612038bc15a1a40c686037277c
+    observed_at: 2026-10-23T12:07:37.732039+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: marquez
-    observed_ref: 
-    observed_at: 2026-04-23T11:55:48.445040+00:00
-    update_status: blocked
-    notes: HTTP Error 403: rate limit exceeded
+    observed_ref: 180f37b22387146187af1ef0279e3ee1d1ccd789
+    observed_at: 2026-10-23T12:07:46.146400+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: mcp-servers
-    observed_ref: 4503e2d12b799448cd05f789dd40f9643a8d1a6c
-    observed_at: 2026-04-23T11:55:24.466601+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: 51b6382a3e827aceb6bce430b1208d69b93d95ea
+    observed_at: 2026-10-23T12:07:37.117640+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: opa
     observed_ref: 
-    observed_at: 2026-04-23T11:55:48.616112+00:00
+    observed_at: 2026-10-23T12:07:46.616783+00:00
     update_status: blocked
     notes: HTTP Error 403: rate limit exceeded
   - source_id: openai-agents-python
-    observed_ref: fe3a5e6c271839107be2e554f96438436787331c
-    observed_at: 2026-04-23T11:55:23.233615+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: 0dc4cf152bff1f50bdc0e41f28808563406545b2
+    observed_at: 2026-10-23T12:07:36.580105+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: openapi-specification
     observed_ref: 
-    observed_at: 2026-04-23T11:55:48.655891+00:00
+    observed_at: 2026-10-23T12:07:46.635328+00:00
     update_status: blocked
     notes: HTTP Error 403: rate limit exceeded
   - source_id: openlineage
-    observed_ref: 76a6decc69494b54ed9b7fc41bb205b614dfccdc
-    observed_at: 2026-04-23T11:55:48.405684+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: 0ead16e415e828447b7134e099bfb12839de4c25
+    observed_at: 2026-10-23T12:07:45.653929+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: openmetadata
-    observed_ref: ca8dd1e8cecf80bcbd2a2dd5b343c7eb52b2fba3
-    observed_at: 2026-04-23T11:55:46.483925+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: 78f7929567397c9f27b22d166bd68629dd82ce49
+    observed_at: 2026-10-23T12:07:45.198781+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: opentelemetry-specification
     observed_ref: 
-    observed_at: 2026-04-23T11:55:48.572721+00:00
+    observed_at: 2026-10-23T12:07:46.599649+00:00
     update_status: blocked
     notes: HTTP Error 403: rate limit exceeded
   - source_id: phoenix
     observed_ref: 
-    observed_at: 2026-04-23T11:55:48.500601+00:00
+    observed_at: 2026-10-23T12:07:46.561562+00:00
     update_status: blocked
     notes: HTTP Error 403: rate limit exceeded
   - source_id: protobuf
     observed_ref: 
-    observed_at: 2026-04-23T11:55:48.730725+00:00
+    observed_at: 2026-10-23T12:07:46.670670+00:00
     update_status: blocked
     notes: HTTP Error 403: rate limit exceeded
   - source_id: qdrant
-    observed_ref: eabee371fda447974a94d29fbaa675a6a596cc7b
-    observed_at: 2026-04-23T11:55:29.613708+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: 222b2e44ab1c3f17e8246396ead6558e45041df7
+    observed_at: 2026-10-23T12:07:38.673890+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: qdrant-mcp-server
-    observed_ref: e4ec69b2daa187c8de86d860f09192200b4c834a
-    observed_at: 2026-04-23T11:55:30.960478+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: c56ae5adf62bb78d852bf7bbcbc5d7b75e2bbe41
+    observed_at: 2026-10-23T12:07:39.237881+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: snowflake-mcp
-    observed_ref: 7b955c690d00c8cb0406a0c95d59005ebef23083
-    observed_at: 2026-04-23T11:55:36.160617+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: 662cb486395d79ab1ad0b3538f933fe6a686ce7c
+    observed_at: 2026-10-23T12:07:41.394145+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: soda-core
     observed_ref: 
-    observed_at: 2026-04-23T11:55:48.824164+00:00
+    observed_at: 2026-10-23T12:07:46.703943+00:00
     update_status: blocked
     notes: HTTP Error 403: rate limit exceeded
   - source_id: unity-catalog
-    observed_ref: c45eb2d29c86a178b3d70d9e5e3a49a82a0e6e1e
-    observed_at: 2026-04-23T11:55:44.535210+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: 962958c9c09ab843e19275c02efef95c14df11c4
+    observed_at: 2026-10-23T12:07:44.474388+00:00
+    update_status: drifted
+    notes: new upstream ref detected
   - source_id: unstructured
-    observed_ref: ed76bfe61e14588da0a3980c61611103ab4aca96
-    observed_at: 2026-04-23T11:55:28.215889+00:00
-    update_status: synced
-    notes: metadata captured
+    observed_ref: 490eeb30e8768622b4524d86baa77698290b1a87
+    observed_at: 2026-10-23T12:07:38.185815+00:00
+    update_status: drifted
+    notes: new upstream ref detected
