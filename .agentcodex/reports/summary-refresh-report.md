@@ -1,22 +1,11 @@
 # Summary Refresh Report
 
-- generated_at: 2026-04-23T18:09:30.113456+00:00
-- source_count: 25
-- summary_file_count: 100
-- source_domains: 13
+- generated_at: 2026-11-13T14:55:14.473311+00:00
+- source_count: 21
+- summary_file_count: 84
+- source_domains: 12
 - freshness_state: current
-- normalized_legacy_dirs_removed: 4
-
-## Legacy Cleanup
-
-- removed legacy summary path: `.agentcodex/cache/summaries/ingestion/airbyte`
-- removed legacy summary path: `.agentcodex/cache/summaries/agents/openai-agents-python`
-- removed legacy summary path: `.agentcodex/cache/summaries/vector-db/qdrant`
-- removed legacy summary path: `.agentcodex/cache/summaries/parsing/unstructured`
-
-## access-control
-
-- `opa` category=`access-control` -> .agentcodex/cache/summaries/access-control/opa/overview.md, .agentcodex/cache/summaries/access-control/opa/latest-notes.md, .agentcodex/cache/summaries/access-control/opa/integration-notes.md, .agentcodex/cache/summaries/access-control/opa/anti-patterns.md
+- normalized_legacy_dirs_removed: 0
 
 ## ai-data-engineering
 
@@ -30,10 +19,7 @@
 
 ## data-contracts
 
-- `asyncapi-spec` category=`data-contracts` -> .agentcodex/cache/summaries/data-contracts/asyncapi-spec/overview.md, .agentcodex/cache/summaries/data-contracts/asyncapi-spec/latest-notes.md, .agentcodex/cache/summaries/data-contracts/asyncapi-spec/integration-notes.md, .agentcodex/cache/summaries/data-contracts/asyncapi-spec/anti-patterns.md
 - `json-schema-spec` category=`data-contracts` -> .agentcodex/cache/summaries/data-contracts/json-schema-spec/overview.md, .agentcodex/cache/summaries/data-contracts/json-schema-spec/latest-notes.md, .agentcodex/cache/summaries/data-contracts/json-schema-spec/integration-notes.md, .agentcodex/cache/summaries/data-contracts/json-schema-spec/anti-patterns.md
-- `openapi-specification` category=`data-contracts` -> .agentcodex/cache/summaries/data-contracts/openapi-specification/overview.md, .agentcodex/cache/summaries/data-contracts/openapi-specification/latest-notes.md, .agentcodex/cache/summaries/data-contracts/openapi-specification/integration-notes.md, .agentcodex/cache/summaries/data-contracts/openapi-specification/anti-patterns.md
-- `protobuf` category=`data-contracts` -> .agentcodex/cache/summaries/data-contracts/protobuf/overview.md, .agentcodex/cache/summaries/data-contracts/protobuf/latest-notes.md, .agentcodex/cache/summaries/data-contracts/protobuf/integration-notes.md, .agentcodex/cache/summaries/data-contracts/protobuf/anti-patterns.md
 
 ## databricks
 

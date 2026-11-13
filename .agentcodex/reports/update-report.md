@@ -1,12 +1,12 @@
 # Update Report
 
-- generated_at: 2026-04-23T18:09:30.315898+00:00
-- mode: dry-run
+- generated_at: 2026-11-13T14:55:14.794253+00:00
+- mode: apply
 - checked_sources: 25
-- changed_sources: 0
-- blocked_sources: 25
+- changed_sources: 21
+- blocked_sources: 4
 - failed_sources: 0
-- update_success_rate: 0.0
+- update_success_rate: 0.84
 - freshness_state: current
 
 ## Status Notes
@@ -19,210 +19,210 @@
 
 - repo: https://github.com/openai/openai-agents-python
 - previous_ref: fe3a5e6c271839107be2e554f96438436787331c
-- observed_ref: fe3a5e6c271839107be2e554f96438436787331c
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: 64fbde5d02b42ae5f9db668eb0184cdb3fc9d775
+- latest_release: v0.24.0
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## mcp-servers
 
 - repo: https://github.com/modelcontextprotocol/servers
 - previous_ref: 4503e2d12b799448cd05f789dd40f9643a8d1a6c
-- observed_ref: 4503e2d12b799448cd05f789dd40f9643a8d1a6c
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: e1dc4b18dbb948921da37f3d4224a628730b43b0
+- latest_release: v2.4.0
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## llama-index
 
 - repo: https://github.com/run-llama/llama_index
 - previous_ref: 5802b8ded5a3a0ed9b8153805134bfcde09eb375
-- observed_ref: 5802b8ded5a3a0ed9b8153805134bfcde09eb375
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: baeabbfe26241a6916e13e2a8c8156a02e0602cd
+- latest_release: v0.14.25
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## unstructured
 
 - repo: https://github.com/Unstructured-IO/unstructured
 - previous_ref: ed76bfe61e14588da0a3980c61611103ab4aca96
-- observed_ref: ed76bfe61e14588da0a3980c61611103ab4aca96
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: ad56303cfae517612afcd5db85d3b4e303aa0d03
+- latest_release: 0.27.37
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## qdrant
 
 - repo: https://github.com/qdrant/qdrant
 - previous_ref: eabee371fda447974a94d29fbaa675a6a596cc7b
-- observed_ref: eabee371fda447974a94d29fbaa675a6a596cc7b
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: 95d89e51427f4217bf7b496e039ef0a069ebe342
+- latest_release: v1.20.1
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## qdrant-mcp-server
 
 - repo: https://github.com/qdrant/mcp-server-qdrant
 - previous_ref: e4ec69b2daa187c8de86d860f09192200b4c834a
-- observed_ref: e4ec69b2daa187c8de86d860f09192200b4c834a
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: 9cfd5f1584e4de45517c335c2bb69f7a53e44055
+- latest_release: v0.8.1
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## airbyte
 
 - repo: https://github.com/airbytehq/airbyte
 - previous_ref: 3fa3fdc10b38b26613202d636cc7a7746b8e3ac9
-- observed_ref: 3fa3fdc10b38b26613202d636cc7a7746b8e3ac9
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: 263511eee35ef242842766b461f140bc98be6212
+- latest_release: v2.0.0
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## dbt-core
 
 - repo: https://github.com/dbt-labs/dbt-core
 - previous_ref: 4256ece364d1194a0c2b9797b623885db08b018c
-- observed_ref: 4256ece364d1194a0c2b9797b623885db08b018c
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: 8b151136964744c5fabdc2e4448ff0252a52539d
+- latest_release: v1.12.7
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## snowflake-mcp
 
 - repo: https://github.com/Snowflake-Labs/mcp
 - previous_ref: 7b955c690d00c8cb0406a0c95d59005ebef23083
-- observed_ref: 7b955c690d00c8cb0406a0c95d59005ebef23083
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: 662cb486395d79ab1ad0b3538f933fe6a686ce7c
+- latest_release: v.1.4.2
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## azure-sdk-python
 
 - repo: https://github.com/Azure/azure-sdk-for-python
 - previous_ref: bcea9f059f24ee77e047591cdeb415f07ac94655
-- observed_ref: bcea9f059f24ee77e047591cdeb415f07ac94655
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: 137dde6bc2725219aeb4f308a8e536f35a7a4ebc
+- latest_release: azure-ai-projects_2.11.0
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## azure-search-openai-demo
 
 - repo: https://github.com/Azure-Samples/azure-search-openai-demo
 - previous_ref: 95ce0c9484b338b3819914d0c1a1fa8d19a3ff9b
-- observed_ref: 95ce0c9484b338b3819914d0c1a1fa8d19a3ff9b
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: 032406de4284ffb92eb73768a250dc61a5ce39ee
+- latest_release: 2026-10-09
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## databricks-bundle-examples
 
 - repo: https://github.com/databricks/bundle-examples
 - previous_ref: a7bf6cd51e58ac2119e7f437c4b725ba6f44c81c
-- observed_ref: a7bf6cd51e58ac2119e7f437c4b725ba6f44c81c
+- observed_ref: 1b358c3d3d82c1560aaed60a68647e1b2d5f0fd2
 - latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## unity-catalog
 
 - repo: https://github.com/unitycatalog/unitycatalog
 - previous_ref: c45eb2d29c86a178b3d70d9e5e3a49a82a0e6e1e
-- observed_ref: c45eb2d29c86a178b3d70d9e5e3a49a82a0e6e1e
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: 2611966ca10c0d2bb36054336c09bd1d67a71c9e
+- latest_release: v0.7.0
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## openmetadata
 
 - repo: https://github.com/open-metadata/OpenMetadata
 - previous_ref: ca8dd1e8cecf80bcbd2a2dd5b343c7eb52b2fba3
-- observed_ref: ca8dd1e8cecf80bcbd2a2dd5b343c7eb52b2fba3
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: b60a0c52cfb6377800c4f49f28463a2d53f33a00
+- latest_release: 2.0.7-release
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## openlineage
 
 - repo: https://github.com/OpenLineage/OpenLineage
 - previous_ref: 76a6decc69494b54ed9b7fc41bb205b614dfccdc
-- observed_ref: 76a6decc69494b54ed9b7fc41bb205b614dfccdc
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: c41626e99af0a02ad95a2805979167ad948ecb7b
+- latest_release: 1.55.0
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## marquez
 
 - repo: https://github.com/MarquezProject/marquez
 - previous_ref: none
-- observed_ref: unknown
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: 180f37b22387146187af1ef0279e3ee1d1ccd789
+- latest_release: 0.50.0
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## phoenix
 
 - repo: https://github.com/Arize-ai/phoenix
 - previous_ref: none
-- observed_ref: unknown
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: e95eea62062c7e46a56212b517d720bd98991e1b
+- latest_release: arize-phoenix-v21.1.0
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## langfuse
 
 - repo: https://github.com/langfuse/langfuse
 - previous_ref: none
-- observed_ref: unknown
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: 711ffa6e0b79bd13b5be8147bbb3fda6088db551
+- latest_release: v4.80.0
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## opentelemetry-specification
 
 - repo: https://github.com/open-telemetry/opentelemetry-specification
 - previous_ref: none
-- observed_ref: unknown
+- observed_ref: a03fa4e26b3982da42aa0010aaebcd9f694cb037
 - latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## opa
 
@@ -233,7 +233,7 @@
 - change_detected: unknown
 - update_status: blocked
 - human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- notes: HTTP Error 403: rate limit exceeded
 
 ## openapi-specification
 
@@ -244,7 +244,7 @@
 - change_detected: unknown
 - update_status: blocked
 - human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- notes: HTTP Error 403: rate limit exceeded
 
 ## asyncapi-spec
 
@@ -255,7 +255,7 @@
 - change_detected: unknown
 - update_status: blocked
 - human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- notes: HTTP Error 403: rate limit exceeded
 
 ## protobuf
 
@@ -266,26 +266,26 @@
 - change_detected: unknown
 - update_status: blocked
 - human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- notes: HTTP Error 403: rate limit exceeded
 
 ## json-schema-spec
 
 - repo: https://github.com/json-schema-org/json-schema-spec
 - previous_ref: none
-- observed_ref: unknown
+- observed_ref: d053430e82cf7809cf077bcf704444bdd0ea7c5e
 - latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
 
 ## soda-core
 
 - repo: https://github.com/sodadata/soda-core
 - previous_ref: none
-- observed_ref: unknown
-- latest_release: none
-- change_detected: unknown
-- update_status: blocked
-- human_status: network-blocked
-- notes: <urlopen error [Errno -3] Temporary failure in name resolution>
+- observed_ref: eb6559b118124cad28499b9b8635915ee3d0a60f
+- latest_release: v4.30.0
+- change_detected: yes
+- update_status: drifted
+- human_status: upstream-drifted
+- notes: new upstream ref detected
